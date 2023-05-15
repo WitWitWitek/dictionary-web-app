@@ -15,6 +15,7 @@ interface Meaning {
 
 interface Definition {
   definition: string;
+  example: string;
 }
 
 interface Phonetic {
