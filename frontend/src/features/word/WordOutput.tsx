@@ -1,12 +1,16 @@
-type Props = {
-  wordData: WordData[];
+import WordPhonetics from './WordPhonetics';
+
+type WordOutputProps = {
+  wordData: WordData;
 };
 
-export default function WordOutput({ wordData }: Props) {
+export default function WordOutput({ wordData }: WordOutputProps) {
   return (
     <div>
-      <h2>WordOutput:</h2>
-      {wordData[0].meanings.map((meaning) => (
+      <h1>{wordData.word}</h1>
+      <p>{wordData.phonetic}</p>
+      <WordPhonetics phonetics={wordData.phonetics} />
+      {wordData.meanings.map((meaning) => (
         <ul key={Math.random()}>
           {meaning.definitions.map(
             (definition) => definition.example

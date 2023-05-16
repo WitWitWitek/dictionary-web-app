@@ -5,7 +5,7 @@ import WordOutput from './features/word/WordOutput';
 
 function App() {
   const [word, setWord] = useState<string>('');
-  const [wordData, setWordData] = useState<WordData[] | null>(null);
+  const [wordData, setWordData] = useState<WordData | null>(null);
   const { fetchData } = useDictionaryApi();
 
   const onWordInputChange = (e: ChangeEvent<HTMLInputElement>) => setWord(e.target.value);
