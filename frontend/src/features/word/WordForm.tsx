@@ -11,8 +11,7 @@ export default function WordForm({ setWordData }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const firstRun = useRef(true);
   const wordRef = useRef<HTMLInputElement>(null);
-  const { fetchData } = useDictionaryApi();
-
+  const { fetchData, isError } = useDictionaryApi();
   useMemo(async () => {
     const query = searchParams.get('query');
     if (query && firstRun.current === true) {
@@ -43,6 +42,7 @@ export default function WordForm({ setWordData }: Props) {
         ref={wordRef}
       />
       <button type="submit">search</button>
+      {isError && <p>Error occured.</p>}
     </form>
   );
 }
