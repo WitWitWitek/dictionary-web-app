@@ -2,10 +2,11 @@ import WordHeader from './WordHeader';
 import WordMeanings from './WordMeanings';
 
 type WordOutputProps = {
-  wordData: WordData;
+  wordData: WordData | null;
 };
 
 export default function WordOutput({ wordData }: WordOutputProps) {
+  if (!wordData) return null;
   return (
     <div>
       <WordHeader
