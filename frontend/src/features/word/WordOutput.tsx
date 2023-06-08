@@ -1,4 +1,5 @@
-import WordPhonetics from './WordPhonetics';
+import WordHeader from './WordHeader';
+import WordMeanings from './WordMeanings';
 
 type WordOutputProps = {
   wordData: WordData;
@@ -7,17 +8,12 @@ type WordOutputProps = {
 export default function WordOutput({ wordData }: WordOutputProps) {
   return (
     <div>
-      <h1>{wordData.word}</h1>
-      <p>{wordData.phonetic}</p>
-      <WordPhonetics phonetics={wordData.phonetics} />
-      {wordData.meanings.map((meaning) => (
-        <ul key={Math.random()}>
-          {meaning.definitions.map(
-            (definition) => definition.example
-                && <li key={Math.random()}>{definition.example}</li>,
-          )}
-        </ul>
-      ))}
+      <WordHeader
+        title={wordData.word}
+        phonetic={wordData.phonetic}
+        phonetics={wordData.phonetics}
+      />
+      <WordMeanings meanings={wordData.meanings} />
     </div>
   );
 }

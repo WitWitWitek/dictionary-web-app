@@ -1,5 +1,5 @@
 import { FormEvent, ChangeEvent, useState } from 'react';
-import './App.css';
+import './App.scss';
 import useDictionaryApi from './hooks/useDictionaryApi';
 import WordOutput from './features/word/WordOutput';
 
