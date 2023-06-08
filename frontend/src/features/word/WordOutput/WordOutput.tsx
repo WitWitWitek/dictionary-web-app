@@ -17,7 +17,10 @@ export default function WordOutput({ wordData }: WordOutputProps) {
       <hr />
       <WordMeaningsList meanings={wordData.meanings} />
       <hr />
-      {wordData.sourceUrls.map((source) => <div key={source}><a href={source}>{source}</a></div>)}
+      <div>
+        <h3>Source:</h3>
+        {wordData.sourceUrls.map((source) => <div key={source}><a href={source}>{source}</a></div>)}
+      </div>
     </div>
   );
 }
