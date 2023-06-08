@@ -1,5 +1,5 @@
 import WordHeader from './WordHeader';
-import WordMeanings from './WordMeanings';
+import WordMeaningsList from './WordMeaningsList';
 
 type WordOutputProps = {
   wordData: WordData | null;
@@ -14,7 +14,10 @@ export default function WordOutput({ wordData }: WordOutputProps) {
         phonetic={wordData.phonetic}
         phonetics={wordData.phonetics}
       />
-      <WordMeanings meanings={wordData.meanings} />
+      <hr />
+      <WordMeaningsList meanings={wordData.meanings} />
+      <hr />
+      {wordData.sourceUrls.map((source) => <div key={source}><a href={source}>{source}</a></div>)}
     </div>
   );
 }

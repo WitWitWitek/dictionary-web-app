@@ -1,11 +1,11 @@
-import getAutoUrl from '../../lib/getAudioUrl';
+import getAudioUrl from '../../../lib/getAudioUrl';
 
 type PhoneticsProps = {
   phonetics: Phonetic[]
 };
 
 export default function WordPhonetics({ phonetics }: PhoneticsProps) {
-  const audioUrl = getAutoUrl(phonetics);
+  const audioUrl = getAudioUrl(phonetics);
 
   if (!audioUrl) return null;
 

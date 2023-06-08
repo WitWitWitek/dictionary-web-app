@@ -10,7 +10,7 @@ interface Meaning {
   definitions: Definition[];
   synonyms: Synonym[];
   antonyms: Antonym[];
-  partOfSpeach: string;
+  partOfSpeech: string;
 }
 
 interface Definition {
