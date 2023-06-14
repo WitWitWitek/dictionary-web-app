@@ -1,17 +1,17 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { User } from "./entity/User"
+import { Repetition } from "./entity/Repetition"
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: "localhost",
+    host: process.env.HOST_ADDRESS as string,
     port: 3306,
-    username: "root",
-    password: "",
-    database: "dictionary_web_app",
+    username: process.env.MYSQL_USER as string,
+    password: process.env.MYSQL_PASSWORD as string,
+    database: process.env.MYSQL_DATABASE as string,
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [Repetition],
     migrations: [],
     subscribers: [],
 })
