@@ -1,0 +1,13 @@
+@use './variables' as *;
+
+@mixin theme-light {
+    --theme-bg: $clr-neutral-50;
+    --theme-clr: $clr-neutral-800;
+    color-scheme: only light;
+}
+
+@mixin theme-dark {
+    --theme-bg: red;
+    --theme-clr: $clr-neutral-100;
+    color-scheme: only dark;
+}

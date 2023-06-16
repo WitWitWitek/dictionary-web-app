@@ -1,6 +1,29 @@
+@use './styles/themes' as *;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light dark;
+  @include theme-light;
+}
+
+@media (prefers-color-scheme: light) {
+  .theme-default {
+    @include theme-light;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-default {
+    @include theme-dark;
+  }
+}
+
+section {
+  color: var(--theme-clr);
+  background-color: var(--theme-bg);
+}
