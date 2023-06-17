@@ -11,19 +11,28 @@
   @include theme-light;
 }
 
+main {
+  height: 100vh;
+  color: var(--theme-clr);
+  background-color: var(--theme-bg);
+}
+
+.theme-light {
+  @include theme-light;
+}
+
+.theme-dark {
+  @include theme-dark;
+}
+
 @media (prefers-color-scheme: light) {
-  .theme-default {
+  :root {
     @include theme-light;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  .theme-default {
+  :root {
     @include theme-dark;
   }
-}
-
-section {
-  color: var(--theme-clr);
-  background-color: var(--theme-bg);
 }

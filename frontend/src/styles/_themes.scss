@@ -1,13 +1,13 @@
-@use './variables' as *;
+@use 'variables';
 
 @mixin theme-light {
-    --theme-bg: $clr-neutral-50;
-    --theme-clr: $clr-neutral-800;
+    --theme-bg: #{variables.$clr-neutral-50};
+    --theme-clr: #{variables.$clr-neutral-900};
     color-scheme: only light;
 }
 
 @mixin theme-dark {
-    --theme-bg: red;
-    --theme-clr: $clr-neutral-100;
+    --theme-bg:  #{variables.$clr-neutral-900};
+    --theme-clr: #{variables.$clr-neutral-50};
     color-scheme: only dark;
 }
