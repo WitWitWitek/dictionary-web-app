@@ -1,4 +1,5 @@
 @use 'variables';
+@use "sass:color";
 
 @mixin theme-light {
     --theme-bg: #{variables.$clr-neutral-50};
@@ -6,11 +7,21 @@
     --theme-search-bg: #{variables.$clr-neutral-100};
     --theme-select-focus: #{variables.$clr-accent-300};
     --theme-toggle-clr: #{variables.$clr-neutral-50};
+    --theme-toggle-bg-hover: linear-gradient(
+    135deg,
+    #{variables.$clr-accent-300},
+    #{variables.$clr-accent-300}
+  );
     --theme-toggle-bg: linear-gradient(135deg,
     #{variables.$clr-neutral-400},
     #{variables.$clr-neutral-400}
     );
+    --theme-toggle-focus: #{variables.$clr-accent-300};
     color-scheme: only light;
+    --theme-play-highlight: #{variables.$clr-neutral-50};
+    --theme-play-hover: #{variables.$clr-accent-300};
+    --theme-play-clr: #{variables.$clr-accent-300};
+    --theme-play-bg: #{color.change(variables.$clr-accent-300, $alpha: 0.25)};
 }
 
 @mixin theme-dark {
@@ -21,5 +32,15 @@
     --theme-toggle-bg: linear-gradient(135deg,
         #{variables.$clr-accent-300},
         #{variables.$clr-accent-300});
-    color-scheme: only dark;
+    --theme-toggle-bg-hover: linear-gradient(
+    135deg,
+    #{variables.$clr-accent-300},
+    #{variables.$clr-accent-300}
+  );
+  --theme-toggle-focus: #{variables.$clr-accent-300};
+  --theme-play-highlight: #{variables.$clr-neutral-50};
+  --theme-play-hover: #{variables.$clr-accent-300};
+  --theme-play-clr: #{variables.$clr-accent-300};
+  --theme-play-bg: #{color.change(variables.$clr-accent-300, $alpha: 0.25)};
+  color-scheme: only dark;
 }

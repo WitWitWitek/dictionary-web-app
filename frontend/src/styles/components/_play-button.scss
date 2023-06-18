@@ -1,0 +1,22 @@
+@use '../mixins/index' as *;
+
+.play-button {
+    @include btn;
+    &__icon {
+        display: inline-block;
+        circle {
+            fill: var(--theme-play-bg);
+        }
+        path {
+            fill: var(--theme-play-clr);
+        }
+        &:hover  {
+            circle {
+                fill: var(--theme-play-hover);
+            }
+            path {
+                fill: var(--theme-play-highlight);
+            }
+        }
+    }
+}

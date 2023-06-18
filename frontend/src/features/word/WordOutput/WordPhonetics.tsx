@@ -1,3 +1,4 @@
+import PlayIcon from '../../../assets/PlayIcon';
 import getAudioUrl from '../../../lib/getAudioUrl';
 
 type PhoneticsProps = {
@@ -11,5 +12,9 @@ export default function WordPhonetics({ phonetics }: PhoneticsProps) {
 
   const audio = new Audio(audioUrl);
 
-  return <button onClick={() => audio.play()} type="button">Listen</button>;
+  return (
+    <button className="play-button" onClick={() => audio.play()} type="button">
+      <PlayIcon />
+    </button>
+  );
 }

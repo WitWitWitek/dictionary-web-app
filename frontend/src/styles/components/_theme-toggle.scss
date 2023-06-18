@@ -4,33 +4,73 @@
     height: 20px;
     -webkit-appearance: none;
     appearance: none;
-    padding: 0 0.2rem;
+    overflow: hidden;
     border-radius: 20px;
     background: var(--theme-toggle-bg);
+
+    transition: all ease-in-out 0.4s;
+}
+
+/* thumb */
+
+$thumb-height: 15px;
+$thumb-width: 15px;
+$border-radius: 50%;
+
+@mixin thumb {
+    height: $thumb-height;
+    width: $thumb-width;
+    border-radius: $border-radius;
+    border: none;
+    background-color: var(--theme-toggle-clr);
+    cursor: pointer;
 }
 
 .theme-toggle input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    background-color: var(--theme-toggle-clr);
+    @include thumb;
 }
 
-// .theme-toggle input[type=range]::-webkit-slider-runnable-track {
-//     padding: 5px 0px;
-// }
+.theme-toggle input[type=range]::-moz-range-thumb {
+    @include thumb;
+}
 
-// .theme-toggle input[type=range]::-moz-range-track {
-//     padding: 5px 0px;
-// }
+.theme-toggle input[type=range]::-ms-thumb {
+    @include thumb;
+}
 
-// .theme-toggle input[type=range]::-moz-range-thumb {
-//     -webkit-appearance: none;
-//     appearance: none;
-//     height: 15px;
-//     width: 15px;
-//     border-radius: 50%;
-//     border: none;
-// }
+
+/* track */
+
+@mixin track {
+    cursor: pointer;
+    padding: 1rem 0.2rem;
+    &:hover {
+        background: var(--theme-toggle-bg-hover);
+    }
+}
+
+.theme-toggle input[type=range]::-webkit-slider-runnable-track {
+    @include track;
+}
+
+.theme-toggle input[type=range]:focus::-webkit-slider-runnable-track {
+    background: var(--theme-toggle-focus);
+}
+
+.theme-toggle input[type=range]::-moz-range-track {
+    @include track;
+}
+
+.theme-toggle input[type=range]:focus::-moz-range-track {
+    background: var(--theme-toggle-focus);
+}
+
+.theme-toggle input[type=range]::-ms-track {
+    @include track;
+}
+
+.theme-toggle input[type=range]:focus::-ms-track {
+    background: var(--theme-toggle-focus);
+}
