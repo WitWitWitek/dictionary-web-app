@@ -1,7 +1,7 @@
 import { FormEvent, useRef, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
 import useDictionaryApi from '../../hooks/useDictionaryApi';
+import SearchIcon from '../../assets/SearchIcon';
 
 type Props = {
   setWordData: React.Dispatch<React.SetStateAction<WordData | null>>
@@ -35,14 +35,22 @@ export default function WordForm({ setWordData }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmission}>
-      <input
-        type="text"
-        name="word"
-        ref={wordRef}
-      />
-      <button type="submit">search</button>
+    <>
+      <form className="search-form" onSubmit={handleSubmission}>
+        <input
+          className="search-form__input"
+          type="text"
+          name="word"
+          ref={wordRef}
+          placeholder="Search for any word..."
+        />
+        <div className="search-form__button-container">
+          <button type="submit">
+            <SearchIcon />
+          </button>
+        </div>
+      </form>
       {isError && <p>Error occured.</p>}
-    </form>
+    </>
   );
 }

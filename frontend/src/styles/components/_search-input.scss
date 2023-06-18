@@ -1,0 +1,37 @@
+@use '../mixins/index' as *;
+
+.search-form {
+    position: relative;
+    display: grid;
+    margin-top: 3.25rem;
+
+    &__input {
+        padding-block: 1.25rem;
+        padding-inline: 1.5rem;
+        border-radius: 1rem;
+        border: 0;
+        background-color: var(--theme-search-bg);
+    }
+    
+    &__input:focus-visible {
+        outline-color: var(--theme-select-focus);
+    }
+
+    &__button-container {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        top: 0;
+        bottom: 0;
+        right: 0.5rem;
+        button {
+            @include btn;
+        }
+    }
+
+    &__icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+    }
+}

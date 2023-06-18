@@ -1,4 +1,6 @@
 @use './styles/themes' as *;
+@forward './styles/components/search-input';
+@forward './styles/components/theme-toggle';
 
 * {
   margin: 0;
@@ -12,7 +14,7 @@
 }
 
 main {
-  height: 100vh;
+  min-height: 100vh;
   color: var(--theme-clr);
   background-color: var(--theme-bg);
 }

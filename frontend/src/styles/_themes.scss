@@ -3,11 +3,23 @@
 @mixin theme-light {
     --theme-bg: #{variables.$clr-neutral-50};
     --theme-clr: #{variables.$clr-neutral-900};
+    --theme-search-bg: #{variables.$clr-neutral-100};
+    --theme-select-focus: #{variables.$clr-accent-300};
+    --theme-toggle-clr: #{variables.$clr-neutral-50};
+    --theme-toggle-bg: linear-gradient(135deg,
+    #{variables.$clr-neutral-400},
+    #{variables.$clr-neutral-400}
+    );
     color-scheme: only light;
 }
 
 @mixin theme-dark {
     --theme-bg:  #{variables.$clr-neutral-900};
     --theme-clr: #{variables.$clr-neutral-50};
+    --theme-search-bg: #{variables.$clr-neutral-700};
+    --theme-toggle-clr: #{variables.$clr-neutral-50};
+    --theme-toggle-bg: linear-gradient(135deg,
+        #{variables.$clr-accent-300},
+        #{variables.$clr-accent-300});
     color-scheme: only dark;
 }
