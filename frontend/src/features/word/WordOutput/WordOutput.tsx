@@ -14,9 +14,7 @@ export default function WordOutput({ wordData }: WordOutputProps) {
         phonetic={wordData.phonetic}
         phonetics={wordData.phonetics}
       />
-      <hr />
       <WordMeaningsList meanings={wordData.meanings} />
-      <hr />
       <div>
         <h3>Source:</h3>
         {wordData.sourceUrls.map((source) => <div key={source}><a href={source}>{source}</a></div>)}

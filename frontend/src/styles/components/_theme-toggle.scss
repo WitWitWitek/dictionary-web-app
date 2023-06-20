@@ -5,10 +5,12 @@
     -webkit-appearance: none;
     appearance: none;
     overflow: hidden;
+    padding: 0.1rem 0.2rem;
     border-radius: 20px;
     background: var(--theme-toggle-bg);
-
-    transition: all ease-in-out 0.4s;
+    &:hover {
+        background: var(--theme-toggle-bg-hover);
+    }
 }
 
 /* thumb */
@@ -45,7 +47,6 @@ $border-radius: 50%;
 
 @mixin track {
     cursor: pointer;
-    padding: 1rem 0.2rem;
     &:hover {
         background: var(--theme-toggle-bg-hover);
     }
@@ -55,22 +56,22 @@ $border-radius: 50%;
     @include track;
 }
 
-.theme-toggle input[type=range]:focus::-webkit-slider-runnable-track {
-    background: var(--theme-toggle-focus);
-}
+// .theme-toggle input[type=range]:focus::-webkit-slider-runnable-track {
+//     background: var(--theme-toggle-focus);
+// }
 
 .theme-toggle input[type=range]::-moz-range-track {
     @include track;
 }
 
-.theme-toggle input[type=range]:focus::-moz-range-track {
-    background: var(--theme-toggle-focus);
-}
+// .theme-toggle input[type=range]:focus::-moz-range-track {
+//     background: var(--theme-toggle-focus);
+// }
 
 .theme-toggle input[type=range]::-ms-track {
     @include track;
 }
 
-.theme-toggle input[type=range]:focus::-ms-track {
-    background: var(--theme-toggle-focus);
-}
+// .theme-toggle input[type=range]:focus::-ms-track {
+//     background: var(--theme-toggle-focus);
+// }

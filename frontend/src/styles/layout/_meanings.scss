@@ -1,0 +1,16 @@
+.meanings {
+    &__part-of-speech {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: auto 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+
+        &:after {
+            content: "";
+            align-self: center;
+            background-color: var(--theme-horizontal-rule);
+            height: 1px;
+          }
+    }
+}

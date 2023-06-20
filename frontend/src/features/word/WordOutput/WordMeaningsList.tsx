@@ -10,8 +10,8 @@ export default function WordMeaningsList({ meanings }: Props) {
   return (
     <div>
       {meanings.map((meaning) => (
-        <div key={meaning?.definitions[0]?.definition}>
-          <h2>{meaning.partOfSpeech}</h2>
+        <div className="meanings" key={meaning?.definitions[0]?.definition}>
+          <h2 className="meanings__part-of-speech">{meaning.partOfSpeech}</h2>
           <Definitions definitions={meaning.definitions} />
           <Synonyms synonyms={meaning.synonyms} />
           <Antonyms antonyms={meaning.antonyms} />

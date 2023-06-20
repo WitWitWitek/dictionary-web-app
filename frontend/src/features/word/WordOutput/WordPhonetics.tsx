@@ -13,7 +13,7 @@ export default function WordPhonetics({ phonetics }: PhoneticsProps) {
   const audio = new Audio(audioUrl);
 
   return (
-    <button className="play-button" onClick={() => audio.play()} type="button">
+    <button className="word-header__audio play-button" onClick={() => audio.play()} type="button">
       <PlayIcon />
     </button>
   );

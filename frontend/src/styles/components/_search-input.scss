@@ -11,10 +11,12 @@
         border-radius: 1rem;
         border: 0;
         background-color: var(--theme-search-bg);
+        border: 2px solid transparent;
     }
     
     &__input:focus-visible {
-        outline-color: var(--theme-select-focus);
+        outline: none;
+        border: 2px solid var(--theme-select-focus);
     }
 
     &__button-container {

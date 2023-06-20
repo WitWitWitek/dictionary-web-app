@@ -8,9 +8,9 @@ type Props = {
 
 export default function WordHeader({ title, phonetic, phonetics }: Props) {
   return (
-    <div>
-      <h1>{title}</h1>
-      <p>{phonetic}</p>
+    <div className="word-header">
+      <h1 className="word-header__heading">{title}</h1>
+      <p className="word-header__pronunciation">{phonetic}</p>
       <WordPhonetics phonetics={phonetics} />
     </div>
   );
