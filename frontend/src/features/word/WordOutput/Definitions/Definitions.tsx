@@ -1,3 +1,5 @@
+import SaveExampleButton from '../../../../components/SaveExampleButton';
+
 type Props = {
   definitions: Definition[]
 };
@@ -6,13 +8,19 @@ export default function Definitions({ definitions }: Props) {
   if (definitions.length === 0) return null;
   return (
     <>
-      <h3>{`Definition${definitions.length > 1 ? 's' : ''}:`}</h3>
-      <ul key={`${Math.random()}${definitions[0]?.definition}`}>
+      <h3 className="meanings__heading">{`Definition${definitions.length > 1 ? 's' : ''}:`}</h3>
+      <ul className="meanings__list" key={`${Math.random()}${definitions[0]?.definition}`}>
         {definitions.map(
           (definition) => (
-            <li key={Math.random()}>
-              <p><i>{definition.definition}</i></p>
-              {definition.example && <p>{definition.example}</p>}
+            <li className="meanings__list-item" key={Math.random()}>
+              <p className="meanings__definition-text">{definition.definition}</p>
+              {definition.example && (
+              <p className="meanings__definition-example">
+                {definition.example}
+                {' '}
+                <SaveExampleButton exampleContent={definition.example} />
+              </p>
+              )}
             </li>
           ),
         )}

@@ -1,3 +1,5 @@
+@use '../mixins/index' as *;
+
 .word-header {
     display: grid;
     justify-content: space-between;
@@ -8,6 +10,7 @@
     margin-top: 1.5rem;
 
     &__heading {
+        @include heading-1;
         font-size: 2rem;
         font-weight: 700;
         overflow-wrap: break-word;
