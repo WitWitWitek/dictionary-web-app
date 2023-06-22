@@ -3,9 +3,12 @@ require("dotenv").config();
 import * as express from "express";
 import { AppDataSource } from "./data-source";
 import repetitionsRouter from "./router/repetitionsRouter";
+import * as cors from "cors";
+import { corsOptions } from "../config/corsOptions";
 
 const app = express();
 
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(repetitionsRouter);
 AppDataSource.initialize()
