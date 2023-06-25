@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Repetition } from "./entity/Repetition";
+import { User } from "./entity/User";
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -11,7 +12,7 @@ export const AppDataSource = new DataSource({
   database: process.env.MYSQL_DATABASE as string,
   synchronize: true,
   logging: false,
-  entities: [Repetition],
+  entities: [Repetition, User],
   migrations: [],
   subscribers: [],
 });
