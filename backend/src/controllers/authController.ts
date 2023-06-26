@@ -28,13 +28,25 @@ export const login: RequestHandler = async (req, res) => {
 
   const accessToken = sign(
     {
-      UserInfo: {
-        username: foundUser.username,
-      },
+      username: foundUser.username,
     },
     process.env.ACCESS_TOKEN_SECRET as string,
     { expiresIn: "15m" }
   );
 
+  const refreshToken = sign(
+    {
+      username: foundUser.username,
+    },
+    process.env.REFRESH_TOKEN_SECRET as string,
+    { expiresIn: "1d" }
+  );
+
+  res.cookie("jwt", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 1 * 24 * 60 * 60 * 1000,
+  });
   res.json({ accessToken });
 };
