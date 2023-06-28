@@ -8,7 +8,9 @@
         "airbnb",
         "airbnb-typescript",
         "plugin:import/typescript",
-        "plugin:react/jsx-runtime"
+        "plugin:react/jsx-runtime",
+        "prettier", 
+        "plugin:node/recommended"
     ],
     "overrides": [
     ],
@@ -23,7 +25,8 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prettier"
     ],
     "rules": {
         "react/jsx-props-no-spreading": "off",
@@ -32,6 +35,7 @@
         "no-unused-vars": "warn",
         "@typescript-eslint/no-unused-vars": "warn",
         "jsx-a11y/no-noninteractive-element-interactions": "off",
-        "jsx-a11y/click-events-have-key-events": "off"
+        "jsx-a11y/click-events-have-key-events": "off",
+        "node/no-missing-import": "off"
     }
 }

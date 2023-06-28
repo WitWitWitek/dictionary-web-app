@@ -6,7 +6,6 @@ import AuthForm from './features/auth/AuthForm';
 
 function App() {
   const [theme, setTheme] = useState<Theme>('light');
-
   return (
     <main className={`theme-${theme}`}>
       <AuthForm />
