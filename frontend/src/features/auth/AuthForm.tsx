@@ -11,8 +11,7 @@ export default function AuthForm() {
     const logInDetails = {
       ...Object.fromEntries(formData),
     } as unknown as LoginRequest;
-    // refactor needed
-    const { accessToken } = await login({ ...logInDetails }).unwrap();
+    await login({ ...logInDetails });
   };
 
   return (

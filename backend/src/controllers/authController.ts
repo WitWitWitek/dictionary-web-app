@@ -6,7 +6,7 @@ import { AppDataSource } from "../data-source";
 
 export const login: RequestHandler = async (req, res) => {
   // refactor needed
-  const { username, password } = req.body.credentials;
+  const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ message: "All credentials are required" });
   }

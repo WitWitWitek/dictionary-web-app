@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { ApiProvider } from '@reduxjs/toolkit/query/react';
 import App from './App';
 import './index.scss';
-import apiSlice from './app/api/apiSlice';
+import { store } from './app/store';
 
 const router = createBrowserRouter([
   {
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ApiProvider api={apiSlice}>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </ApiProvider>
+    </Provider>
   </React.StrictMode>,
 );

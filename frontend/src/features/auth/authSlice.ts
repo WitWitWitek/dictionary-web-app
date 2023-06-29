@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -13,3 +14,5 @@ export const authSlice = createSlice({
 });
 
 export const { logIn } = authSlice.actions;
+
+export const selectCurrentToken = (state: RootState): string | null => state.auth.token;
