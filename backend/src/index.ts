@@ -13,8 +13,10 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+
 app.use("/auth", authRouter);
 app.use("/repetitions", repetitionsRouter);
+
 AppDataSource.initialize()
   .then(() =>
     app.listen(3500, () => console.log("server listening on port 3500"))
