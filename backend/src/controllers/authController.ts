@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { sign } from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { User } from "../entity/User";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../dataSource";
 
 export const login: RequestHandler = async (req, res) => {
   // refactor needed

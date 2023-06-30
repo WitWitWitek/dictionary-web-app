@@ -13,6 +13,8 @@ export default function SaveExampleButton({ exampleContent }: Props) {
     });
   };
   return (
-    <button type="button" onClick={postRepetition}>save</button>
+    <button type="button" onClick={postRepetition}>
+      save
+    </button>
   );
 }

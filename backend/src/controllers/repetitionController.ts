@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../dataSource";
 import { Repetition } from "../entity/Repetition";
 
 export const addNewRepetition: RequestHandler = async (req, res, next) => {
