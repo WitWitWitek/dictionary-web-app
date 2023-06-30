@@ -2,11 +2,13 @@
 require("dotenv").config();
 import * as express from "express";
 import * as cookieParser from "cookie-parser";
+import "express-async-errors";
 import { AppDataSource } from "./dataSource";
 import repetitionsRouter from "./router/repetitionsRouter";
 import authRouter from "./router/authRouter";
 import * as cors from "cors";
 import { corsOptions } from "../config/corsOptions";
+import { errorHandler } from "./utils/customError";
 
 const app = express();
 
@@ -16,6 +18,8 @@ app.use(cookieParser());
 
 app.use("/auth", authRouter);
 app.use("/repetitions", repetitionsRouter);
+
+app.use(errorHandler);
 
 AppDataSource.initialize()
   .then(() =>

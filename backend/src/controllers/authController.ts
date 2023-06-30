@@ -3,12 +3,13 @@ import { sign } from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { User } from "../entity/User";
 import { AppDataSource } from "../dataSource";
+import { CustomError } from "../utils/customError";
 
-export const login: RequestHandler = async (req, res) => {
+export const login: RequestHandler = async (req, res, next) => {
   // refactor needed
   const { username, password } = req.body;
   if (!username || !password) {
-    return res.status(400).json({ message: "All credentials are required" });
+    throw new CustomError("All credentials are required", 400);
   }
 
   const userRepository = AppDataSource.getRepository(User);
@@ -17,14 +18,12 @@ export const login: RequestHandler = async (req, res) => {
   });
 
   if (!foundUser) {
-    res.status(401).json({ message: "User does not exist" });
-    return;
+    throw new CustomError("User does not exist", 401);
   }
 
   const passwordsMatch = await compare(password, foundUser.password);
   if (!passwordsMatch) {
-    res.status(401).json({ message: "Unathorized. Invalid Password." });
-    return;
+    throw new CustomError("Unathorized. Invalid Password.", 401);
   }
 
   const accessToken = sign(
