@@ -1,8 +1,9 @@
 import { FormEvent } from 'react';
-import { useLoginMutation } from './authApiSlice';
+import { useLoginMutation, useLogoutMutation } from './authApiSlice';
 
 export default function AuthForm() {
   const [login] = useLoginMutation();
+  const [logout] = useLogoutMutation();
 
   const signInHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -14,11 +15,16 @@ export default function AuthForm() {
     await login({ ...logInDetails });
   };
 
+  const signOutHandler = () => logout('');
+
   return (
     <form onSubmit={signInHandler}>
       <input type="text" name="username" />
       <input type="password" name="password" />
       <button type="submit">sign in</button>
+      <button type="button" onClick={signOutHandler}>
+        log out
+      </button>
     </form>
   );
 }
