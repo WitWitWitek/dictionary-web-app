@@ -3,7 +3,7 @@ import { AppDataSource } from "../dataSource";
 import { Repetition } from "../entity/Repetition";
 import { CustomError } from "../utils/customError";
 
-export const addNewRepetition: RequestHandler = async (req, res, next) => {
+export const addNewRepetition: RequestHandler = async (req, res) => {
   const { content } = req.body;
   if (!content || typeof content !== "string") {
     throw new CustomError("Content field is required!", 400);

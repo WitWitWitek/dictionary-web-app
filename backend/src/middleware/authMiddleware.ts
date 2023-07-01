@@ -1,15 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { verify, JwtPayload } from "jsonwebtoken";
+import { Response, NextFunction } from "express";
 import { CustomError } from "../utils/customError";
 import { verifyToken } from "../utils/tokenHandlers";
-
-interface RequestWithUserRole extends Request {
-  user?: string;
-}
-
-interface JwtPayloadWithUsername extends JwtPayload {
-  username: string;
-}
+import { RequestWithUserRole } from "../types/authMiddleware";
 
 const authMiddleware = async (
   req: RequestWithUserRole,

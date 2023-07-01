@@ -1,15 +1,9 @@
-import { sign, verify, JwtPayload } from "jsonwebtoken";
-
-export type tokenType = "access" | "refresh";
-
-interface JwtPayloadWithUsername extends JwtPayload {
-  username: string;
-}
-
-export enum TokenExpirationTime {
-  access = "30s",
-  refresh = "3m",
-}
+import { sign, verify } from "jsonwebtoken";
+import {
+  JwtPayloadWithUsername,
+  TokenExpirationTime,
+  tokenType,
+} from "../types/tokenHandler";
 
 export const tokenSecret = Object.freeze({
   access: process.env.ACCESS_TOKEN_SECRET as string,

@@ -5,8 +5,7 @@ import { AppDataSource } from "../dataSource";
 import { CustomError } from "../utils/customError";
 import { signToken, verifyToken } from "../utils/tokenHandlers";
 
-export const login: RequestHandler = async (req, res, next) => {
-  // refactor needed
+export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     throw new CustomError("All credentials are required", 400);
@@ -38,7 +37,7 @@ export const login: RequestHandler = async (req, res, next) => {
   res.json({ accessToken });
 };
 
-export const refresh: RequestHandler = async (req, res, next) => {
+export const refresh: RequestHandler = async (req, res) => {
   const cookies = req.cookies;
 
   if (!cookies.jwt) {
