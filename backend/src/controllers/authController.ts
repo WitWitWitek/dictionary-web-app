@@ -1,9 +1,13 @@
 import { RequestHandler } from "express";
-import { sign } from "jsonwebtoken";
+import { sign, verify, JwtPayload } from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { User } from "../entity/User";
 import { AppDataSource } from "../dataSource";
 import { CustomError } from "../utils/customError";
+
+interface JwtPayloadWithUsername extends JwtPayload {
+  username: string;
+}
 
 export const login: RequestHandler = async (req, res, next) => {
   // refactor needed
@@ -31,7 +35,7 @@ export const login: RequestHandler = async (req, res, next) => {
       username: foundUser.username,
     },
     process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: "15m" }
+    { expiresIn: "30s" }
   );
 
   const refreshToken = sign(
@@ -39,7 +43,7 @@ export const login: RequestHandler = async (req, res, next) => {
       username: foundUser.username,
     },
     process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: "1d" }
+    { expiresIn: "3m" }
   );
 
   res.cookie("jwt", refreshToken, {
@@ -49,4 +53,43 @@ export const login: RequestHandler = async (req, res, next) => {
     maxAge: 1 * 24 * 60 * 60 * 1000,
   });
   res.json({ accessToken });
+};
+
+export const refresh: RequestHandler = async (req, res, next) => {
+  const cookies = req.cookies;
+
+  if (!cookies.jwt) {
+    throw new CustomError("Unauthorized.", 401);
+  }
+
+  try {
+    const refreshToken = cookies.jwt;
+    const { username } = verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET as string
+    ) as JwtPayloadWithUsername;
+
+    const userRepository = AppDataSource.getRepository(User);
+    const foundUser = await userRepository.findOneBy({
+      username,
+    });
+
+    if (!foundUser) {
+      throw new CustomError("User does not exist", 401);
+    }
+
+    const accessToken = sign(
+      {
+        UserInfo: {
+          username: foundUser.username,
+        },
+      },
+      process.env.ACCESS_TOKEN_SECRET as string,
+      { expiresIn: "3m" }
+    );
+
+    res.json({ accessToken });
+  } catch (err) {
+    throw new CustomError("Forbidden.", 403);
+  }
 };
