@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { verify, JwtPayload } from "jsonwebtoken";
 import { CustomError } from "../utils/customError";
+import { verifyToken } from "../utils/tokenHandlers";
 
 interface RequestWithUserRole extends Request {
   user?: string;
@@ -23,11 +24,8 @@ const authMiddleware = async (
   }
 
   try {
-    const token = authHeader.split(" ")[1];
-    const { username } = verify(
-      token,
-      process.env.ACCESS_TOKEN_SECRET as string
-    ) as JwtPayloadWithUsername;
+    const accessToken = authHeader.split(" ")[1];
+    const { username } = verifyToken(accessToken, "access");
     req.user = username;
     next();
   } catch (err) {

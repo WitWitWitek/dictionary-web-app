@@ -1,16 +1,9 @@
 import { RequestHandler } from "express";
-import { sign, verify, JwtPayload } from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { User } from "../entity/User";
 import { AppDataSource } from "../dataSource";
 import { CustomError } from "../utils/customError";
-
-interface JwtPayloadWithUsername extends JwtPayload {
-  username: string;
-}
-
-const accessTokenExpirationTime = "30s";
-const refreshTokenExpirationTime = "3m";
+import { signToken, verifyToken } from "../utils/tokenHandlers";
 
 export const login: RequestHandler = async (req, res, next) => {
   // refactor needed
@@ -33,21 +26,8 @@ export const login: RequestHandler = async (req, res, next) => {
     throw new CustomError("Unathorized. Invalid Password.", 401);
   }
 
-  const accessToken = sign(
-    {
-      username: foundUser.username,
-    },
-    process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: accessTokenExpirationTime }
-  );
-
-  const refreshToken = sign(
-    {
-      username: foundUser.username,
-    },
-    process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: refreshTokenExpirationTime }
-  );
+  const accessToken = signToken(foundUser.username, "access");
+  const refreshToken = signToken(foundUser.username, "refresh");
 
   res.cookie("jwt", refreshToken, {
     httpOnly: true,
@@ -67,10 +47,7 @@ export const refresh: RequestHandler = async (req, res, next) => {
 
   try {
     const refreshToken = cookies.jwt;
-    const { username } = verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET as string
-    ) as JwtPayloadWithUsername;
+    const { username } = verifyToken(refreshToken, "refresh");
 
     const userRepository = AppDataSource.getRepository(User);
     const foundUser = await userRepository.findOneBy({
@@ -81,15 +58,7 @@ export const refresh: RequestHandler = async (req, res, next) => {
       throw new CustomError("User does not exist", 401);
     }
 
-    const accessToken = sign(
-      {
-        UserInfo: {
-          username: foundUser.username,
-        },
-      },
-      process.env.ACCESS_TOKEN_SECRET as string,
-      { expiresIn: accessTokenExpirationTime }
-    );
+    const accessToken = signToken(foundUser.username, "access");
 
     res.json({ accessToken });
   } catch (err) {
