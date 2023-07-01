@@ -4,6 +4,7 @@ import { User } from "../entity/User";
 import { AppDataSource } from "../dataSource";
 import { CustomError } from "../utils/customError";
 import { signToken, verifyToken } from "../utils/tokenHandlers";
+import { clearCookie, setCookie } from "../utils/cookieHandlers";
 
 export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
@@ -28,12 +29,7 @@ export const login: RequestHandler = async (req, res) => {
   const accessToken = signToken(foundUser.username, "access");
   const refreshToken = signToken(foundUser.username, "refresh");
 
-  res.cookie("jwt", refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 1 * 24 * 60 * 60 * 1000,
-  });
+  setCookie(res, refreshToken);
   res.json({ accessToken });
 };
 
@@ -63,4 +59,16 @@ export const refresh: RequestHandler = async (req, res) => {
   } catch (err) {
     throw new CustomError("Forbidden.", 403);
   }
+};
+
+export const logut: RequestHandler = async (req, res) => {
+  const cookies = req.cookies;
+
+  if (!cookies?.jwt) {
+    res.sendStatus(204);
+    return;
+  }
+
+  clearCookie(res);
+  res.status(200).json({ message: "Cookie cleared" });
 };
