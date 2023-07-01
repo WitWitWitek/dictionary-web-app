@@ -31,7 +31,7 @@ const authMiddleware = async (
     req.user = username;
     next();
   } catch (err) {
-    throw new CustomError("Forbidden", 401);
+    throw new CustomError("Unauthorized", 401);
   }
 };
 

@@ -9,6 +9,9 @@ interface JwtPayloadWithUsername extends JwtPayload {
   username: string;
 }
 
+const accessTokenExpirationTime = "30s";
+const refreshTokenExpirationTime = "3m";
+
 export const login: RequestHandler = async (req, res, next) => {
   // refactor needed
   const { username, password } = req.body;
@@ -35,7 +38,7 @@ export const login: RequestHandler = async (req, res, next) => {
       username: foundUser.username,
     },
     process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: "30s" }
+    { expiresIn: accessTokenExpirationTime }
   );
 
   const refreshToken = sign(
@@ -43,7 +46,7 @@ export const login: RequestHandler = async (req, res, next) => {
       username: foundUser.username,
     },
     process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: "3m" }
+    { expiresIn: refreshTokenExpirationTime }
   );
 
   res.cookie("jwt", refreshToken, {
@@ -85,7 +88,7 @@ export const refresh: RequestHandler = async (req, res, next) => {
         },
       },
       process.env.ACCESS_TOKEN_SECRET as string,
-      { expiresIn: "3m" }
+      { expiresIn: accessTokenExpirationTime }
     );
 
     res.json({ accessToken });

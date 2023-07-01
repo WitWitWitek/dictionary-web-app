@@ -14,7 +14,7 @@ export const errorHandler = (
   next: NextFunction
 ) => {
   if (err instanceof CustomError) {
-    if (err.statusCode === 401) {
+    if (err.statusCode === 403) {
       return res
         .status(err.statusCode)
         .clearCookie("jwt", {
