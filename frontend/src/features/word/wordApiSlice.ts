@@ -2,10 +2,11 @@ import apiSlice from '../../app/api/apiSlice';
 
 export const wordApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAllRepetitions: builder.query<GetRepetitionsResponse, ''>({
+    getAllRepetitions: builder.query<GetRepetitionsResponse, void>({
       query: () => ({
         url: '/repetitions',
       }),
+      providesTags: ['Word'],
     }),
     postRepetition: builder.mutation({
       query: ({ content }) => ({

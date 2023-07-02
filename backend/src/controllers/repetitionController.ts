@@ -9,7 +9,11 @@ export const getAllRepetitions: RequestHandler = async (req, res) => {
       Repetition
     );
 
-    const repetitions = await reqepetitionsRepository.find();
+    const repetitions = await reqepetitionsRepository.find({
+      order: {
+        createdAt: "DESC",
+      },
+    });
     return res.status(201).json(repetitions);
   } catch (err) {
     throw new Error(err.message);

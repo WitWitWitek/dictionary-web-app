@@ -9,6 +9,7 @@ import RootLayout from './router/RootLayout';
 import Dictionary from './router/pages/Dictionary';
 import UserRepetitions from './router/pages/UserRepetitions';
 import ErrorPage from './router/pages/ErrorPage';
+import AuthLayout from './router/AuthLayout';
 
 const router = createBrowserRouter([
   {
@@ -25,8 +26,14 @@ const router = createBrowserRouter([
         element: <Dictionary />,
       },
       {
-        path: '/user-repetitions',
-        element: <UserRepetitions />,
+        path: '/',
+        element: <AuthLayout />,
+        children: [
+          {
+            path: '/user-repetitions',
+            element: <UserRepetitions />,
+          },
+        ],
       },
     ],
   },
