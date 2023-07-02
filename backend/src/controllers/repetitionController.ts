@@ -1,11 +1,12 @@
 import { RequestHandler } from "express";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../dataSource";
 import { Repetition } from "../entity/Repetition";
+import { CustomError } from "../utils/customError";
 
-export const addNewRepetition: RequestHandler = async (req, res, next) => {
+export const addNewRepetition: RequestHandler = async (req, res) => {
   const { content } = req.body;
   if (!content || typeof content !== "string") {
-    return res.status(400).json({ message: "Content field is required!" });
+    throw new CustomError("Content field is required!", 400);
   }
   try {
     const newRepetition = new Repetition();
@@ -15,6 +16,6 @@ export const addNewRepetition: RequestHandler = async (req, res, next) => {
       .status(201)
       .json({ message: `Repetition with id: ${newRepetition.id} created.` });
   } catch (err) {
-    console.log(err);
+    throw new Error(err.message);
   }
 };

@@ -1,18 +1,23 @@
+import { useSelector } from 'react-redux';
+import { selectCurrentToken } from '../features/auth/authSlice';
+import { usePostRepetitionMutation } from '../features/word/wordApiSlice';
+
 type Props = {
   exampleContent: string;
 };
 
 export default function SaveExampleButton({ exampleContent }: Props) {
-  const postRepetition = async () => {
-    await fetch('http://localhost:3500/repetitions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ content: exampleContent }),
-    });
+  const userToken = useSelector(selectCurrentToken);
+  const [postRepetition] = usePostRepetitionMutation();
+
+  const postRepetitionHandler = async () => {
+    await postRepetition({ content: exampleContent });
   };
+
+  if (!userToken) return null;
   return (
-    <button type="button" onClick={postRepetition}>save</button>
+    <button type="button" onClick={postRepetitionHandler}>
+      save
+    </button>
   );
 }

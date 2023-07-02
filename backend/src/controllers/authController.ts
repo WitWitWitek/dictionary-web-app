@@ -1,13 +1,15 @@
 import { RequestHandler } from "express";
-import { sign } from "jsonwebtoken";
 import { compare } from "bcrypt";
 import { User } from "../entity/User";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../dataSource";
+import { CustomError } from "../utils/customError";
+import { signToken, verifyToken } from "../utils/tokenHandlers";
+import { clearCookie, setCookie } from "../utils/cookieHandlers";
 
 export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return res.status(400).json({ message: "All credentials are required" });
+    throw new CustomError("All credentials are required", 400);
   }
 
   const userRepository = AppDataSource.getRepository(User);
@@ -16,37 +18,57 @@ export const login: RequestHandler = async (req, res) => {
   });
 
   if (!foundUser) {
-    res.status(401).json({ message: "User does not exist" });
-    return;
+    throw new CustomError("User does not exist", 401);
   }
 
   const passwordsMatch = await compare(password, foundUser.password);
   if (!passwordsMatch) {
-    res.status(401).json({ message: "Unathorized. Invalid Password." });
+    throw new CustomError("Unathorized. Invalid Password.", 401);
+  }
+
+  const accessToken = signToken(foundUser.username, "access");
+  const refreshToken = signToken(foundUser.username, "refresh");
+
+  setCookie(res, refreshToken);
+  res.json({ accessToken });
+};
+
+export const refresh: RequestHandler = async (req, res) => {
+  const cookies = req.cookies;
+
+  if (!cookies.jwt) {
+    throw new CustomError("Unauthorized.", 401);
+  }
+
+  try {
+    const refreshToken = cookies.jwt;
+    const { username } = verifyToken(refreshToken, "refresh");
+
+    const userRepository = AppDataSource.getRepository(User);
+    const foundUser = await userRepository.findOneBy({
+      username,
+    });
+
+    if (!foundUser) {
+      throw new CustomError("User does not exist", 401);
+    }
+
+    const accessToken = signToken(foundUser.username, "access");
+
+    res.json({ accessToken });
+  } catch (err) {
+    throw new CustomError("Forbidden.", 403);
+  }
+};
+
+export const logut: RequestHandler = async (req, res) => {
+  const cookies = req.cookies;
+
+  if (!cookies?.jwt) {
+    res.sendStatus(204);
     return;
   }
 
-  const accessToken = sign(
-    {
-      username: foundUser.username,
-    },
-    process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: "15m" }
-  );
-
-  const refreshToken = sign(
-    {
-      username: foundUser.username,
-    },
-    process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: "1d" }
-  );
-
-  res.cookie("jwt", refreshToken, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 1 * 24 * 60 * 60 * 1000,
-  });
-  res.json({ accessToken });
+  clearCookie(res);
+  res.status(200).json({ message: "Cookie cleared" });
 };
