@@ -8,11 +8,13 @@ import Home from './router/pages/Home';
 import RootLayout from './router/RootLayout';
 import Dictionary from './router/pages/Dictionary';
 import UserRepetitions from './router/pages/UserRepetitions';
+import ErrorPage from './router/pages/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
