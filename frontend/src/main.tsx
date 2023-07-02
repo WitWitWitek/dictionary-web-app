@@ -7,7 +7,7 @@ import { store } from './app/store';
 import Home from './router/pages/Home';
 import RootLayout from './router/RootLayout';
 import Dictionary from './router/pages/Dictionary';
-import UserRepetitions, { loader as UserRepetitionsLoader } from './router/pages/UserRepetitions';
+import UserRepetitions from './router/pages/UserRepetitions';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +25,6 @@ const router = createBrowserRouter([
       {
         path: '/user-repetitions',
         element: <UserRepetitions />,
-        loader: UserRepetitionsLoader,
       },
     ],
   },

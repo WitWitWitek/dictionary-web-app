@@ -1,10 +1,13 @@
-import { useLoaderData } from 'react-router-dom';
+import { useGetAllRepetitionsQuery } from '../../features/word/wordApiSlice';
 
 export default function UserRepetitions() {
-  const userData = useLoaderData();
-  return <div>{userData as string}</div>;
-}
-
-export function loader() {
-  return 'data';
+  const { data: repetitions } = useGetAllRepetitionsQuery('');
+  if (!repetitions) return <div>error</div>;
+  return (
+    <ul>
+      {repetitions.map((repetition) => (
+        <li key={repetition.id}>{repetition.content}</li>
+      ))}
+    </ul>
+  );
 }
