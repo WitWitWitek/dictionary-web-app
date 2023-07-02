@@ -1,9 +1,12 @@
 import { FormEvent } from 'react';
+import { useSelector } from 'react-redux';
 import { useLoginMutation, useLogoutMutation } from './authApiSlice';
+import { selectCurrentToken } from './authSlice';
 
 export default function AuthForm() {
   const [login] = useLoginMutation();
   const [logout] = useLogoutMutation();
+  const userToken = useSelector(selectCurrentToken);
 
   const signInHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,14 +20,17 @@ export default function AuthForm() {
 
   const signOutHandler = () => logout('');
 
+  if (userToken)
+    return (
+      <button type="button" onClick={signOutHandler}>
+        log out
+      </button>
+    );
   return (
     <form onSubmit={signInHandler}>
       <input type="text" name="username" />
       <input type="password" name="password" />
       <button type="submit">sign in</button>
-      <button type="button" onClick={signOutHandler}>
-        log out
-      </button>
     </form>
   );
 }

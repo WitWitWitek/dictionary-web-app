@@ -17,6 +17,12 @@ main {
   min-height: 100vh;
   color: var(--theme-clr);
   background-color: var(--theme-bg);
+  nav {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+  }
 }
 
 .theme-light {

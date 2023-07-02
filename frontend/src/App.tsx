@@ -8,8 +8,10 @@ function App() {
   const [theme, setTheme] = useState<Theme>('light');
   return (
     <main className={`theme-${theme}`}>
-      <AuthForm />
-      <ThemeInput theme={theme} setTheme={setTheme} />
+      <nav>
+        <AuthForm />
+        <ThemeInput theme={theme} setTheme={setTheme} />
+      </nav>
       <WordSearch />
     </main>
   );

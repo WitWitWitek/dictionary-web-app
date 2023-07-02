@@ -1,16 +1,21 @@
+.theme-toggle {
+  display: grid;
+  margin-left: 5px;
+}
+
 .theme-toggle input {
-    cursor: pointer;
-    width: 40px;
-    height: 20px;
-    -webkit-appearance: none;
-    appearance: none;
-    overflow: hidden;
-    padding: 0.1rem 0.2rem;
-    border-radius: 20px;
-    background: var(--theme-toggle-bg);
-    &:hover {
-        background: var(--theme-toggle-bg-hover);
-    }
+  cursor: pointer;
+  width: 40px;
+  height: 20px;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+  padding: 0.1rem 0.2rem;
+  border-radius: 20px;
+  background: var(--theme-toggle-bg);
+  &:hover {
+    background: var(--theme-toggle-bg-hover);
+  }
 }
 
 /* thumb */
@@ -20,56 +25,55 @@ $thumb-width: 15px;
 $border-radius: 50%;
 
 @mixin thumb {
-    height: $thumb-height;
-    width: $thumb-width;
-    border-radius: $border-radius;
-    border: none;
-    background-color: var(--theme-toggle-clr);
-    cursor: pointer;
+  height: $thumb-height;
+  width: $thumb-width;
+  border-radius: $border-radius;
+  border: none;
+  background-color: var(--theme-toggle-clr);
+  cursor: pointer;
 }
 
-.theme-toggle input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    @include thumb;
+.theme-toggle input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  @include thumb;
 }
 
-.theme-toggle input[type=range]::-moz-range-thumb {
-    @include thumb;
+.theme-toggle input[type='range']::-moz-range-thumb {
+  @include thumb;
 }
 
-.theme-toggle input[type=range]::-ms-thumb {
-    @include thumb;
+.theme-toggle input[type='range']::-ms-thumb {
+  @include thumb;
 }
-
 
 /* track */
 
 @mixin track {
-    cursor: pointer;
-    &:hover {
-        background: var(--theme-toggle-bg-hover);
-    }
+  cursor: pointer;
+  &:hover {
+    background: var(--theme-toggle-bg-hover);
+  }
 }
 
-.theme-toggle input[type=range]::-webkit-slider-runnable-track {
-    @include track;
+.theme-toggle input[type='range']::-webkit-slider-runnable-track {
+  @include track;
 }
 
 // .theme-toggle input[type=range]:focus::-webkit-slider-runnable-track {
 //     background: var(--theme-toggle-focus);
 // }
 
-.theme-toggle input[type=range]::-moz-range-track {
-    @include track;
+.theme-toggle input[type='range']::-moz-range-track {
+  @include track;
 }
 
 // .theme-toggle input[type=range]:focus::-moz-range-track {
 //     background: var(--theme-toggle-focus);
 // }
 
-.theme-toggle input[type=range]::-ms-track {
-    @include track;
+.theme-toggle input[type='range']::-ms-track {
+  @include track;
 }
 
 // .theme-toggle input[type=range]:focus::-ms-track {
