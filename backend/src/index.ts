@@ -7,8 +7,9 @@ import { AppDataSource } from "./dataSource";
 import repetitionsRouter from "./router/repetitionsRouter";
 import authRouter from "./router/authRouter";
 import * as cors from "cors";
-import { corsOptions } from "../config/corsOptions";
 import { errorHandler } from "./utils/customError";
+import { corsOptions } from "./config/corsOptions";
+import userRouter from "./router/userRouter";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 app.use("/auth", authRouter);
 app.use("/repetitions", repetitionsRouter);
+app.use("/user", userRouter);
 
 app.use(errorHandler);
 
