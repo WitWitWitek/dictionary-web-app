@@ -7,12 +7,7 @@ export class CustomError extends Error {
   }
 }
 
-export const errorHandler = (
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof CustomError) {
     if (err.statusCode === 403) {
       return res
