@@ -6,4 +6,3 @@ build/
 tmp/
 temp/
 .env
-jest.config.js

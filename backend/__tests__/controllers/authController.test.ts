@@ -1,8 +1,8 @@
 import { encodingExists } from "iconv-lite";
 encodingExists("foo");
-import app from "../app";
+import app from "../../src/app";
 import * as request from "supertest";
-import { AppDataSource } from "../dataSource";
+import { AppDataSource } from "../../src/dataSource";
 
 interface LoginPathTest {
   description: string;
