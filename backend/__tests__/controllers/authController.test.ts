@@ -3,7 +3,7 @@ encodingExists("foo");
 import app from "../../src/app";
 import * as request from "supertest";
 import { AppDataSource } from "../../src/dataSource";
-
+import * as jwtHandlers from "../../src/utils/tokenHandlers";
 interface LoginPathTest {
   description: string;
   payload: {
@@ -13,7 +13,7 @@ interface LoginPathTest {
   result: number;
 }
 
-describe("auth", () => {
+describe("/auth", () => {
   beforeAll(async () => {
     await AppDataSource.initialize();
   });
@@ -22,34 +22,24 @@ describe("auth", () => {
     await AppDataSource.destroy();
   });
 
-  describe("get login route", () => {
-    describe("credentials do not exist or are wrong", () => {
-      const tests: LoginPathTest[] = [
-        {
-          description: "should return status code of 400",
-          payload: {},
-          result: 400,
+  describe("get /login route", () => {
+    describe("credentials are incorrect", () => {
+      it.each([
+        { payload: {}, expectedStatusCode: 400 },
+        { payload: { username: "jscode", password: "testtest" }, expectedStatusCode: 401 },
+        { payload: { username: "witek", password: "testtest" }, expectedStatusCode: 401 },
+      ])(
+        "should return status code of $expectedStatusCode when credentials are wrong",
+        async ({ payload, expectedStatusCode }) => {
+          await request(app).post("/auth/login").send(payload).expect(expectedStatusCode);
         },
-        {
-          description: "should return status code of 401",
-          payload: { username: "jscode", password: "testtest" },
-          result: 401,
-        },
-        {
-          description: "should return status code of 401",
-          payload: { username: "witek", password: "testtest" },
-          result: 401,
-        },
-      ];
-
-      for (let index = 0; index < tests.length; index++) {
-        it(tests[index].description, async () => {
-          await request(app).post("/auth/login").send(tests[index].payload).expect(tests[index].result);
-        });
-      }
+      );
     });
 
     describe("credentials are correct", () => {
+      beforeEach(() => {
+        jest.spyOn(jwtHandlers, "signToken").mockReturnValueOnce("1234");
+      });
       it("should return status code of 200 and contain jwt cookie", async () => {
         const result = await request(app)
           .post("/auth/login")
@@ -58,18 +48,16 @@ describe("auth", () => {
         expect(result.headers["set-cookie"]).toBeDefined();
       });
 
-      it("should return accessToken type of string", async () => {
-        const response = await request(app)
+      it("should return accessToken", async () => {
+        await request(app)
           .post("/auth/login")
-          .send({ username: process.env.API_USERNAME, password: process.env.API_PASSWORD });
-
-        const accessToken = JSON.parse(response.text).accessToken;
-        expect(typeof accessToken === "string").toBe(true);
+          .send({ username: process.env.API_USERNAME, password: process.env.API_PASSWORD })
+          .expect({ accessToken: "1234" });
       });
     });
   });
 
-  describe("get refresh route", () => {
+  describe("get /refresh route", () => {
     describe("request object does not include jwt cookie", () => {
       it("should return status code of 401", async () => {
         await request(app).get("/auth/refresh").expect(401);
@@ -83,7 +71,7 @@ describe("auth", () => {
     });
   });
 
-  describe("get logout route", () => {
+  describe("get /logout route", () => {
     describe("request object does not include jwt cookie", () => {
       it("should return status code of 204", async () => {
         await request(app).post("/auth/logout").expect(204);
