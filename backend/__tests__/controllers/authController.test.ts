@@ -4,14 +4,8 @@ import app from "../../src/app";
 import * as request from "supertest";
 import { AppDataSource } from "../../src/dataSource";
 import * as jwtHandlers from "../../src/utils/tokenHandlers";
-interface LoginPathTest {
-  description: string;
-  payload: {
-    username?: string;
-    password?: string;
-  };
-  result: number;
-}
+import * as userService from "../../src/service/userService";
+import { User } from "../../src/entity/User";
 
 describe("/auth", () => {
   beforeAll(async () => {
@@ -22,7 +16,7 @@ describe("/auth", () => {
     await AppDataSource.destroy();
   });
 
-  describe("get /login route", () => {
+  describe("post /login route", () => {
     describe("credentials are incorrect", () => {
       it.each([
         { payload: {}, expectedStatusCode: 400 },
@@ -64,14 +58,40 @@ describe("/auth", () => {
       });
     });
 
-    describe("request object does include wrong jwt cookie", () => {
+    describe("request object does not include correct jwt cookie", () => {
+      beforeEach(() => {
+        jest.spyOn(jwtHandlers, "verifyToken").mockReturnValueOnce({ username: "wrongUser" });
+      });
       it("should return status code of 403", async () => {
-        await request(app).get("/auth/refresh").set("Cookie", "jwt=12348987897").expect(403);
+        await request(app).get("/auth/refresh").set("Cookie", "jwt=12348987897").expect(401);
+      });
+      it("should return status code of 401 when user does not exist", async () => {
+        jest.spyOn(jwtHandlers, "verifyToken").mockReturnValueOnce({ username: "wrongUser" });
+        await request(app).get("/auth/refresh").set("Cookie", "jwt=12348987897").expect(401);
+      });
+      it("should return status code of 401 when user does not exist", async () => {
+        jest.spyOn(jwtHandlers, "verifyToken").mockReturnValueOnce({ username: "wrongUser" });
+        await request(app).get("/auth/refresh").set("Cookie", "jwt=12348987897").expect(401);
+      });
+    });
+    describe("request object includes correct jwt cookie", () => {
+      const someUser: User = {
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        id: "",
+        username: "someUser",
+        password: "somePassword",
+      };
+
+      it("should return acessToken", async () => {
+        jest.spyOn(jwtHandlers, "signToken").mockReturnValueOnce("1234");
+        jest.spyOn(userService, "findUser").mockResolvedValueOnce(someUser);
+        await request(app).get("/auth/refresh").set("Cookie", "jwt=12348987897").expect({ accessToken: "1234" });
       });
     });
   });
 
-  describe("get /logout route", () => {
+  describe("post /logout route", () => {
     describe("request object does not include jwt cookie", () => {
       it("should return status code of 204", async () => {
         await request(app).post("/auth/logout").expect(204);

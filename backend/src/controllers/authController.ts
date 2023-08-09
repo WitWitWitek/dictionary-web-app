@@ -1,10 +1,9 @@
 import { RequestHandler } from "express";
 import { compare } from "bcrypt";
-import { User } from "../entity/User";
-import { AppDataSource } from "../dataSource";
 import { CustomError } from "../utils/customError";
 import { signToken, verifyToken } from "../utils/tokenHandlers";
 import { clearCookie, setCookie } from "../utils/cookieHandlers";
+import { findUser } from "../service/userService";
 
 export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
@@ -12,14 +11,7 @@ export const login: RequestHandler = async (req, res) => {
     throw new CustomError("All credentials are required", 400);
   }
 
-  const userRepository = AppDataSource.getRepository(User);
-  const foundUser = await userRepository.findOneBy({
-    username: username,
-  });
-
-  if (!foundUser) {
-    throw new CustomError("User does not exist", 401);
-  }
+  const foundUser = await findUser(username);
 
   const passwordsMatch = await compare(password, foundUser.password);
   if (!passwordsMatch) {
@@ -44,20 +36,14 @@ export const refresh: RequestHandler = async (req, res) => {
     const refreshToken = cookies.jwt;
     const { username } = verifyToken(refreshToken, "refresh");
 
-    const userRepository = AppDataSource.getRepository(User);
-    const foundUser = await userRepository.findOneBy({
-      username,
-    });
-
-    if (!foundUser) {
-      throw new CustomError("User does not exist", 401);
-    }
+    const foundUser = await findUser(username);
 
     const accessToken = signToken(foundUser.username, "access");
 
     res.json({ accessToken });
   } catch (err) {
-    throw new CustomError("Forbidden.", 403);
+    const isValidationError = "message" in err && "statusCode" in err;
+    throw new CustomError(isValidationError ? err.message : "Forbidden.", isValidationError ? err.statusCode : 403);
   }
 };
 
