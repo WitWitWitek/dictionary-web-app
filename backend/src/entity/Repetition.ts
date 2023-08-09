@@ -1,13 +1,7 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
 
 @Entity("repetition")
-export class Repetition {
+export class Repetition extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 

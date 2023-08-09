@@ -3,7 +3,7 @@ import { compare } from "bcrypt";
 import { CustomError } from "../utils/customError";
 import { signToken, verifyToken } from "../utils/tokenHandlers";
 import { clearCookie, setCookie } from "../utils/cookieHandlers";
-import { findUser } from "../service/userService";
+import { findUser } from "../services/userService";
 
 export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;

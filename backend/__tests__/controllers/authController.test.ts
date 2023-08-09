@@ -2,7 +2,7 @@ import app from "../../src/app";
 import * as request from "supertest";
 import { AppDataSource } from "../../src/dataSource";
 import * as jwtHandlers from "../../src/utils/tokenHandlers";
-import * as userService from "../../src/service/userService";
+import * as userService from "../../src/services/userService";
 import { User } from "../../src/entity/User";
 
 describe("/auth", () => {
@@ -73,13 +73,12 @@ describe("/auth", () => {
       });
     });
     describe("request object includes correct jwt cookie", () => {
-      const someUser: User = {
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        id: "",
-        username: "someUser",
-        password: "somePassword",
-      };
+      const someUser = new User();
+      someUser.createdAt = new Date();
+      someUser.updatedAt = new Date();
+      someUser.id = "";
+      someUser.username = "someUser";
+      someUser.password = "somePassword";
 
       it("should return acessToken", async () => {
         jest.spyOn(jwtHandlers, "signToken").mockReturnValueOnce("1234");

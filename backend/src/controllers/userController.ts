@@ -1,7 +1,6 @@
 import { CustomError } from "../utils/customError";
 import { RequestHandler } from "express";
-import { User } from "../entity/User";
-import { AppDataSource } from "../dataSource";
+import { createUser } from "../services/userService";
 
 export const signUpNewUser: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
@@ -9,13 +8,6 @@ export const signUpNewUser: RequestHandler = async (req, res) => {
     throw new CustomError("Credentials required!", 400);
   }
 
-  try {
-    const newUser = new User();
-    newUser.username = username;
-    newUser.password = password;
-    AppDataSource.manager.save(newUser);
-    return res.status(201).json({ message: "User registered" });
-  } catch (err) {
-    throw new Error(err.message);
-  }
+  await createUser({ username, password });
+  return res.status(201).json({ message: `User ${username} successfully registered.` });
 };
