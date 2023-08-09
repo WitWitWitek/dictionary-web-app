@@ -1,5 +1,3 @@
-import { encodingExists } from "iconv-lite";
-encodingExists("foo");
 import app from "../../src/app";
 import * as request from "supertest";
 import { AppDataSource } from "../../src/dataSource";
@@ -16,7 +14,7 @@ describe("/auth", () => {
     await AppDataSource.destroy();
   });
 
-  describe("post /login route", () => {
+  describe("POST /login", () => {
     describe("credentials are incorrect", () => {
       it.each([
         { payload: {}, expectedStatusCode: 400 },
@@ -51,7 +49,7 @@ describe("/auth", () => {
     });
   });
 
-  describe("get /refresh route", () => {
+  describe("GET /refresh", () => {
     describe("request object does not include jwt cookie", () => {
       it("should return status code of 401", async () => {
         await request(app).get("/auth/refresh").expect(401);
@@ -91,7 +89,7 @@ describe("/auth", () => {
     });
   });
 
-  describe("post /logout route", () => {
+  describe("POST /logout", () => {
     describe("request object does not include jwt cookie", () => {
       it("should return status code of 204", async () => {
         await request(app).post("/auth/logout").expect(204);
