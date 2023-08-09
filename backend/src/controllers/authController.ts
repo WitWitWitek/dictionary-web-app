@@ -32,28 +32,21 @@ export const refresh: RequestHandler = async (req, res) => {
     throw new CustomError("Unauthorized.", 401);
   }
 
-  try {
-    const refreshToken = cookies.jwt;
-    const { username } = verifyToken(refreshToken, "refresh");
+  const refreshToken = cookies.jwt;
+  const { username } = verifyToken(refreshToken, "refresh");
 
-    const foundUser = await findUser(username);
+  const foundUser = await findUser(username);
 
-    const accessToken = signToken(foundUser.username, "access");
+  const accessToken = signToken(foundUser.username, "access");
 
-    res.json({ accessToken });
-  } catch (err) {
-    const isValidationError = "message" in err && "statusCode" in err;
-    throw new CustomError(isValidationError ? err.message : "Forbidden.", isValidationError ? err.statusCode : 403);
-  }
+  res.json({ accessToken });
 };
 
 export const logut: RequestHandler = async (req, res) => {
   const cookies = req.cookies;
+  const isJwtCookie = "jwt" in cookies;
 
-  if (!cookies?.jwt) {
-    res.sendStatus(204);
-    return;
-  }
+  if (!isJwtCookie) return res.sendStatus(204);
 
   clearCookie(res);
   res.status(200).json({ message: "Cookie cleared" });
