@@ -2,7 +2,7 @@ import type { Config } from "@jest/types";
 
 const sourceDir = "<rootDir>/src";
 const testsDir = "<rootDir>/__tests__";
-// const testsDir = "<rootDir>/__tests__/services/userService.test.ts";
+// const testsDir = "<rootDir>/__tests__/controllers/repetitionController.test.ts";
 
 const config: Config.InitialOptions = {
   preset: "ts-jest",

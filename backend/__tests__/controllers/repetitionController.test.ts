@@ -1,0 +1,98 @@
+import app from "../../src/app";
+import * as request from "supertest";
+import { AppDataSource } from "../../src/dataSource";
+import { Repetition } from "../../src/entity/Repetition";
+import { signToken } from "../../src/utils/tokenHandlers";
+import * as repetitionServices from "../../src/services/repetitionService";
+
+class IRepetition {
+  constructor(public id: string, public content: string, public createdAt: Date, public updatedAt: Date) {
+    this.id = id;
+    this.content = content;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
+}
+
+describe("/repetitions", () => {
+  const someRepetition = {
+    id: "",
+    content: "someContent",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  const someRepetitionId = "123456";
+
+  let token: string;
+
+  beforeAll(async () => {
+    await AppDataSource.initialize();
+  });
+
+  afterAll(async () => {
+    await AppDataSource.destroy();
+  });
+
+  beforeEach(async () => {
+    token = signToken("someUser", "access");
+  });
+
+  const createNewRepetitionMock = jest.spyOn(repetitionServices, "createNewRepetition");
+
+  describe("POST /", () => {
+    createNewRepetitionMock.mockResolvedValueOnce(someRepetitionId);
+
+    describe("user is not logged in", () => {
+      it("should return status code of 401", async () => {
+        const { statusCode } = await request(app).post("/repetitions").send(someRepetition);
+        expect(statusCode).toBe(401);
+      });
+    });
+
+    describe("user is logged in", () => {
+      it("should return status code of 201 and message when creating new repetition", async () => {
+        const { statusCode, body } = await request(app)
+          .post("/repetitions")
+          .set("authorization", `Bearer ${token}`)
+          .send(someRepetition);
+
+        expect(statusCode).toBe(201);
+        expect(createNewRepetitionMock).toHaveBeenCalledWith(someRepetition.content);
+        expect(body).toEqual({ message: `Repetition with id: ${someRepetitionId} created.` });
+      });
+
+      it("should return status code of 400 and message when body lacks content field", async () => {
+        const { statusCode, body } = await request(app)
+          .post("/repetitions")
+          .set("authorization", `Bearer ${token}`)
+          .send({ content: "" });
+
+        expect(statusCode).toBe(400);
+        expect(body).toEqual({ message: "Content field is required!" });
+      });
+    });
+  });
+
+  describe("GET /", () => {
+    describe("user is not logged in", () => {
+      it("should return status code of 401", async () => {
+        const { statusCode } = await request(app).get("/repetitions");
+        expect(statusCode).toBe(401);
+      });
+    });
+
+    describe("user is logged in", () => {
+      it("should return status code of 200 and array of repetitons", async () => {
+        const { statusCode, body } = await request(app).get("/repetitions").set("authorization", `Bearer ${token}`);
+        expect(statusCode).toBe(200);
+        expect(Array.isArray(body)).toBe(true);
+        expect(body.every((item: object) => isInstanceOfRepetition(item))).toBe(true);
+      });
+    });
+  });
+});
+
+function isInstanceOfRepetition(item: object): boolean {
+  return "id" in item && "content" in item && "createdAt" in item && "updatedAt" in item;
+}

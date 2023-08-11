@@ -1,8 +1,5 @@
 import { Router } from "express";
-import {
-  addNewRepetition,
-  getAllRepetitions,
-} from "../controllers/repetitionController";
+import { addNewRepetition, getAllRepetitions } from "../controllers/repetitionController";
 import authMiddleware from "../middleware/authMiddleware";
 
 const repetitionsRouter = Router();
