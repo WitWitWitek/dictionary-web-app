@@ -2,14 +2,40 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import App from './App';
 import './index.scss';
 import { store } from './app/store';
+import Home from './router/pages/Home';
+import RootLayout from './router/RootLayout';
+import Dictionary from './router/pages/Dictionary';
+import UserRepetitions from './router/pages/UserRepetitions';
+import ErrorPage from './router/pages/ErrorPage';
+import AuthLayout from './router/AuthLayout';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/dictionary',
+        element: <Dictionary />,
+      },
+      {
+        path: '/',
+        element: <AuthLayout />,
+        children: [
+          {
+            path: '/user-repetitions',
+            element: <UserRepetitions />,
+          },
+        ],
+      },
+    ],
   },
 ]);
 

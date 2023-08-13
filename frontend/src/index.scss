@@ -13,15 +13,28 @@
   @include theme-light;
 }
 
+body {
+  color: var(--theme-clr);
+  background-color: var(--theme-bg);
+}
+
 main {
   min-height: 100vh;
   color: var(--theme-clr);
   background-color: var(--theme-bg);
   nav {
-    height: 30px;
+    min-height: 30px;
     display: flex;
     align-items: center;
     justify-content: right;
+    flex-wrap: wrap;
+  }
+
+  ul {
+    margin-right: auto;
+    a {
+      margin: 0 0.3rem;
+    }
   }
 }
 

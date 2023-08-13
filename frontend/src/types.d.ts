@@ -19,8 +19,8 @@ interface Definition {
 }
 
 interface Phonetic {
-  audio: string,
-  text: string,
+  audio: string;
+  text: string;
 }
 
 type Synonym = string;
@@ -28,3 +28,11 @@ type Antonym = string;
 type Source = string;
 
 type Theme = 'dark' | 'light';
+
+interface Repetition {
+  id: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+type GetRepetitionsResponse = Repetition[];

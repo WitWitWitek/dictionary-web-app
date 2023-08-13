@@ -1,9 +1,6 @@
 import { sign, verify } from "jsonwebtoken";
-import {
-  JwtPayloadWithUsername,
-  TokenExpirationTime,
-  tokenType,
-} from "../types/tokenHandler";
+import { JwtPayloadWithUsername, TokenExpirationTime, tokenType } from "../types/tokenHandler";
+import { CustomError } from "./customError";
 
 export const tokenSecret = Object.freeze({
   access: process.env.ACCESS_TOKEN_SECRET as string,
@@ -16,9 +13,10 @@ export const signToken = (username: string, tokenType: tokenType): string => {
   });
 };
 
-export const verifyToken = (
-  token: string,
-  tokenType: tokenType
-): JwtPayloadWithUsername => {
-  return verify(token, tokenSecret[tokenType]) as JwtPayloadWithUsername;
+export const verifyToken = (token: string, tokenType: tokenType): JwtPayloadWithUsername => {
+  try {
+    return verify(token, tokenSecret[tokenType]) as JwtPayloadWithUsername;
+  } catch (err) {
+    throw new CustomError("Unauthorized.", 401);
+  }
 };
