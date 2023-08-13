@@ -5,6 +5,10 @@ import * as jwtHandlers from "../../src/utils/tokenHandlers";
 import * as userService from "../../src/services/userService";
 import { User } from "../../src/entity/User";
 
+jest.mock("bcrypt", () => ({
+  compare: jest.fn().mockImplementation((password, foundPassword) => (password === foundPassword ? true : false)),
+}));
+
 describe("/auth", () => {
   beforeAll(async () => {
     await AppDataSource.initialize();
@@ -29,22 +33,23 @@ describe("/auth", () => {
     });
 
     describe("credentials are correct", () => {
+      const someUser = new User();
+      someUser.password = "somePassword";
+      someUser.username = "someUser";
+
+      const someUserCredentials = { username: someUser.username, password: someUser.password };
+
       beforeEach(() => {
         jest.spyOn(jwtHandlers, "signToken").mockReturnValueOnce("1234");
+        jest.spyOn(userService, "findUser").mockResolvedValueOnce(someUser);
       });
       it("should return status code of 200 and contain jwt cookie", async () => {
-        const result = await request(app)
-          .post("/auth/login")
-          .send({ username: process.env.API_USERNAME, password: process.env.API_PASSWORD })
-          .expect(200);
+        const result = await request(app).post("/auth/login").send(someUserCredentials).expect(200);
         expect(result.headers["set-cookie"]).toBeDefined();
       });
 
       it("should return accessToken", async () => {
-        await request(app)
-          .post("/auth/login")
-          .send({ username: process.env.API_USERNAME, password: process.env.API_PASSWORD })
-          .expect({ accessToken: "1234" });
+        await request(app).post("/auth/login").send(someUserCredentials).expect({ accessToken: "1234" });
       });
     });
   });
@@ -60,7 +65,7 @@ describe("/auth", () => {
       beforeEach(() => {
         jest.spyOn(jwtHandlers, "verifyToken").mockReturnValueOnce({ username: "wrongUser" });
       });
-      it("should return status code of 403", async () => {
+      it("should return status code of 401", async () => {
         await request(app).get("/auth/refresh").set("Cookie", "jwt=12348987897").expect(401);
       });
       it("should return status code of 401 when user does not exist", async () => {

@@ -1,18 +1,8 @@
 import app from "../../src/app";
 import * as request from "supertest";
 import { AppDataSource } from "../../src/dataSource";
-import { Repetition } from "../../src/entity/Repetition";
 import { signToken } from "../../src/utils/tokenHandlers";
 import * as repetitionServices from "../../src/services/repetitionService";
-
-class IRepetition {
-  constructor(public id: string, public content: string, public createdAt: Date, public updatedAt: Date) {
-    this.id = id;
-    this.content = content;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-  }
-}
 
 describe("/repetitions", () => {
   const someRepetition = {

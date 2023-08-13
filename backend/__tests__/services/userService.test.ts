@@ -1,10 +1,19 @@
 import { User } from "../../src/entity/User";
 import { createUser } from "../../src/services/userService";
+import * as iconvLite from "iconv-lite";
+iconvLite.encodingExists("foo");
 
+const saveUserMock = jest.fn();
+
+jest.mock("../../src/entity/User", () => ({
+  User: jest.fn().mockImplementation(() => {
+    return {
+      save: saveUserMock,
+    };
+  }),
+}));
 describe("userServices test suite", () => {
   describe("createUser service suite", () => {
-    const saveUserSpy = jest.spyOn(User.prototype, "save");
-
     const someNewUser = {
       username: "someUserName",
       password: "somePassword",
@@ -16,12 +25,12 @@ describe("userServices test suite", () => {
     beforeEach(() => {
       sut = new User();
       sut.id = someId;
+      saveUserMock.mockResolvedValueOnce(sut);
     });
 
     it("should call save method one time and return user id", async () => {
-      saveUserSpy.mockResolvedValueOnce(sut);
       const actualId = await createUser(someNewUser);
-      expect(saveUserSpy).toBeCalledTimes(1);
+      expect(saveUserMock).toBeCalledTimes(1);
       expect(actualId).toBe(someId);
     });
   });

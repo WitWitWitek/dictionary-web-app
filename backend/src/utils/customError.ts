@@ -7,9 +7,10 @@ export class CustomError extends Error {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof CustomError) {
-    if (err.statusCode === 403) {
+    if (err.statusCode === 401) {
       return res
         .status(err.statusCode)
         .clearCookie("jwt", {

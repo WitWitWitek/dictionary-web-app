@@ -1,4 +1,4 @@
-type originCallback = (err: Error | null, allow?: boolean) => void;
+export type originCallback = (err: Error | null, allow?: boolean) => void;
 
 const allowedOrigins = ["http://localhost:5173"];
 

@@ -17,6 +17,6 @@ export const verifyToken = (token: string, tokenType: tokenType): JwtPayloadWith
   try {
     return verify(token, tokenSecret[tokenType]) as JwtPayloadWithUsername;
   } catch (err) {
-    throw new CustomError("Forbidden.", 403);
+    throw new CustomError("Unauthorized.", 401);
   }
 };
