@@ -10,6 +10,7 @@ import Dictionary from './router/pages/Dictionary';
 import UserRepetitions from './router/pages/UserRepetitions';
 import ErrorPage from './router/pages/ErrorPage';
 import AuthLayout from './router/AuthLayout';
+import NewUserForm from './features/user/NewUserForm';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/dictionary',
         element: <Dictionary />,
+      },
+      {
+        path: '/sign-up',
+        element: <NewUserForm />,
       },
       {
         path: '/',

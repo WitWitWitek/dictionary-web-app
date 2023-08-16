@@ -1,61 +1,48 @@
 @use 'variables';
-@use "sass:color";
+@use 'sass:color';
 
 @mixin theme-light {
-    --theme-bg: #{variables.$clr-neutral-50};
-    --theme-clr: #{variables.$clr-neutral-900};
-    --theme-clr-accent: #{variables.$clr-accent-300};
+  --theme-bg: #{variables.$clr-neutral-50};
+  --theme-clr: #{variables.$clr-neutral-900};
+  --theme-clr-accent: #{variables.$clr-accent-300};
 
-    --theme-search-bg: #{variables.$clr-neutral-100};
-    --theme-select-focus: #{variables.$clr-accent-300};
+  --theme-search-bg: #{variables.$clr-neutral-100};
+  --theme-select-focus: #{variables.$clr-accent-300};
 
-    --theme-toggle-clr: #{variables.$clr-neutral-50};
-    --theme-toggle-bg-hover: linear-gradient(
-    135deg,
-    #{variables.$clr-accent-300},
-    #{variables.$clr-accent-300}
-  );
-    --theme-toggle-bg: linear-gradient(135deg,
-    #{variables.$clr-neutral-400},
-    #{variables.$clr-neutral-400}
-    );
-    --theme-toggle-focus: #{variables.$clr-accent-300};
-    color-scheme: only light;
+  --theme-toggle-clr: #{variables.$clr-neutral-50};
+  --theme-toggle-bg-hover: linear-gradient(135deg, #{variables.$clr-accent-300}, #{variables.$clr-accent-300});
+  --theme-toggle-bg: linear-gradient(135deg, #{variables.$clr-neutral-400}, #{variables.$clr-neutral-400});
+  --theme-toggle-focus: #{variables.$clr-accent-300};
+  color-scheme: only light;
 
-    --theme-play-highlight: #{variables.$clr-neutral-50};
-    --theme-play-hover: #{variables.$clr-accent-300};
-    --theme-play-clr: #{variables.$clr-accent-300};
-    --theme-play-bg: #{color.change(variables.$clr-accent-300, $alpha: 0.25)};
+  --theme-play-highlight: #{variables.$clr-neutral-50};
+  --theme-play-hover: #{variables.$clr-accent-300};
+  --theme-play-clr: #{variables.$clr-accent-300};
+  --theme-play-bg: #{color.change(variables.$clr-accent-300, $alpha: 0.25)};
 
-    --theme-horizontal-rule: #{variables.$clr-neutral-200};
-
-    --theme-definition-example: #{variables.$clr-neutral-400};
+  --theme-horizontal-rule: #{variables.$clr-neutral-200};
+  --theme-error: #{variables.$clr-error-400};
+  --theme-definition-example: #{variables.$clr-neutral-400};
 }
 
 @mixin theme-dark {
-    --theme-bg:  #{variables.$clr-neutral-900};
-    --theme-clr: #{variables.$clr-neutral-50};
-    --theme-clr-accent: #{variables.$clr-accent-300};
+  --theme-bg: #{variables.$clr-neutral-900};
+  --theme-clr: #{variables.$clr-neutral-50};
+  --theme-clr-accent: #{variables.$clr-accent-300};
 
-    --theme-search-bg: #{variables.$clr-neutral-700};
+  --theme-search-bg: #{variables.$clr-neutral-700};
 
-    --theme-toggle-clr: #{variables.$clr-neutral-50};
-    --theme-toggle-bg: linear-gradient(135deg,
-        #{variables.$clr-accent-300},
-        #{variables.$clr-accent-300});
-    --theme-toggle-bg-hover: linear-gradient(
-    135deg,
-    #{variables.$clr-accent-300},
-    #{variables.$clr-accent-300}
-  );
+  --theme-toggle-clr: #{variables.$clr-neutral-50};
+  --theme-toggle-bg: linear-gradient(135deg, #{variables.$clr-accent-300}, #{variables.$clr-accent-300});
+  --theme-toggle-bg-hover: linear-gradient(135deg, #{variables.$clr-accent-300}, #{variables.$clr-accent-300});
   --theme-toggle-focus: #{variables.$clr-accent-300};
-  
+
   --theme-play-highlight: #{variables.$clr-neutral-50};
   --theme-play-hover: #{variables.$clr-accent-300};
   --theme-play-clr: #{variables.$clr-accent-300};
   --theme-play-bg: #{color.change(variables.$clr-accent-300, $alpha: 0.25)};
 
   --theme-horizontal-rule: #{variables.$clr-neutral-500};
-
+  --theme-error: #{variables.$clr-error-400};
   color-scheme: only dark;
 }

@@ -10,9 +10,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: { username, password },
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled;
-        const { accessToken } = data;
-        dispatch(logIn({ accessToken }));
+        try {
+          const { data } = await queryFulfilled;
+          const { accessToken } = data;
+          dispatch(logIn({ accessToken }));
+        } catch (err) {
+          console.log(err);
+        }
       },
     }),
     refresh: builder.mutation({

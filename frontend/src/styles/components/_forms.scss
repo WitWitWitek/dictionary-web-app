@@ -1,0 +1,11 @@
+@use '../mixins/index' as *;
+
+.form {
+  input.input-error {
+    border-color: var(--theme-error);
+  }
+
+  input:focus {
+    border-color: var(--theme-select-focus);
+  }
+}
