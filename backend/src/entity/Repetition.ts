@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BaseEntity,
+  ManyToOne,
+} from "typeorm";
+import { User } from "./User";
 
 @Entity("repetition")
 export class Repetition extends BaseEntity {
@@ -15,4 +24,7 @@ export class Repetition extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => User, (user) => user.repetitions)
+  user: User;
 }

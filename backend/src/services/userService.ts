@@ -15,11 +15,20 @@ export async function findUser(username: string): Promise<User> {
   return foundUser;
 }
 
-export async function createUser({ username, password }: { username: string; password: string }): Promise<string> {
+export async function createUser({
+  username,
+  password,
+  email,
+}: {
+  username: string;
+  password: string;
+  email: string;
+}): Promise<string> {
   const hashedPassword = await hash(password, 15);
 
   const newUser = new User();
   newUser.username = username;
+  newUser.email = email;
   newUser.password = hashedPassword;
   const savedUser = await newUser.save();
   return savedUser.id;

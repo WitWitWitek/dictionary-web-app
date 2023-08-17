@@ -1,18 +1,23 @@
-import { RequestHandler } from "express";
+import { Response } from "express";
 import { CustomError } from "../utils/customError";
 import { createNewRepetition, findAllRepetitions } from "../services/repetitionService";
+import { RequestWithUserRole } from "../types/authMiddleware";
+import { findUser } from "../services/userService";
 
-export const getAllRepetitions: RequestHandler = async (req, res) => {
-  const repetitions = await findAllRepetitions();
+export const getAllRepetitions = async (req: RequestWithUserRole, res: Response) => {
+  const repetitions = await findAllRepetitions(req.user);
   return res.status(200).json(repetitions);
 };
 
-export const addNewRepetition: RequestHandler = async (req, res) => {
+export const addNewRepetition = async (req: RequestWithUserRole, res: Response) => {
   const { content } = req.body;
+  const username = req.user;
   if (!content || typeof content !== "string") {
     throw new CustomError("Content field is required!", 400);
   }
 
-  const newRepetitionId = await createNewRepetition(content);
+  const foundUser = await findUser(username);
+
+  const newRepetitionId = await createNewRepetition(content, foundUser);
   return res.status(201).json({ message: `Repetition with id: ${newRepetitionId} created.` });
 };
