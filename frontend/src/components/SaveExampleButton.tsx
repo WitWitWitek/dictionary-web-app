@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { selectCurrentToken } from '../features/auth/authSlice';
-import { usePostRepetitionMutation } from '../features/word/wordApiSlice';
+import { usePostRepetitionMutation } from '../features/repetition/repetitionApiSlice';
 
 type Props = {
   exampleContent: string;
