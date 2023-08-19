@@ -1,40 +1,20 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import useRepetionChecker from '../../hooks/useRepetionChecker';
 
 type Props = {
   repetitions: Repetition[];
 };
 
 export default function RepetitionChecker({ repetitions }: Props) {
-  const [repetitionsArrayIndex, setRepetitionsArrayIndex] = useState<number>(0);
-  const [currentRepetition, setCurrentRepetition] = useState<string>('');
-  const [currentRepetitionIndex, setCurrentRepetitionIndex] = useState<number>(0);
-  const [inputSentence, setInputSentence] = useState<string>('');
-  const [result, setResult] = useState<string>('');
-
-  const checkRepetition = () => {
-    const cleanedInput = inputSentence.trim().toLowerCase();
-    if (cleanedInput === currentRepetition.toLowerCase()) {
-      setResult("Correct! It's a repetition.");
-      const futureIndex = repetitionsArrayIndex + 1;
-      const lastIndex = repetitions.length - 1;
-      const canBeIncremented = futureIndex <= lastIndex;
-      setRepetitionsArrayIndex((prev) => (canBeIncremented ? prev + 1 : 0));
-      setInputSentence(() => '');
-      setCurrentRepetitionIndex(() => 0);
-    } else {
-      setResult("Try again. It's not a repetition.");
-    }
-  };
-
-  const checkHint = () => {
-    setInputSentence((prev) => prev + currentRepetition[currentRepetitionIndex]);
-    setCurrentRepetitionIndex((index) => index + 1);
-  };
-
-  useEffect(() => {
-    if (repetitions.length) setCurrentRepetition(() => repetitions[repetitionsArrayIndex].content);
-  }, [repetitionsArrayIndex]);
+  const {
+    inputSentence,
+    setInputSentence,
+    currentRepetition,
+    result,
+    checkRepetition,
+    checkHint,
+    repetitionsArrayIndex,
+  } = useRepetionChecker(repetitions);
 
   if (!repetitions || repetitions.length === 0) {
     return (
