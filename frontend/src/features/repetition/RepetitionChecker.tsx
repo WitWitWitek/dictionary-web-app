@@ -14,6 +14,8 @@ export default function RepetitionChecker({ repetitions }: Props) {
     checkRepetition,
     checkHint,
     repetitionsArrayIndex,
+    isMarkContainerOpen,
+    assesResult,
   } = useRepetionChecker(repetitions);
 
   if (!repetitions || repetitions.length === 0) {
@@ -35,12 +37,28 @@ export default function RepetitionChecker({ repetitions }: Props) {
         placeholder="Type a sentence..."
       />
       <div>
-        <button onClick={checkHint} type="button">
-          Check Hint
-        </button>
-        <button onClick={checkRepetition} type="button">
-          Check Repetition
-        </button>
+        {!isMarkContainerOpen ? (
+          <>
+            <button onClick={checkHint} type="button">
+              Check Hint
+            </button>
+            <button onClick={checkRepetition} type="button">
+              Check Repetition
+            </button>
+          </>
+        ) : (
+          <>
+            <button onClick={assesResult} type="button">
+              Bad
+            </button>
+            <button onClick={assesResult} type="button">
+              Mediocrely
+            </button>
+            <button onClick={assesResult} type="button">
+              Excellent
+            </button>
+          </>
+        )}
       </div>
       <p>{result}</p>
     </div>

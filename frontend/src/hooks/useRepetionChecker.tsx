@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEvent } from 'react';
 
 const whatIndexShouldBe = (userInput: string, repetitonToCheck: string): number => {
   let requiredIndex = 0;
@@ -20,21 +20,18 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
   const [currentRepetitionIndex, setCurrentRepetitionIndex] = useState<number>(0);
   const [inputSentence, setInputSentence] = useState<string>('');
   const [result, setResult] = useState<string>('');
+  const [isMarkContainerOpen, setIsMarkContainerOpen] = useState<boolean>(false);
 
   const checkRepetition = () => {
     const cleanedInput = inputSentence.trim().toLowerCase();
     if (cleanedInput === currentRepetition.toLowerCase()) {
       setResult("Correct! It's a repetition.");
-
-      const futureIndex = repetitionsArrayIndex + 1;
-      const lastIndex = repetitions.length - 1;
-      const canBeIncremented = futureIndex <= lastIndex;
-      setRepetitionsArrayIndex((prev) => (canBeIncremented ? prev + 1 : 0));
       setInputSentence(() => '');
       setCurrentRepetitionIndex(() => 0);
     } else {
       setResult("Try again. It's not a repetition.");
     }
+    setIsMarkContainerOpen(() => true);
   };
 
   const checkHint = () => {
@@ -45,6 +42,16 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
       setInputSentence(() => currentRepetition[currentRepetitionIndex]);
     }
     setCurrentRepetitionIndex((index) => (canBeIncremented ? index + 1 : index));
+  };
+
+  const assesResult = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(e.currentTarget.textContent);
+
+    const futureIndex = repetitionsArrayIndex + 1;
+    const lastIndex = repetitions.length - 1;
+    const canBeIncremented = futureIndex <= lastIndex;
+    setRepetitionsArrayIndex((prev) => (canBeIncremented ? prev + 1 : 0));
+    setIsMarkContainerOpen(() => false);
   };
 
   useEffect(() => {
@@ -66,6 +73,8 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
     checkRepetition,
     currentRepetition,
     repetitionsArrayIndex,
+    isMarkContainerOpen,
+    assesResult,
   };
 };
 
