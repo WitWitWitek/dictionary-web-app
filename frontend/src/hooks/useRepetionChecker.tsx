@@ -18,63 +18,80 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
   const [repetitionsArrayIndex, setRepetitionsArrayIndex] = useState<number>(0);
   const [currentRepetition, setCurrentRepetition] = useState<string>('');
   const [currentRepetitionIndex, setCurrentRepetitionIndex] = useState<number>(0);
-  const [inputSentence, setInputSentence] = useState<string>('');
+
+  const [userInputSentence, setUserInputSentence] = useState<string>('');
   const [result, setResult] = useState<string>('');
-  const [isMarkContainerOpen, setIsMarkContainerOpen] = useState<boolean>(false);
+
+  const [isGradeContainerOpen, setIsGradeContainerOpen] = useState<boolean>(false);
+  const [isExcerciseFinished, setExcerciseFinished] = useState<boolean>(false);
 
   const checkRepetition = () => {
-    const cleanedInput = inputSentence.trim().toLowerCase();
-    if (cleanedInput === currentRepetition.toLowerCase()) {
+    const cleanedUserInput = userInputSentence.trim().toLowerCase();
+    const isInputCorrect = cleanedUserInput === currentRepetition.toLowerCase();
+    if (isInputCorrect) {
       setResult("Correct! It's a repetition.");
-      setInputSentence(() => '');
       setCurrentRepetitionIndex(() => 0);
     } else {
       setResult("Try again. It's not a repetition.");
     }
-    setIsMarkContainerOpen(() => true);
+    setIsGradeContainerOpen(() => true);
   };
 
   const checkHint = () => {
     const canBeIncremented = currentRepetition.length >= currentRepetitionIndex + 1;
-    if (currentRepetitionIndex !== 0) {
-      setInputSentence((prev) => (canBeIncremented ? prev + currentRepetition[currentRepetitionIndex] : prev));
+    const isUserInputNotEmpty = currentRepetitionIndex !== 0;
+    if (isUserInputNotEmpty) {
+      setUserInputSentence((actualInput) =>
+        canBeIncremented ? actualInput + currentRepetition[currentRepetitionIndex] : actualInput,
+      );
     } else {
-      setInputSentence(() => currentRepetition[currentRepetitionIndex]);
+      setUserInputSentence(() => currentRepetition[currentRepetitionIndex]);
     }
     setCurrentRepetitionIndex((index) => (canBeIncremented ? index + 1 : index));
   };
 
-  const assesResult = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(e.currentTarget.textContent);
-
+  const incrementRepetitionsArrayIndex = () => {
     const futureIndex = repetitionsArrayIndex + 1;
     const lastIndex = repetitions.length - 1;
     const canBeIncremented = futureIndex <= lastIndex;
     setRepetitionsArrayIndex((prev) => (canBeIncremented ? prev + 1 : 0));
-    setIsMarkContainerOpen(() => false);
+  };
+
+  const assessResult = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(e.currentTarget.textContent);
+    incrementRepetitionsArrayIndex();
+    setIsGradeContainerOpen(() => false);
+    setUserInputSentence(() => '');
   };
 
   useEffect(() => {
-    const expectedIndexOfHint = whatIndexShouldBe(inputSentence, currentRepetition);
+    const expectedIndexOfHint = whatIndexShouldBe(userInputSentence, currentRepetition);
     setCurrentRepetitionIndex(() => expectedIndexOfHint);
-  }, [inputSentence, currentRepetition]);
+  }, [userInputSentence, currentRepetition]);
 
   useEffect(() => {
     if (repetitions.length) {
-      setCurrentRepetition(() => repetitions[repetitionsArrayIndex].content);
+      const isNotLastRepetitionToExcercise = repetitionsArrayIndex !== repetitions.length - 1;
+      if (isNotLastRepetitionToExcercise) {
+        setExcerciseFinished(() => false);
+        setCurrentRepetition(() => repetitions[repetitionsArrayIndex].content);
+      } else {
+        setExcerciseFinished(() => true);
+      }
     }
   }, [repetitionsArrayIndex]);
 
   return {
     result,
-    inputSentence,
-    setInputSentence,
+    userInputSentence,
+    setUserInputSentence,
     checkHint,
     checkRepetition,
     currentRepetition,
     repetitionsArrayIndex,
-    isMarkContainerOpen,
-    assesResult,
+    isGradeContainerOpen,
+    assessResult,
+    isExcerciseFinished,
   };
 };
 
