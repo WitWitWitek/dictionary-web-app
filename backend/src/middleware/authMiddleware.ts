@@ -1,7 +1,7 @@
 import { Response, NextFunction } from "express";
 import { CustomError } from "../utils/customError";
 import { verifyToken } from "../utils/tokenHandlers";
-import { RequestWithUserRole } from "../types/authMiddleware";
+import { RequestWithUserRole } from "../types";
 import { findUser } from "../services/userService";
 
 const authMiddleware = async (req: RequestWithUserRole, res: Response, next: NextFunction) => {
