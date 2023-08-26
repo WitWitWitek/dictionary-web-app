@@ -1,71 +1,114 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEvent } from 'react';
 
 const whatIndexShouldBe = (userInput: string, repetitonToCheck: string): number => {
-  let requiredIndex = 0;
+  let currentRepetitionStringIndex = 0;
   const splitedRepetition = repetitonToCheck.split('');
   const splitedInputSentence = userInput.split('');
   splitedInputSentence.forEach((char, index) => {
     if (char === splitedRepetition[index]) {
-      requiredIndex = index + 1;
+      currentRepetitionStringIndex = index + 1;
     } else {
-      requiredIndex = 0;
+      currentRepetitionStringIndex = 0;
     }
   });
-  return requiredIndex;
+  return currentRepetitionStringIndex;
+};
+
+const percentageAssessmentHandler = (userInput: string, repetitonToCheck: string) => {
+  const correctCharacters: string[] = [];
+  const currentInputSplitted = userInput.split('');
+  const repetitionToCheckSplitted = repetitonToCheck.split('');
+  repetitionToCheckSplitted.forEach((char, index) => {
+    if (char === currentInputSplitted[index]) {
+      correctCharacters.push(char);
+    }
+  });
+  return correctCharacters.length / repetitonToCheck.length;
 };
 
 const useRepetionChecker = (repetitions: Repetition[]) => {
-  const [repetitionsArrayIndex, setRepetitionsArrayIndex] = useState<number>(0);
-  const [currentRepetition, setCurrentRepetition] = useState<string>('');
   const [currentRepetitionIndex, setCurrentRepetitionIndex] = useState<number>(0);
-  const [inputSentence, setInputSentence] = useState<string>('');
+  const [currentRepetition, setCurrentRepetition] = useState<string>('');
+  const [currentRepetitionStringIndex, setCurrentRepetitionStringIndex] = useState<number>(0);
+
+  const [userInputSentence, setUserInputSentence] = useState<string>('');
   const [result, setResult] = useState<string>('');
 
-  const checkRepetition = () => {
-    const cleanedInput = inputSentence.trim().toLowerCase();
-    if (cleanedInput === currentRepetition.toLowerCase()) {
-      setResult("Correct! It's a repetition.");
+  const [isGradeContainerOpen, setIsGradeContainerOpen] = useState<boolean>(false);
+  const [isExcerciseFinished, setExcerciseFinished] = useState<boolean>(false);
 
-      const futureIndex = repetitionsArrayIndex + 1;
-      const lastIndex = repetitions.length - 1;
-      const canBeIncremented = futureIndex <= lastIndex;
-      setRepetitionsArrayIndex((prev) => (canBeIncremented ? prev + 1 : 0));
-      setInputSentence(() => '');
-      setCurrentRepetitionIndex(() => 0);
+  const [percentageAssessment, setPercentageAssessment] = useState<number>(0);
+
+  const checkRepetition = () => {
+    const cleanedUserInput = userInputSentence.trim().toLowerCase();
+    const isInputCorrect = cleanedUserInput === currentRepetition.toLowerCase();
+    if (isInputCorrect) {
+      setResult("👍 Correct! It's a good answer.");
+      setCurrentRepetitionStringIndex(() => 0);
     } else {
-      setResult("Try again. It's not a repetition.");
+      setResult('😪 Try again. U made some mistake!');
     }
+    setPercentageAssessment(() => percentageAssessmentHandler(cleanedUserInput, currentRepetition));
+    setIsGradeContainerOpen(() => true);
   };
 
   const checkHint = () => {
-    const canBeIncremented = currentRepetition.length >= currentRepetitionIndex + 1;
-    if (currentRepetitionIndex !== 0) {
-      setInputSentence((prev) => (canBeIncremented ? prev + currentRepetition[currentRepetitionIndex] : prev));
+    const canBeIncremented = currentRepetition.length >= currentRepetitionStringIndex + 1;
+    const isUserInputNotEmpty = currentRepetitionStringIndex !== 0;
+    if (isUserInputNotEmpty) {
+      setUserInputSentence((actualInput) =>
+        canBeIncremented ? actualInput + currentRepetition[currentRepetitionStringIndex] : actualInput,
+      );
     } else {
-      setInputSentence(() => currentRepetition[currentRepetitionIndex]);
+      setUserInputSentence(() => currentRepetition[currentRepetitionStringIndex]);
     }
-    setCurrentRepetitionIndex((index) => (canBeIncremented ? index + 1 : index));
+    setCurrentRepetitionStringIndex((index) => (canBeIncremented ? index + 1 : index));
+  };
+
+  const incrementCurrentRepetitionIndex = () => {
+    const nextIndex = currentRepetitionIndex + 1;
+    const lastIndex = repetitions.length - 1;
+    const canBeIncremented = nextIndex <= lastIndex;
+    setCurrentRepetitionIndex((prev) => (canBeIncremented ? prev + 1 : 0));
+    setResult(() => '');
+  };
+
+  const assessResult = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(e.currentTarget.textContent);
+    incrementCurrentRepetitionIndex();
+    setIsGradeContainerOpen(() => false);
+    setUserInputSentence(() => '');
   };
 
   useEffect(() => {
-    const expectedIndexOfHint = whatIndexShouldBe(inputSentence, currentRepetition);
-    setCurrentRepetitionIndex(() => expectedIndexOfHint);
-  }, [inputSentence, currentRepetition]);
+    const expectedIndexOfHint = whatIndexShouldBe(userInputSentence, currentRepetition);
+    setCurrentRepetitionStringIndex(() => expectedIndexOfHint);
+  }, [userInputSentence, currentRepetition]);
 
   useEffect(() => {
     if (repetitions.length) {
-      setCurrentRepetition(() => repetitions[repetitionsArrayIndex].content);
+      const isNotLastRepetitionToExcercise = currentRepetitionIndex !== repetitions.length - 1;
+      if (isNotLastRepetitionToExcercise) {
+        setExcerciseFinished(() => false);
+        setCurrentRepetition(() => repetitions[currentRepetitionIndex].content);
+      } else {
+        setExcerciseFinished(() => true);
+      }
     }
-  }, [repetitionsArrayIndex]);
+  }, [currentRepetitionIndex]);
 
   return {
     result,
-    inputSentence,
-    setInputSentence,
+    userInputSentence,
+    setUserInputSentence,
     checkHint,
     checkRepetition,
     currentRepetition,
-    repetitionsArrayIndex,
+    currentRepetitionIndex,
+    isGradeContainerOpen,
+    assessResult,
+    percentageAssessment,
+    isExcerciseFinished,
   };
 };
 
