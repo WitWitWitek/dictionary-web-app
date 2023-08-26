@@ -14,6 +14,18 @@ const whatIndexShouldBe = (userInput: string, repetitonToCheck: string): number 
   return currentRepetitionStringIndex;
 };
 
+const percentageAssessmentHandler = (userInput: string, repetitonToCheck: string) => {
+  const correctCharacters: string[] = [];
+  const currentInputSplitted = userInput.split('');
+  const repetitionToCheckSplitted = repetitonToCheck.split('');
+  repetitionToCheckSplitted.forEach((char, index) => {
+    if (char === currentInputSplitted[index]) {
+      correctCharacters.push(char);
+    }
+  });
+  return correctCharacters.length / repetitonToCheck.length;
+};
+
 const useRepetionChecker = (repetitions: Repetition[]) => {
   const [currentRepetitionIndex, setCurrentRepetitionIndex] = useState<number>(0);
   const [currentRepetition, setCurrentRepetition] = useState<string>('');
@@ -25,15 +37,18 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
   const [isGradeContainerOpen, setIsGradeContainerOpen] = useState<boolean>(false);
   const [isExcerciseFinished, setExcerciseFinished] = useState<boolean>(false);
 
+  const [percentageAssessment, setPercentageAssessment] = useState<number>(0);
+
   const checkRepetition = () => {
     const cleanedUserInput = userInputSentence.trim().toLowerCase();
     const isInputCorrect = cleanedUserInput === currentRepetition.toLowerCase();
     if (isInputCorrect) {
-      setResult("Correct! It's a repetition.");
+      setResult("👍 Correct! It's a good answer.");
       setCurrentRepetitionStringIndex(() => 0);
     } else {
-      setResult("Try again. It's not a repetition.");
+      setResult('😪 Try again. U made some mistake!');
     }
+    setPercentageAssessment(() => percentageAssessmentHandler(cleanedUserInput, currentRepetition));
     setIsGradeContainerOpen(() => true);
   };
 
@@ -55,6 +70,7 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
     const lastIndex = repetitions.length - 1;
     const canBeIncremented = nextIndex <= lastIndex;
     setCurrentRepetitionIndex((prev) => (canBeIncremented ? prev + 1 : 0));
+    setResult(() => '');
   };
 
   const assessResult = (e: MouseEvent<HTMLButtonElement>) => {
@@ -91,6 +107,7 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
     currentRepetitionIndex,
     isGradeContainerOpen,
     assessResult,
+    percentageAssessment,
     isExcerciseFinished,
   };
 };

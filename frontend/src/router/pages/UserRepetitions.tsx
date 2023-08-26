@@ -1,4 +1,4 @@
-import RepetitionChecker from '../../features/repetition/RepetitionChecker';
+import RepetitionChecker from '../../features/repetition/repetitionChecker/RepetitionChecker';
 import { useGetAllRepetitionsQuery } from '../../features/repetition/repetitionApiSlice';
 
 export default function UserRepetitions() {
