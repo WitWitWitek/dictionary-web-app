@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { errorHandler } from "../../src/utils/customError";
+import { errorHandler } from "@/utils/customError";
 import { NextFunction, Request, Response } from "express";
 
 describe("errorHandler test suite", () => {

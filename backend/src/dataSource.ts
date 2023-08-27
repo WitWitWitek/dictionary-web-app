@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Repetition } from "./entity/Repetition";
-import { User } from "./entity/User";
+import { Repetition } from "@/entity/Repetition";
+import { User } from "@/entity/User";
 
 export const AppDataSource = new DataSource({
   type: "mysql",

@@ -1,6 +1,6 @@
-import { CustomError } from "../utils/customError";
+import { CustomError } from "@/utils/customError";
 import { RequestHandler } from "express";
-import { createUser } from "../services/userService";
+import { createUser } from "@/services/userService";
 
 export const signUpNewUser: RequestHandler = async (req, res) => {
   const { username, password, email } = req.body;

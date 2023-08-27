@@ -4,12 +4,12 @@ config();
 import * as express from "express";
 import "express-async-errors";
 import * as cookieParser from "cookie-parser";
-import repetitionsRouter from "./router/repetitionsRouter";
-import authRouter from "./router/authRouter";
+import repetitionsRouter from "@/router/repetitionsRouter";
+import authRouter from "@/router/authRouter";
 import * as cors from "cors";
-import { errorHandler } from "./utils/customError";
-import { corsOptions } from "./config/corsOptions";
-import userRouter from "./router/userRouter";
+import { errorHandler } from "@/utils/customError";
+import { corsOptions } from "@/config/corsOptions";
+import userRouter from "@/router/userRouter";
 
 const app = express();
 

@@ -1,7 +1,7 @@
 import { hash } from "bcrypt";
-import { AppDataSource } from "../dataSource";
-import { User } from "../entity/User";
-import { CustomError } from "../utils/customError";
+import { AppDataSource } from "@/dataSource";
+import { User } from "@/entity/User";
+import { CustomError } from "@/utils/customError";
 
 export async function findUser(username: string): Promise<User> {
   const userRepository = AppDataSource.getRepository(User);

@@ -1,5 +1,5 @@
-import { Repetition } from "../../src/entity/Repetition";
-import { createNewRepetition } from "../../src/services/repetitionService";
+import { Repetition } from "@/entity/Repetition";
+import { createNewRepetition } from "@/services/repetitionService";
 
 describe("repetitionServices test suite", () => {
   describe("createRepetition service suite", () => {

@@ -1,8 +1,8 @@
 import { Response } from "express";
-import { CustomError } from "../utils/customError";
-import { createNewRepetition, findAllRepetitions } from "../services/repetitionService";
-import { RequestWithUserRole } from "../types";
-import { findUser } from "../services/userService";
+import { CustomError } from "@/utils/customError";
+import { createNewRepetition, findAllRepetitions } from "@/services/repetitionService";
+import { RequestWithUserRole } from "@/types";
+import { findUser } from "@/services/userService";
 
 export const getAllRepetitions = async (req: RequestWithUserRole, res: Response) => {
   const repetitions = await findAllRepetitions(req.user);

@@ -1,9 +1,9 @@
-import app from "../../src/app";
+import app from "@/app";
 import * as request from "supertest";
-import { AppDataSource } from "../../src/dataSource";
-import * as jwtHandlers from "../../src/utils/tokenHandlers";
-import * as userService from "../../src/services/userService";
-import { User } from "../../src/entity/User";
+import { AppDataSource } from "@/dataSource";
+import * as jwtHandlers from "@/utils/tokenHandlers";
+import * as userService from "@/services/userService";
+import { User } from "@/entity/User";
 
 jest.mock("bcrypt", () => ({
   compare: jest.fn().mockImplementation((password, foundPassword) => (password === foundPassword ? true : false)),

@@ -1,5 +1,5 @@
-import { User } from "../../src/entity/User";
-import { createUser } from "../../src/services/userService";
+import { User } from "@/entity/User";
+import { createUser } from "@/services/userService";
 import * as iconvLite from "iconv-lite";
 iconvLite.encodingExists("foo");
 

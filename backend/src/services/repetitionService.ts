@@ -1,5 +1,5 @@
-import { Repetition } from "../entity/Repetition";
-import { User } from "../entity/User";
+import { Repetition } from "@/entity/Repetition";
+import { User } from "@/entity/User";
 
 export async function findAllRepetitions(username: string): Promise<Repetition[]> {
   return Repetition.find({
