@@ -1,6 +1,6 @@
-import apiSlice from '../../app/api/apiSlice';
+import apiSlice from '@/app/api/apiSlice';
 import { logIn, logOut } from './authSlice';
-import { LoginRequest, LoginResponse } from '../../types';
+import { LoginRequest, LoginResponse } from '@/types';
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

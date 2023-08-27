@@ -1,5 +1,5 @@
-import apiSlice from '../../app/api/apiSlice';
-import { GetRepetitionsResponse, PostRepetitionRequest, PostRepetitionResponse } from '../../types';
+import apiSlice from '@/app/api/apiSlice';
+import { GetRepetitionsResponse, PostRepetitionRequest, PostRepetitionResponse } from '@/types';
 
 export const repetitionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

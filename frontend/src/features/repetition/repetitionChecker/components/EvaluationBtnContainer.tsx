@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarkValue } from '../../../../types';
+import { MarkValue } from '@/types';
 
 type Props = {
   isGradeContainerOpen: boolean;

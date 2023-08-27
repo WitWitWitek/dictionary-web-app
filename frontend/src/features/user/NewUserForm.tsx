@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { useCreateNewUserMutation } from './userApiSlice';
 import newUserValidation from './newUserFormValidation';
-import { NewUserFormInterface } from '../../types';
+import { NewUserFormInterface } from '@/types';
 
 export default function NewUserForm() {
   const [createNewUser, { isSuccess, isLoading, isError }] = useCreateNewUserMutation();

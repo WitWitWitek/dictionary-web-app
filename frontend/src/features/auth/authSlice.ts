@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
+import { RootState } from '@/app/store';
 
 export const authSlice = createSlice({
   name: 'auth',

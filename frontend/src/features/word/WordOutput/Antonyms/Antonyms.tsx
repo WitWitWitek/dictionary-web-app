@@ -1,4 +1,4 @@
-import { Synonym } from '../../../../types';
+import { Synonym } from '@/types';
 
 type Props = {
   antonyms: Synonym[];

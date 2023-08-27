@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { Mutex } from 'async-mutex';
 import { RootState } from '../store';
-import { logIn, logOut } from '../../features/auth/authSlice';
+import { logIn, logOut } from '@/features/auth/authSlice';
 
 const QUERY_URL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3500' : '';
 

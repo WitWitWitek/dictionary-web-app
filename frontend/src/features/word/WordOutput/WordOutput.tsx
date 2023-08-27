@@ -1,6 +1,6 @@
 import WordHeader from './WordHeader';
 import WordMeaningsList from './WordMeaningsList';
-import { WordData } from '../../../types';
+import { WordData } from '@/types';
 
 type WordOutputProps = {
   wordData: WordData | null;

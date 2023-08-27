@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { WordData } from '../types';
+import { WordData } from '@/types';
 
 const useDictionaryApi = () => {
   const [isError, setIsError] = useState<boolean>(false);

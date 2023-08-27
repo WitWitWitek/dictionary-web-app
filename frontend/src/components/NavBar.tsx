@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import AuthForm from '../features/auth/AuthForm';
+import AuthForm from '@/features/auth/AuthForm';
 import ThemeInput from './ThemeInput';
-import { selectCurrentToken } from '../features/auth/authSlice';
+import { selectCurrentToken } from '@/features/auth/authSlice';
 
 export default function NavBar() {
   const token = useSelector(selectCurrentToken);

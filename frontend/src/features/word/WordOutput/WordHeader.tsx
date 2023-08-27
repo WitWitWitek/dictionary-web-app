@@ -1,5 +1,5 @@
 import WordPhonetics from './WordPhonetics';
-import { Phonetic } from '../../../types';
+import { Phonetic } from '@/types';
 
 type Props = {
   title: string;

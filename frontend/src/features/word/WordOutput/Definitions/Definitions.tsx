@@ -1,5 +1,5 @@
-import SaveExampleButton from '../../../../components/SaveExampleButton';
-import { Definition } from '../../../../types';
+import SaveExampleButton from '@/components/SaveExampleButton';
+import { Definition } from '@/types';
 
 type Props = {
   definitions: Definition[];

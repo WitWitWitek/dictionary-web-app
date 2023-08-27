@@ -1,5 +1,5 @@
-import apiSlice from '../../app/api/apiSlice';
-import { SignUpRequest, SignUpResponse } from '../../types';
+import apiSlice from '@/app/api/apiSlice';
+import { SignUpRequest, SignUpResponse } from '@/types';
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
