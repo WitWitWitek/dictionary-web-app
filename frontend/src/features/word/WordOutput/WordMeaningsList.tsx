@@ -1,9 +1,10 @@
 import Antonyms from './Antonyms/Antonyms';
 import Definitions from './Definitions/Definitions';
 import Synonyms from './Synonyms/Synonyms';
+import { Meaning } from '../../../types';
 
 type Props = {
-  meanings: Meaning[],
+  meanings: Meaning[];
 };
 
 export default function WordMeaningsList({ meanings }: Props) {

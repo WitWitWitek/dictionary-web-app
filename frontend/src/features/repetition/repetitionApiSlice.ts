@@ -1,4 +1,5 @@
 import apiSlice from '../../app/api/apiSlice';
+import { GetRepetitionsResponse, PostRepetitionRequest, PostRepetitionResponse } from '../../types';
 
 export const repetitionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,7 +9,7 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Repetition'],
     }),
-    postRepetition: builder.mutation<{ message: string }, { content: string }>({
+    postRepetition: builder.mutation<PostRepetitionResponse, PostRepetitionRequest>({
       query: ({ content }) => ({
         url: '/repetitions',
         method: 'POST',

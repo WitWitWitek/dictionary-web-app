@@ -1,4 +1,5 @@
 import { useState, useEffect, MouseEvent } from 'react';
+import { Repetition } from '../types';
 
 const whatIndexShouldBe = (userInput: string, repetitonToCheck: string): number => {
   let currentRepetitionStringIndex = 0;

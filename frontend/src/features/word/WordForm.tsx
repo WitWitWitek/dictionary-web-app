@@ -2,9 +2,10 @@ import { FormEvent, useRef, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useDictionaryApi from '../../hooks/useDictionaryApi';
 import SearchIcon from '../../assets/SearchIcon';
+import { WordData } from '../../types';
 
 type Props = {
-  setWordData: React.Dispatch<React.SetStateAction<WordData | null>>
+  setWordData: React.Dispatch<React.SetStateAction<WordData | null>>;
 };
 
 export default function WordForm({ setWordData }: Props) {

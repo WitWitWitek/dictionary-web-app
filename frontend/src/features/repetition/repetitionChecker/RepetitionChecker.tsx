@@ -4,6 +4,7 @@ import useRepetionChecker from '../../../hooks/useRepetionChecker';
 import EvaluationBtnContainer from './components/EvaluationBtnContainer';
 import ExcerciseFinishedView from './components/ExcerciseFinishedView';
 import RepetitionAssesment from './components/RepetitionAssesment';
+import { Repetition } from '../../../types';
 
 type Props = {
   repetitions: Repetition[];

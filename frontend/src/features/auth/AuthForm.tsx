@@ -2,6 +2,7 @@ import { FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { useLoginMutation, useLogoutMutation } from './authApiSlice';
 import { selectCurrentToken } from './authSlice';
+import { LoginRequest } from '../../types';
 
 export default function AuthForm() {
   const [login] = useLoginMutation();

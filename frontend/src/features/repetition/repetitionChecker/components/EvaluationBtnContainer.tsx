@@ -1,4 +1,5 @@
 import React from 'react';
+import { MarkValue } from '../../../../types';
 
 type Props = {
   isGradeContainerOpen: boolean;
@@ -7,12 +8,6 @@ type Props = {
   assessResult: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   percentageAssessment: number;
 };
-
-enum MarkValue {
-  Bad = 'Bad',
-  Mediocrely = 'Mediocrely',
-  Excellent = 'Excellent',
-}
 
 const assignMarkHandler = (mark: number): string => {
   switch (true) {

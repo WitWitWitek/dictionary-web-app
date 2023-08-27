@@ -1,9 +1,10 @@
 import WordPhonetics from './WordPhonetics';
+import { Phonetic } from '../../../types';
 
 type Props = {
-  title: string,
-  phonetic: string,
-  phonetics: Phonetic[]
+  title: string;
+  phonetic: string;
+  phonetics: Phonetic[];
 };
 
 export default function WordHeader({ title, phonetic, phonetics }: Props) {

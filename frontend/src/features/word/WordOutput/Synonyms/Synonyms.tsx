@@ -1,5 +1,7 @@
+import { Synonym } from '../../../../types';
+
 type Props = {
-  synonyms: Synonym[]
+  synonyms: Synonym[];
 };
 
 export default function Synonyms({ synonyms }: Props) {

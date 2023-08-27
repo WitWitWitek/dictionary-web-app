@@ -1,21 +1,5 @@
 import apiSlice from '../../app/api/apiSlice';
-
-interface SignUpRequest {
-  username: string;
-  email?: string;
-  password: string;
-  newPassword?: string;
-}
-
-interface SignUpResponse {
-  message: string;
-  error?: {
-    data: {
-      message: string;
-    };
-    status: number;
-  };
-}
+import { SignUpRequest, SignUpResponse } from '../../types';
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
