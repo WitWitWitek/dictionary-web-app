@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { Link } from 'react-router-dom';
 import { useCreateNewUserMutation } from './userApiSlice';
 import newUserValidation from './newUserFormValidation';
 import { NewUserFormInterface } from '@/types';
@@ -89,6 +90,9 @@ export default function NewUserForm() {
       </button>
       {isSuccess && <p>User successfully registered.</p>}
       {isError && <p>Error occured...</p>}
+      <p>
+        Already have an account? <Link to="/login">Log in.</Link>
+      </p>
     </form>
   );
 }

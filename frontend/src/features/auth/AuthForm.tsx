@@ -1,5 +1,6 @@
 import { FormEvent } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useLoginMutation, useLogoutMutation } from './authApiSlice';
 import { selectCurrentToken } from './authSlice';
 import { LoginRequest } from '@/types';
@@ -32,6 +33,9 @@ export default function AuthForm() {
       <input type="text" name="username" />
       <input type="password" name="password" />
       <button type="submit">sign in</button>
+      <p>
+        No account yet? <Link to="/sign-up">Sign up.</Link>
+      </p>
     </form>
   );
 }

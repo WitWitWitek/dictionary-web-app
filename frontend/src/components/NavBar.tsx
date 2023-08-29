@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import AuthForm from '@/features/auth/AuthForm';
 import ThemeInput from './ThemeInput';
 import { selectCurrentToken } from '@/features/auth/authSlice';
 
@@ -14,7 +13,13 @@ export default function NavBar() {
         <Link to="/dictionary">Dictionary</Link>
         {token && <Link to="/user-repetitions">User</Link>}
       </ul>
-      <AuthForm />
+      {!token ? (
+        <div>
+          <Link to="/login">Log in</Link> <Link to="/sign-up">Sign up</Link>
+        </div>
+      ) : (
+        <Link to="/login">UserName</Link>
+      )}
       <ThemeInput />
     </nav>
   );
