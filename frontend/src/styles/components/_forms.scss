@@ -1,6 +1,15 @@
 @use '../mixins/index' as *;
 
 .form {
+  max-width: 300px;
+  display: grid;
+  margin: auto;
+
+  input {
+    display: block;
+    width: 100%;
+  }
+
   input.input-error {
     border-color: var(--theme-error);
   }

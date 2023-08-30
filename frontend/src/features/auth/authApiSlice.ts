@@ -1,6 +1,7 @@
 import apiSlice from '@/app/api/apiSlice';
 import { logIn, logOut } from './authSlice';
 import { LoginRequest, LoginResponse } from '@/types';
+import decodeJwtToken from '@/lib/decodeJwtToken';
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -14,7 +15,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           const { accessToken } = data;
-          dispatch(logIn({ accessToken }));
+          const username = decodeJwtToken(accessToken);
+          dispatch(logIn({ accessToken, username }));
         } catch (err) {
           console.log(err);
         }
@@ -29,7 +31,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           const { accessToken } = data;
-          dispatch(logIn({ accessToken }));
+          const username = decodeJwtToken(accessToken);
+          dispatch(logIn({ accessToken, username }));
         } catch (err) {
           dispatch(logOut());
         }

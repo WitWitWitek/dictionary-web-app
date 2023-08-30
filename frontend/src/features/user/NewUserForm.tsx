@@ -86,7 +86,7 @@ export default function NewUserForm() {
       </label>
 
       <button disabled={isLoading} type="submit">
-        {!isLoading ? 'Submit' : '...'}
+        {!isLoading ? 'sign up' : 'loading...'}
       </button>
       {isSuccess && <p>User successfully registered.</p>}
       {isError && <p>Error occured...</p>}
