@@ -1,4 +1,4 @@
-import SaveExampleButton from '@/components/SaveExampleButton';
+import SaveExampleButton from '@/components/ui/SaveExampleButton';
 import { Definition } from '@/types';
 
 type Props = {

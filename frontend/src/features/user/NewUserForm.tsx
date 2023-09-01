@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { useCreateNewUserMutation } from './userApiSlice';
 import newUserValidation from './newUserFormValidation';
 import { NewUserFormInterface } from '@/types';
+import ErrorMessage from '@/components/ui/ErrorMessage';
+import PasswordInput from '@/components/ui/PasswordInput';
 
 export default function NewUserForm() {
-  const [createNewUser, { isSuccess, isLoading, isError }] = useCreateNewUserMutation();
+  const [createNewUser, { isSuccess, isLoading, isError, error }] = useCreateNewUserMutation();
 
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } = useFormik<NewUserFormInterface>({
     initialValues: {
@@ -54,10 +56,9 @@ export default function NewUserForm() {
       </label>
       <label htmlFor="password">
         Password:
-        <input
+        <PasswordInput
           id="password"
           name="password"
-          type="password"
           placeholder="Enter your password"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -70,10 +71,9 @@ export default function NewUserForm() {
       </label>
       <label htmlFor="password">
         Password Confirmation:
-        <input
+        <PasswordInput
           id="confirmPassword"
           name="confirmPassword"
-          type="password"
           placeholder="Confirm your password"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -89,7 +89,7 @@ export default function NewUserForm() {
         {!isLoading ? 'sign up' : 'loading...'}
       </button>
       {isSuccess && <p>User successfully registered.</p>}
-      {isError && <p>Error occured...</p>}
+      {isError && <ErrorMessage error={error} />}
       <p>
         Already have an account? <Link to="/login">Log in.</Link>
       </p>

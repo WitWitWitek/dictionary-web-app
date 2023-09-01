@@ -1,14 +1,16 @@
 import { useFormik } from 'formik';
-import { FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useLoginMutation, useLogoutMutation } from './authApiSlice';
 import { selectCurrentToken } from './authSlice';
-import { LoginRequest, LoginFormInterface } from '@/types';
+import { LoginFormInterface } from '@/types';
 import loginValidation from './loginValidation';
+import ErrorMessage from '@/components/ui/ErrorMessage';
+import PasswordInput from '@/components/ui/PasswordInput';
 
 export default function AuthForm() {
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isSuccess, isLoading, isError, error }] = useLoginMutation();
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
   const userToken = useSelector(selectCurrentToken);
@@ -19,12 +21,16 @@ export default function AuthForm() {
       password: '',
     },
     validationSchema: loginValidation,
-    onSubmit: async (args, actions) => {
+    onSubmit: async (args) => {
       await login({ ...args });
-      actions.resetForm();
-      navigate('/user-repetitions');
     },
   });
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) {
+      navigate('/user-repetitions');
+    }
+  }, [isLoading, isSuccess]);
 
   const signOutHandler = () => logout('');
 
@@ -53,8 +59,7 @@ export default function AuthForm() {
       </label>
       <label htmlFor="password">
         Password:
-        <input
-          type="password"
+        <PasswordInput
           name="password"
           placeholder="Enter your password"
           value={values.password}
@@ -68,6 +73,7 @@ export default function AuthForm() {
       <button type="submit" disabled={isLoading}>
         {!isLoading ? 'sign in' : 'loading...'}
       </button>
+      {isError && <ErrorMessage error={error} />}
       <p>
         No account yet? <Link to="/sign-up">Sign up.</Link>
       </p>

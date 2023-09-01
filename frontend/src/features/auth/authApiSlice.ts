@@ -18,7 +18,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
           const username = decodeJwtToken(accessToken);
           dispatch(logIn({ accessToken, username }));
         } catch (err) {
-          console.log(err);
+          dispatch(logOut());
         }
       },
     }),

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ThemeInput from './ThemeInput';
+import ThemeInput from './ui/ThemeInput';
 import { selectCurrentUser } from '@/features/auth/authSlice';
 
 export default function NavBar() {
