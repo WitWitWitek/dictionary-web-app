@@ -1,20 +1,58 @@
 @use '../mixins/index' as *;
 
 .form {
-  max-width: 300px;
   display: grid;
-  margin: auto;
+  width: 100%;
+  gap: 10px;
+
+  label {
+    position: relative;
+    width: 100%;
+    p {
+      font-weight: 300;
+      margin-bottom: 2.5px;
+    }
+  }
 
   input {
     display: block;
     width: 100%;
+    @include auth-input;
   }
 
   input.input-error {
-    border-color: var(--theme-error);
+    @include auth-input-onerror;
   }
 
   input:focus {
-    border-color: var(--theme-select-focus);
+    @include auth-input-onfocus;
+  }
+
+  &__auth-input {
+    position: relative;
+    &-btn {
+      @include auth-input-btn;
+    }
+  }
+
+  &__input-icon {
+    @include auth-input-btn(unset, 0.5rem, 1.2rem);
+  }
+
+  &__input-error-info {
+    @include auth-input-onerror-info;
+  }
+
+  &__submit-btn {
+    @include auth-btn;
+  }
+
+  &__paragraph {
+    @include text-1;
+    text-align: center;
+    a {
+      text-decoration: none;
+      color: var(--theme-clr-accent);
+    }
   }
 }

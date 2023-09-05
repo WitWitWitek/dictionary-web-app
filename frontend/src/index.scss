@@ -1,6 +1,4 @@
-@use './styles/themes' as *;
-@use './styles/components/index' as *;
-@use './styles/layout/index' as *;
+@use './styles/index' as *;
 
 * {
   margin: 0;
@@ -9,32 +7,23 @@
 }
 
 :root {
+  font-family: $ff-sans-serif;
+  font-size: 16px;
   color-scheme: light dark;
   @include theme-light;
 }
 
 body {
-  color: var(--theme-clr);
-  background-color: var(--theme-bg);
+  min-height: 100vh;
 }
 
 main {
-  min-height: 100vh;
   color: var(--theme-clr);
   background-color: var(--theme-bg);
-  nav {
-    min-height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    flex-wrap: wrap;
-  }
 
-  ul {
-    margin-right: auto;
-    a {
-      margin: 0 0.3rem;
-    }
+  section {
+    min-height: calc(100vh - 50px);
+    padding: 10px;
   }
 }
 

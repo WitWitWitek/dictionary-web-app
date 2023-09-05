@@ -1,7 +1,9 @@
+import { toast } from 'react-hot-toast';
 import apiSlice from '@/app/api/apiSlice';
 import { logIn, logOut } from './authSlice';
 import { LoginRequest, LoginResponse } from '@/types';
 import decodeJwtToken from '@/lib/decodeJwtToken';
+import { isErrorWithMessage } from '@/lib/apiErrorHandler';
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -16,9 +18,12 @@ export const authApiSlice = apiSlice.injectEndpoints({
           const { data } = await queryFulfilled;
           const { accessToken } = data;
           const username = decodeJwtToken(accessToken);
+          toast.success('User successfully logged in.');
           dispatch(logIn({ accessToken, username }));
         } catch (err) {
           dispatch(logOut());
+          const toastMessage = isErrorWithMessage(err) ? err?.error?.data?.message : 'Try again later...';
+          toast.error(toastMessage);
         }
       },
     }),

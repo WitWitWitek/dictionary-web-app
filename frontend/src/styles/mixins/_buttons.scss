@@ -1,6 +1,22 @@
 @mixin btn {
-    background-color: transparent;
-    border: 0;
-    padding: 1rem;
-    cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+@mixin auth-btn {
+  padding: 7.5px;
+  border-radius: 10px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  border: 2px solid var(--theme-clr-accent);
+  background-color: var(--theme-clr-accent);
+  font-weight: 700;
+  cursor: pointer;
+
+  &:disabled {
+    border: 2px solid var(--theme-shadow);
+    background-color: var(--theme-shadow);
+  }
 }

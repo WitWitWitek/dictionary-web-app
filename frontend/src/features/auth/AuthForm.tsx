@@ -6,11 +6,10 @@ import { useLoginMutation, useLogoutMutation } from './authApiSlice';
 import { selectCurrentToken } from './authSlice';
 import { LoginFormInterface } from '@/types';
 import loginValidation from './loginValidation';
-import ErrorMessage from '@/components/ui/ErrorMessage';
-import PasswordInput from '@/components/ui/PasswordInput';
+import AuthInput from '@/components/ui/AuthInput';
 
 export default function AuthForm() {
-  const [login, { isSuccess, isLoading, isError, error }] = useLoginMutation();
+  const [login, { isSuccess, isLoading }] = useLoginMutation();
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
   const userToken = useSelector(selectCurrentToken);
@@ -44,8 +43,8 @@ export default function AuthForm() {
   return (
     <form onSubmit={handleSubmit} className="form">
       <label htmlFor="username">
-        Username:
-        <input
+        <p>Username:</p>
+        <AuthInput
           type="text"
           name="username"
           placeholder="Enter your username"
@@ -55,26 +54,26 @@ export default function AuthForm() {
           disabled={isLoading}
           className={errors.username && touched.username ? 'input-error' : ''}
         />
-        {errors.username && touched.username && <p>{errors.username}</p>}
+        {errors.username && touched.username && <div className="form__input-error-info">{errors.username}</div>}
       </label>
       <label htmlFor="password">
-        Password:
-        <PasswordInput
+        <p>Password:</p>
+        <AuthInput
           name="password"
           placeholder="Enter your password"
+          type="password"
           value={values.password}
           onChange={handleChange}
           onBlur={handleBlur}
           disabled={isLoading}
           className={errors.username && touched.username ? 'input-error' : ''}
         />
-        {errors.password && touched.password && <p>{errors.password}</p>}
+        {errors.password && touched.password && <div className="form__input-error-info">{errors.password}</div>}
       </label>
-      <button type="submit" disabled={isLoading}>
-        {!isLoading ? 'sign in' : 'loading...'}
+      <button type="submit" disabled={isLoading} className="form__submit-btn">
+        {!isLoading ? 'Log in' : 'Loading...'}
       </button>
-      {isError && <ErrorMessage error={error} />}
-      <p>
+      <p className="form__paragraph">
         No account yet? <Link to="/sign-up">Sign up.</Link>
       </p>
     </form>

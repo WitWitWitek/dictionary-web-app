@@ -13,7 +13,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
     return res.status(err.statusCode).json({ message: err.message });
   } else {
     res.status(500).json({
-      message: "An internal server error occured. Please try again later",
+      message: "An internal server error occured. Please try again later.",
     });
   }
 };

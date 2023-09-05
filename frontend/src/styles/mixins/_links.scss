@@ -1,0 +1,9 @@
+@mixin nav-link {
+  text-decoration: none;
+  color: var(--theme-clr);
+  margin-right: 10px;
+  &:has(span) {
+    display: flex;
+    align-items: center;
+  }
+}

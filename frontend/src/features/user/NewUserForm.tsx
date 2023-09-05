@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { useCreateNewUserMutation } from './userApiSlice';
 import newUserValidation from './newUserFormValidation';
 import { NewUserFormInterface } from '@/types';
-import ErrorMessage from '@/components/ui/ErrorMessage';
-import PasswordInput from '@/components/ui/PasswordInput';
+import AuthInput from '@/components/ui/AuthInput';
 
 export default function NewUserForm() {
-  const [createNewUser, { isSuccess, isLoading, isError, error }] = useCreateNewUserMutation();
+  const [createNewUser, { isSuccess, isLoading }] = useCreateNewUserMutation();
 
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } = useFormik<NewUserFormInterface>({
     initialValues: {
@@ -25,8 +24,8 @@ export default function NewUserForm() {
   return (
     <form onSubmit={handleSubmit} className="form sign-up-form">
       <label htmlFor="username">
-        Username:
-        <input
+        <p>Username:</p>
+        <AuthInput
           id="username"
           name="username"
           placeholder="Enter your username"
@@ -37,11 +36,11 @@ export default function NewUserForm() {
           className={errors.username && touched.username ? 'input-error' : ''}
           disabled={isLoading}
         />
-        {errors.username && touched.username && <p>{errors.username}</p>}
+        {errors.username && touched.username && <div className="form__input-error-info">{errors.username}</div>}
       </label>
       <label htmlFor="email">
-        Email Address:
-        <input
+        <p>Email Address:</p>
+        <AuthInput
           id="email"
           name="email"
           type="email"
@@ -52,13 +51,14 @@ export default function NewUserForm() {
           className={errors.email && touched.email ? 'input-error' : ''}
           disabled={isLoading}
         />
-        {errors.email && touched.email && <p>{errors.email}</p>}
+        {errors.email && touched.email && <div className="form__input-error-info">{errors.email}</div>}
       </label>
       <label htmlFor="password">
-        Password:
-        <PasswordInput
+        <p>Password:</p>
+        <AuthInput
           id="password"
           name="password"
+          type="password"
           placeholder="Enter your password"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -67,13 +67,14 @@ export default function NewUserForm() {
           autoComplete="off"
           disabled={isLoading}
         />
-        {errors.password && touched.password && <p>{errors.password}</p>}
+        {errors.password && touched.password && <div className="form__input-error-info">{errors.password}</div>}
       </label>
       <label htmlFor="password">
-        Password Confirmation:
-        <PasswordInput
+        <p>Password Confirmation:</p>
+        <AuthInput
           id="confirmPassword"
           name="confirmPassword"
+          type="password"
           placeholder="Confirm your password"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -82,15 +83,16 @@ export default function NewUserForm() {
           autoComplete="off"
           disabled={isLoading}
         />
-        {errors.confirmPassword && touched.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && touched.confirmPassword && (
+          <div className="form__input-error-info">{errors.confirmPassword}</div>
+        )}
       </label>
 
-      <button disabled={isLoading} type="submit">
-        {!isLoading ? 'sign up' : 'loading...'}
+      <button disabled={isLoading} type="submit" className="form__submit-btn">
+        {!isLoading ? 'Sign up' : 'Loading...'}
       </button>
       {isSuccess && <p>User successfully registered.</p>}
-      {isError && <ErrorMessage error={error} />}
-      <p>
+      <p className="form__paragraph">
         Already have an account? <Link to="/login">Log in.</Link>
       </p>
     </form>

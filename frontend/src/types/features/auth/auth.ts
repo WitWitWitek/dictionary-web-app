@@ -9,4 +9,10 @@ export interface LoginResponse {
   accessToken: string;
 }
 
-export type PasswordInputProps = Omit<ComponentPropsWithoutRef<'input'>, 'type'>;
+export enum AuthInputType {
+  username = 'text',
+  password = 'password',
+  email = 'email',
+}
+
+export type InputComponentProps = ComponentPropsWithoutRef<'input'>;

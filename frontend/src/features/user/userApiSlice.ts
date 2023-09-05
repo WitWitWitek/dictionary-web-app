@@ -1,5 +1,7 @@
+import { toast } from 'react-hot-toast';
 import apiSlice from '@/app/api/apiSlice';
 import { SignUpRequest, SignUpResponse } from '@/types';
+import { isErrorWithMessage } from '@/lib/apiErrorHandler';
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,6 +12,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: { ...credentials },
       }),
       invalidatesTags: ['User'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success('User successfully created.');
+        } catch (err) {
+          const toastMessage = isErrorWithMessage(err) ? err?.error?.data?.message : 'Try again later...';
+          toast.error(toastMessage);
+        }
+      },
     }),
   }),
 });

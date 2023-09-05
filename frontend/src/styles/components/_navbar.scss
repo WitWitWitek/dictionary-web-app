@@ -1,0 +1,80 @@
+@use '../mixins/index' as *;
+
+$burger-width: 30px;
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 0 10px;
+  ul {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 80%;
+  }
+
+  a {
+    @include nav-link;
+    span {
+      font-size: 30px;
+    }
+  }
+
+  &__mobile {
+    margin: 0 5px;
+    position: relative;
+
+    &-burger {
+      background-color: var(--theme-clr);
+      // color: ;
+      width: $burger-width;
+      height: $burger-width;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      cursor: pointer;
+      svg {
+        fill: var(--theme-bg);
+      }
+    }
+
+    &-menu {
+      z-index: 2;
+      position: absolute;
+      top: calc($burger-width * 1.5);
+      right: 0;
+      background-color: var(--theme-clr);
+      width: 200px;
+      height: min-content;
+      display: flex;
+      flex-direction: column;
+      color: black;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 2px 2px 3px var(--theme-shadow);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        right: calc($burger-width / 2);
+        width: 25px;
+        height: 25px;
+        background-color: var(--theme-clr);
+        clip-path: polygon(100% 100%, 100% 0, 0 50%);
+        z-index: -1;
+      }
+
+      a {
+        @include nav-link;
+        color: black;
+      }
+    }
+  }
+}
