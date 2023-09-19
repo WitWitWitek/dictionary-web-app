@@ -35,7 +35,7 @@ export default function AuthForm() {
 
   if (userToken)
     return (
-      <button type="button" onClick={signOutHandler}>
+      <button type="button" onClick={signOutHandler} className="form__submit-btn">
         log out
       </button>
     );

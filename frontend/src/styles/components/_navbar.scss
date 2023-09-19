@@ -50,6 +50,7 @@ $burger-width: 30px;
       top: calc($burger-width * 1.5);
       right: 0;
       background-color: var(--theme-clr);
+
       width: 200px;
       height: min-content;
       display: flex;
@@ -73,7 +74,7 @@ $burger-width: 30px;
 
       a {
         @include nav-link;
-        color: black;
+        color: var(--theme-bg);
       }
     }
   }

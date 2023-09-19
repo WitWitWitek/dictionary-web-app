@@ -30,16 +30,24 @@ export default function EvaluationBtnContainer({
   const sugesstedMark = assignMarkHandler(percentageAssessment);
 
   return (
-    <div>
+    <div className="repetition__evaluation">
       {!isGradeContainerOpen ? (
         <>
-          <button onClick={checkHint} type="button">
+          <button
+            className="repetition__evaluation-btn repetition__evaluation-btn--outline"
+            onClick={checkHint}
+            type="button"
+          >
             <strong>Check Hint</strong>
             <p>
               <i>press arrow right</i>
             </p>
           </button>
-          <button onClick={checkRepetition} type="button">
+          <button
+            className="repetition__evaluation-btn repetition__evaluation-btn--primary"
+            onClick={checkRepetition}
+            type="button"
+          >
             <strong>Check Repetition</strong>
             <p>
               <i>press enter</i>
@@ -50,10 +58,12 @@ export default function EvaluationBtnContainer({
         <>
           {[MarkValue.Bad, MarkValue.Mediocrely, MarkValue.Excellent].map((mark) => (
             <button
+              className={`repetition__evaluation-btn repetition__evaluation-btn--${mark.toLowerCase()} ${
+                sugesstedMark === mark ? 'repetition__evaluation-btn--active' : ''
+              }`}
               onClick={assessResult}
               type="button"
               key={mark}
-              style={{ borderColor: `${sugesstedMark === mark ? 'yellow' : 'solid'}` }}
             >
               {sugesstedMark === mark ? <strong>{mark}</strong> : mark}
             </button>

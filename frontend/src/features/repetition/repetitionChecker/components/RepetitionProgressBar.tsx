@@ -8,7 +8,7 @@ export default function RepetitionProgressBar({ currentRepetition, allRepetition
   return (
     <div className="progress-bar">
       <div className="progress-bar__description">
-        <p>Repeated:</p>
+        <h3>Repeated:</h3>
         <p>{`${currentRepetition}/${allRepetitions}`}</p>
       </div>
       <div className="progress-bar__container">

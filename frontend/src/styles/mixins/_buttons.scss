@@ -5,18 +5,22 @@
   cursor: pointer;
 }
 
-@mixin auth-btn {
+@mixin auth-btn($borderColor: var(--theme-clr-accent), $backgroundColor: var(--theme-clr-accent)) {
   padding: 7.5px;
   border-radius: 10px;
   font-size: 1rem;
   letter-spacing: 1px;
-  border: 2px solid var(--theme-clr-accent);
-  background-color: var(--theme-clr-accent);
+  border: 2px solid $borderColor;
+  background-color: $backgroundColor;
   font-weight: 700;
   cursor: pointer;
 
   &:disabled {
     border: 2px solid var(--theme-shadow);
     background-color: var(--theme-shadow);
+  }
+
+  i {
+    display: none;
   }
 }

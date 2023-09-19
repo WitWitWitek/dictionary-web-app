@@ -6,6 +6,8 @@ import ExcerciseFinishedView from './components/ExcerciseFinishedView';
 import RepetitionAssesment from './components/RepetitionAssesment';
 import { Repetition } from '@/types';
 import RepetitionProgressBar from './components/RepetitionProgressBar';
+import RepetitionContent from './components/RepetitionContent';
+import ExcerciseFiled from './components/ExcerciseFiled';
 
 type Props = {
   repetitions: Repetition[];
@@ -26,11 +28,6 @@ export default function RepetitionChecker({ repetitions }: Props) {
     isExcerciseFinished,
   } = useRepetionChecker(repetitions);
 
-  const onKeyEventHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter') checkRepetition();
-    if (e.key === 'ArrowRight') checkHint();
-  };
-
   if (!repetitions || repetitions.length === 0) {
     return (
       <div>
@@ -43,21 +40,20 @@ export default function RepetitionChecker({ repetitions }: Props) {
   if (isExcerciseFinished) {
     return <ExcerciseFinishedView />;
   }
+
   return (
-    <div>
-      <h1>Type repetition:</h1>
+    <div className="repetition">
+      <h1>Practice repetitions:</h1>
       <RepetitionProgressBar currentRepetition={currentRepetitionIndex + 1} allRepetitions={repetitions.length} />
-      <p>{currentRepetition}</p>
-      {!isGradeContainerOpen ? (
-        <textarea
-          value={userInputSentence}
-          onChange={(e) => setUserInputSentence(e.target.value)}
-          placeholder="Type a sentence..."
-          onKeyDown={onKeyEventHandler}
-        />
-      ) : (
-        <RepetitionAssesment userInputSentence={userInputSentence} currentRepetiton={currentRepetition} />
-      )}
+      <RepetitionContent currentRepetition={currentRepetition} />
+      <ExcerciseFiled
+        isGradeContainerOpen={isGradeContainerOpen}
+        userInputSentence={userInputSentence}
+        setUserInputSentence={setUserInputSentence}
+        currentRepetition={currentRepetition}
+        checkRepetition={checkRepetition}
+        checkHint={checkHint}
+      />
       <EvaluationBtnContainer
         isGradeContainerOpen={isGradeContainerOpen}
         checkHint={checkHint}
@@ -65,7 +61,7 @@ export default function RepetitionChecker({ repetitions }: Props) {
         assessResult={assessResult}
         percentageAssessment={percentageAssessment}
       />
-      <p>{result}</p>
+      <p className="repetition__result">{result}</p>
     </div>
   );
 }

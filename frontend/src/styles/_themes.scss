@@ -22,6 +22,7 @@
 
   --theme-horizontal-rule: #{variables.$clr-neutral-200};
   --theme-error: #{variables.$clr-error-400};
+  --theme-warning: #{variables.$clr-warning-400};
   --theme-success: #{variables.$clr-success-400};
   --theme-definition-example: #{variables.$clr-neutral-400};
   --theme-shadow: #{color.change(variables.$clr-neutral-900, $alpha: 0.45)};
@@ -46,6 +47,7 @@
 
   --theme-horizontal-rule: #{variables.$clr-neutral-500};
   --theme-error: #{variables.$clr-error-400};
+  --theme-warning: #{variables.$clr-warning-400};
   --theme-success: #{variables.$clr-success-400};
   --theme-shadow: #{color.change(variables.$clr-neutral-900, $alpha: 0.45)};
   color-scheme: only dark;
