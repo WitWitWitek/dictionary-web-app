@@ -1,17 +1,15 @@
 import { hash } from "bcrypt";
-import { AppDataSource } from "@/dataSource";
 import { User } from "@/entity/User";
 import { CustomError } from "@/utils/customError";
+import { HTTP_CODES } from "@/types";
 
 export async function findUser(username: string): Promise<User> {
-  const userRepository = AppDataSource.getRepository(User);
-  const foundUser = await userRepository.findOneBy({
-    username: username,
-  });
+  const foundUser = User.findOneBy({ username });
 
   if (!foundUser) {
-    throw new CustomError("User does not exist", 401);
+    throw new CustomError("User does not exist", HTTP_CODES.UNAUTHORIZED);
   }
+
   return foundUser;
 }
 
@@ -25,6 +23,16 @@ export async function createUser({
   email: string;
 }): Promise<string> {
   const hashedPassword = await hash(password, 15);
+  const existingUser = await User.findOneBy({ username });
+  const existingEmail = await User.findOneBy({ email });
+
+  if (existingUser) {
+    throw new CustomError("User already exists!", HTTP_CODES.BAD_REQUEST);
+  }
+
+  if (existingEmail) {
+    throw new CustomError("Email already used!", HTTP_CODES.BAD_REQUEST);
+  }
 
   const newUser = new User();
   newUser.username = username;

@@ -1,3 +1,4 @@
+import { HTTP_CODES } from "@/types";
 import { NextFunction, Request, Response } from "express";
 
 export class CustomError extends Error {
@@ -12,7 +13,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
   if (err instanceof CustomError) {
     return res.status(err.statusCode).json({ message: err.message });
   } else {
-    res.status(500).json({
+    res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).json({
       message: "An internal server error occured. Please try again later.",
     });
   }
