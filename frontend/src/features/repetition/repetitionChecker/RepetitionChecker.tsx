@@ -5,6 +5,7 @@ import EvaluationBtnContainer from './components/EvaluationBtnContainer';
 import ExcerciseFinishedView from './components/ExcerciseFinishedView';
 import RepetitionAssesment from './components/RepetitionAssesment';
 import { Repetition } from '@/types';
+import RepetitionProgressBar from './components/RepetitionProgressBar';
 
 type Props = {
   repetitions: Repetition[];
@@ -44,7 +45,8 @@ export default function RepetitionChecker({ repetitions }: Props) {
   }
   return (
     <div>
-      <p>{`${currentRepetitionIndex + 1}/${repetitions.length}`}</p>
+      <h1>Type repetition:</h1>
+      <RepetitionProgressBar currentRepetition={currentRepetitionIndex + 1} allRepetitions={repetitions.length} />
       <p>{currentRepetition}</p>
       {!isGradeContainerOpen ? (
         <textarea
