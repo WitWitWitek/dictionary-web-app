@@ -1,5 +1,5 @@
-import { User } from "@/entity/User";
-import { createUser } from "@/services/userService";
+import { User } from "../../src/entity/User";
+import { createUser } from "../../src/services/userService";
 import * as iconvLite from "iconv-lite";
 iconvLite.encodingExists("foo");
 
@@ -17,6 +17,7 @@ describe("userServices test suite", () => {
     const someNewUser = {
       username: "someUserName",
       password: "somePassword",
+      email: "someemail@email.com",
     };
     const someId = "1234";
 

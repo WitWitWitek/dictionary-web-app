@@ -1,6 +1,6 @@
 import * as request from "supertest";
-import * as userServices from "@/services/userService";
-import app from "@/app";
+import * as userServices from "../../src/services/userService";
+import app from "../../src/app";
 
 describe("/user", () => {
   describe("POST /sign-up", () => {

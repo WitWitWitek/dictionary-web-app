@@ -1,4 +1,4 @@
-import { corsOptions } from "@/config/corsOptions";
+import { corsOptions } from "../../src/config/corsOptions";
 
 const corsCallback = jest.fn();
 const origin = "http://localhost:5173";

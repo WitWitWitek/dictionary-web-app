@@ -1,8 +1,8 @@
-import app from "@/app";
+import app from "../../src/app";
 import * as request from "supertest";
-import { AppDataSource } from "@/dataSource";
-import { signToken } from "@/utils/tokenHandlers";
-import * as repetitionServices from "@/services/repetitionService";
+import { AppDataSource } from "../../src/dataSource";
+import { signToken } from "../../src/utils/tokenHandlers";
+import * as repetitionServices from "../../src/services/repetitionService";
 
 describe("/repetitions", () => {
   const someRepetition = {
