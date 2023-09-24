@@ -8,9 +8,6 @@ import { HTTP_CODES } from "@/types";
 
 export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
-  if (!username || !password) {
-    throw new CustomError("All credentials are required", HTTP_CODES.OK);
-  }
 
   const foundUser = await findUser(username);
 
@@ -28,10 +25,6 @@ export const login: RequestHandler = async (req, res) => {
 
 export const refresh: RequestHandler = async (req, res) => {
   const cookies = req.cookies;
-
-  if (!cookies.jwt) {
-    throw new CustomError("Unauthorized.", HTTP_CODES.UNAUTHORIZED);
-  }
 
   const refreshToken = cookies.jwt;
   const { username } = verifyToken(refreshToken, "refresh");
