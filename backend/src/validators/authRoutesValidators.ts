@@ -11,7 +11,7 @@ export const validateLoginRoute = async (req: Request, res: Response, next: Next
 };
 
 export const validateRefreshRoute = async (req: Request, res: Response, next: NextFunction) => {
-  const { cookies } = req.body;
+  const { cookies } = req;
   if (!cookies?.jwt) {
     throw new CustomError("Unauthorized.", HTTP_CODES.UNAUTHORIZED);
   }

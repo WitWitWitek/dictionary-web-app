@@ -10,7 +10,6 @@ export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;
 
   const foundUser = await findUser(username);
-
   const passwordsMatch = await compare(password, foundUser.password);
   if (!passwordsMatch) {
     throw new CustomError("Unathorized. Invalid Password.", HTTP_CODES.UNAUTHORIZED);

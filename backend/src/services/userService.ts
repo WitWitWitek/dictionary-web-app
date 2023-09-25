@@ -4,12 +4,10 @@ import { CustomError } from "@/utils/customError";
 import { HTTP_CODES } from "@/types";
 
 export async function findUser(username: string): Promise<User> {
-  const foundUser = User.findOneBy({ username });
-
+  const foundUser = await User.findOneBy({ username });
   if (!foundUser) {
     throw new CustomError("User does not exist", HTTP_CODES.UNAUTHORIZED);
   }
-
   return foundUser;
 }
 
