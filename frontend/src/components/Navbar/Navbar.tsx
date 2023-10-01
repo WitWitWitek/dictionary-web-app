@@ -6,13 +6,15 @@ export default function NavBar() {
   return (
     <nav className="navbar">
       <ul>
-        <Link to="/">
+        <Link className="navbar__link" to="/">
           <span>
             <HiOutlineAcademicCap />
           </span>
           Home
         </Link>
-        <Link to="/dictionary">Dictionary</Link>
+        <Link className="navbar__link" to="/dictionary">
+          Dictionary
+        </Link>
       </ul>
       <NavMobile />
     </nav>

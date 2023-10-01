@@ -1,7 +1,8 @@
 @use '../mixins/index' as *;
 
 .repetition {
-  width: 100%;
+  max-width: 992px;
+  margin: auto;
   height: calc(100vh - 70px);
   display: flex;
   justify-content: space-between;
@@ -23,6 +24,7 @@
       border: 2px solid var(--theme-clr);
       padding: 1rem;
       text-align: center;
+      background-color: var(--theme-search-bg);
     }
   }
 
@@ -38,6 +40,7 @@
       border-radius: 10px;
       border: 2px solid var(--theme-clr);
       padding: 1rem;
+      background-color: var(--theme-search-bg);
     }
   }
 
@@ -87,13 +90,13 @@
         @include auth-btn(var(--theme-clr-accent), transparent);
       }
       &--bad {
-        @include auth-btn(var(--theme-error), var(--theme-error));
+        @include auth-btn(transparent, var(--theme-error));
       }
       &--excellent {
-        @include auth-btn(var(--theme-success), var(--theme-success));
+        @include auth-btn(transparent, var(--theme-success));
       }
       &--mediocrely {
-        @include auth-btn(var(--theme-warning), var(--theme-warning));
+        @include auth-btn(transparent, var(--theme-warning));
       }
       &--active {
         border-color: var(--theme-clr-accent);

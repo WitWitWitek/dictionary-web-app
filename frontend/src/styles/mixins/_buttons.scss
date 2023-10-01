@@ -5,7 +5,7 @@
   cursor: pointer;
 }
 
-@mixin auth-btn($borderColor: var(--theme-clr-accent), $backgroundColor: var(--theme-clr-accent)) {
+@mixin auth-btn($borderColor: transparent, $backgroundColor: var(--theme-clr-accent)) {
   padding: 7.5px;
   border-radius: 10px;
   font-size: 1rem;
@@ -14,6 +14,7 @@
   background-color: $backgroundColor;
   font-weight: 700;
   cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
 
   &:disabled {
     border: 2px solid var(--theme-shadow);
@@ -22,5 +23,10 @@
 
   i {
     display: none;
+  }
+
+  &:hover {
+    border: 2px solid $backgroundColor;
+    background-color: $borderColor;
   }
 }
