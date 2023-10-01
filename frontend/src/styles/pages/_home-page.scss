@@ -1,0 +1,38 @@
+@use '../mixins/index' as *;
+@use '../themes' as *;
+
+@mixin basic-component {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-page {
+  @include basic-component;
+  height: calc(100vh - 70px);
+  &__main-view {
+    @include basic-component;
+    height: 100%;
+    text-align: center;
+    gap: 1rem;
+    h1 {
+      @include heading-1;
+      span {
+        color: var(--theme-success);
+      }
+    }
+    &-container {
+      width: 100%;
+    }
+    &-button {
+      @include auth-btn;
+      width: 100%;
+    }
+    img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}

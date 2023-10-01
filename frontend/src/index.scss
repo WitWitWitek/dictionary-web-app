@@ -20,8 +20,10 @@ body {
 main {
   color: var(--theme-clr);
   background-color: var(--theme-bg);
+}
 
-  section {
+.root-layout {
+  &__section {
     min-height: calc(100vh - 50px);
     padding: 10px;
   }

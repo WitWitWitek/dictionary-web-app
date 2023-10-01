@@ -22,7 +22,7 @@ export default function RootLayout() {
         }}
       />
       <NavBar />
-      <section>
+      <section className="root-layout__section">
         <RefetchToken>
           <Outlet />
         </RefetchToken>
