@@ -22,6 +22,10 @@ $burger-width: 30px;
     span {
       font-size: 30px;
     }
+    &--active {
+      @extend .navbar__link;
+      color: var(--theme-clr-accent);
+    }
   }
 
   &__mobile {
@@ -83,6 +87,11 @@ $burger-width: 30px;
           justify-content: space-between;
           @include auth-btn(transparent, transparent);
           color: var(--theme-bg);
+          cursor: unset;
+        }
+        &--active {
+          @extend .navbar__mobile-menu-btn;
+          background-color: var(--theme-play-bg);
         }
       }
     }

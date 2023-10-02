@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Variants, motion } from 'framer-motion';
 import ThemeInput from '../ui/ThemeInput';
 import { selectCurrentUser } from '@/features/auth/authSlice';
+import NavbarLink from '../ui/NavbarLink';
 
 type Props = {
   toggleIsMenuVisible: () => void;
@@ -18,28 +19,28 @@ export default function NavMenu({ toggleIsMenuVisible }: Props) {
   return (
     <motion.nav variants={mobileNavVariants} initial="hidden" animate="visible" className="navbar__mobile-menu">
       {user && (
-        <Link className="navbar__mobile-menu-btn" to="/user-repetitions" onClick={toggleIsMenuVisible}>
+        <NavbarLink to="/user-repetitions" desktop={false} setMobileNavVisible={toggleIsMenuVisible}>
           Your profile
-        </Link>
+        </NavbarLink>
       )}
       {!user ? (
         <>
-          <Link className="navbar__mobile-menu-btn" to="/login" onClick={toggleIsMenuVisible}>
+          <NavbarLink to="/login" desktop={false} setMobileNavVisible={toggleIsMenuVisible}>
             Log in
-          </Link>
-          <Link className="navbar__mobile-menu-btn" to="/sign-up" onClick={toggleIsMenuVisible}>
+          </NavbarLink>
+          <NavbarLink to="/sign-up" desktop={false} setMobileNavVisible={toggleIsMenuVisible}>
             Sign up
-          </Link>
+          </NavbarLink>
         </>
       ) : (
-        <Link className="navbar__mobile-menu-btn" to="/login" onClick={toggleIsMenuVisible}>
+        <NavbarLink to="/login" desktop={false} setMobileNavVisible={toggleIsMenuVisible}>
           Log out
-        </Link>
+        </NavbarLink>
       )}
-      <p className="navbar__mobile-menu-btn--theme">
+      <div className="navbar__mobile-menu-btn--theme">
         <ThemeInput />
         Chose the theme.
-      </p>
+      </div>
     </motion.nav>
   );
 }
