@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Variants, motion } from 'framer-motion';
 import ThemeInput from '../ui/ThemeInput';

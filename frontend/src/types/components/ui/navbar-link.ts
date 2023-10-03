@@ -1,15 +1,8 @@
 import { ReactNode } from 'react';
 
-export type NavbarLinkProps =
-  | {
-      to: string;
-      desktop: false;
-      children: ReactNode;
-      setMobileNavVisible: () => void;
-    }
-  | {
-      to: string;
-      desktop: true;
-      children: ReactNode;
-      setMobileNavVisible?: () => void;
-    };
+export type NavbarLinkProps = {
+  to: string;
+  desktop: boolean;
+  children: ReactNode;
+  setMobileNavInvisible: () => void;
+};

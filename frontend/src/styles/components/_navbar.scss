@@ -19,12 +19,24 @@ $burger-width: 30px;
 
   &__link {
     @include nav-link;
+    position: relative;
+    z-index: 1;
     span {
       font-size: 30px;
     }
     &--active {
       @extend .navbar__link;
       color: var(--theme-clr-accent);
+    }
+    &-indicator {
+      position: absolute;
+      z-index: -1;
+      top: 0.5rem;
+      left: 0.2rem;
+      width: 100%;
+      height: 15px;
+      background-color: var(--theme-play-bg);
+      border-radius: 10px;
     }
   }
 

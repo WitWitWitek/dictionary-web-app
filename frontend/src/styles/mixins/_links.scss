@@ -1,7 +1,9 @@
 @mixin nav-link {
+  display: block;
   text-decoration: none;
   color: var(--theme-clr);
   margin-right: 10px;
+  height: 20px;
 
   &:has(span) {
     display: flex;

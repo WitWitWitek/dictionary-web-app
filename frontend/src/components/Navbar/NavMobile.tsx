@@ -1,16 +1,19 @@
 import { BsFillPersonFill } from 'react-icons/bs';
-import { useState } from 'react';
 import NavMenu from './NavMenu';
 
-export default function NavMobile() {
-  const [isMenuVisivle, setIsMenuVisible] = useState<boolean>(false);
+type Props = {
+  isMenuVisible: boolean;
+  setIsMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function NavMobile({ isMenuVisible, setIsMenuVisible }: Props) {
   const toggleIsMenuVisible = () => setIsMenuVisible((prev) => !prev);
   return (
     <div className="navbar__mobile">
       <button className="navbar__mobile-burger" type="button" onClick={toggleIsMenuVisible}>
         <BsFillPersonFill />
       </button>
-      {isMenuVisivle && <NavMenu toggleIsMenuVisible={toggleIsMenuVisible} />}
+      {isMenuVisible && <NavMenu toggleIsMenuVisible={toggleIsMenuVisible} />}
     </div>
   );
 }
