@@ -4,24 +4,24 @@ import NavMobile from './NavMobile';
 import NavbarLink from '../ui/NavbarLink';
 
 export default function NavBar() {
-  const [isMobileMenuVisivle, setIsMobileMenuVisible] = useState<boolean>(false);
+  const [isMobileMenuVisible, setIsMobileMenuVisible] = useState<boolean>(false);
 
   const closeMobileMenuHandler = () => setIsMobileMenuVisible(() => false);
 
   return (
     <nav className="navbar">
       <ul>
-        <NavbarLink to="/" desktop setMobileNavInvisible={closeMobileMenuHandler}>
+        <NavbarLink to="/" desktop setIsMobileNavVisible={closeMobileMenuHandler}>
           <span>
             <HiOutlineAcademicCap />
           </span>
           Home
         </NavbarLink>
-        <NavbarLink to="/dictionary" desktop setMobileNavInvisible={closeMobileMenuHandler}>
+        <NavbarLink to="/dictionary" desktop setIsMobileNavVisible={closeMobileMenuHandler}>
           Dictionary
         </NavbarLink>
       </ul>
-      <NavMobile isMenuVisible={isMobileMenuVisivle} setIsMenuVisible={setIsMobileMenuVisible} />
+      <NavMobile isMenuVisible={isMobileMenuVisible} setIsMenuVisible={setIsMobileMenuVisible} />
     </nav>
   );
 }

@@ -5,7 +5,7 @@ import { selectCurrentUser } from '@/features/auth/authSlice';
 import NavbarLink from '../ui/NavbarLink';
 
 type Props = {
-  toggleIsMenuVisible: () => void;
+  setIsMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const mobileNavVariants: Variants = {
@@ -13,26 +13,26 @@ const mobileNavVariants: Variants = {
   visible: { opacity: 1, y: 0 },
 };
 
-export default function NavMenu({ toggleIsMenuVisible }: Props) {
+export default function NavMenu({ setIsMenuVisible }: Props) {
   const user = useSelector(selectCurrentUser);
   return (
     <motion.nav variants={mobileNavVariants} initial="hidden" animate="visible" className="navbar__mobile-menu">
       {user && (
-        <NavbarLink to="/user-repetitions" desktop={false} setMobileNavVisible={toggleIsMenuVisible}>
+        <NavbarLink to="/user-repetitions" desktop={false} setIsMobileNavVisible={setIsMenuVisible}>
           Your profile
         </NavbarLink>
       )}
       {!user ? (
         <>
-          <NavbarLink to="/login" desktop={false} setMobileNavVisible={toggleIsMenuVisible}>
+          <NavbarLink to="/login" desktop={false} setIsMobileNavVisible={setIsMenuVisible}>
             Log in
           </NavbarLink>
-          <NavbarLink to="/sign-up" desktop={false} setMobileNavVisible={toggleIsMenuVisible}>
+          <NavbarLink to="/sign-up" desktop={false} setIsMobileNavVisible={setIsMenuVisible}>
             Sign up
           </NavbarLink>
         </>
       ) : (
-        <NavbarLink to="/login" desktop={false} setMobileNavVisible={toggleIsMenuVisible}>
+        <NavbarLink to="/login" desktop={false} setIsMobileNavVisible={setIsMenuVisible}>
           Log out
         </NavbarLink>
       )}

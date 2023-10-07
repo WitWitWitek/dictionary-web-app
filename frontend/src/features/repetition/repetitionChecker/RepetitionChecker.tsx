@@ -1,9 +1,7 @@
-import { KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import useRepetionChecker from '@/hooks/useRepetionChecker';
 import EvaluationBtnContainer from './components/EvaluationBtnContainer';
 import ExcerciseFinishedView from './components/ExcerciseFinishedView';
-import RepetitionAssesment from './components/RepetitionAssesment';
 import { Repetition } from '@/types';
 import RepetitionProgressBar from './components/RepetitionProgressBar';
 import RepetitionContent from './components/RepetitionContent';
@@ -44,7 +42,7 @@ export default function RepetitionChecker({ repetitions }: Props) {
   return (
     <div className="repetition">
       <h1>Practice repetitions:</h1>
-      <RepetitionProgressBar currentRepetition={currentRepetitionIndex + 1} allRepetitions={repetitions.length} />
+      <RepetitionProgressBar currentRepetition={currentRepetitionIndex} allRepetitions={repetitions.length} />
       <RepetitionContent currentRepetition={currentRepetition} />
       <ExcerciseFiled
         isGradeContainerOpen={isGradeContainerOpen}

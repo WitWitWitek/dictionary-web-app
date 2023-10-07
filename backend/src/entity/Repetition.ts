@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   BaseEntity,
   ManyToOne,
+  OneToMany,
 } from "typeorm";
 import { User } from "./User";
+import { RepetitionAssessment } from "./RepetitionAssessment";
 
 @Entity("repetition")
 export class Repetition extends BaseEntity {
@@ -27,4 +29,11 @@ export class Repetition extends BaseEntity {
 
   @ManyToOne(() => User, (user) => user.repetitions)
   user: User;
+
+  @OneToMany(() => RepetitionAssessment, (repetitionAssessment) => repetitionAssessment.repetition, {
+    nullable: true,
+    cascade: true,
+    onDelete: "CASCADE",
+  })
+  assessments: RepetitionAssessment[];
 }

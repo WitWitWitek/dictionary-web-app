@@ -6,7 +6,7 @@ import { NewUserFormInterface } from '@/types';
 import AuthInput from '@/components/ui/AuthInput';
 
 export default function NewUserForm() {
-  const [createNewUser, { isSuccess, isLoading }] = useCreateNewUserMutation();
+  const [createNewUser, { isLoading }] = useCreateNewUserMutation();
 
   const { values, handleChange, handleSubmit, handleBlur, errors, touched } = useFormik<NewUserFormInterface>({
     initialValues: {
@@ -91,7 +91,6 @@ export default function NewUserForm() {
       <button disabled={isLoading} type="submit" className="form__submit-btn">
         {!isLoading ? 'Sign up' : 'Loading...'}
       </button>
-      {isSuccess && <p>User successfully registered.</p>}
       <p className="form__paragraph">
         Already have an account? <Link to="/login">Log in.</Link>
       </p>
