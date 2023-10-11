@@ -9,7 +9,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { User } from "./User";
-import { RepetitionAssessment } from "./RepetitionAssessment";
+import { RepetitionScore } from "./RepetitionScore";
 
 @Entity("repetition")
 export class Repetition extends BaseEntity {
@@ -30,10 +30,13 @@ export class Repetition extends BaseEntity {
   @ManyToOne(() => User, (user) => user.repetitions)
   user: User;
 
-  @OneToMany(() => RepetitionAssessment, (repetitionAssessment) => repetitionAssessment.repetition, {
+  @Column({ default: null, nullable: true })
+  averageScore: number;
+
+  @OneToMany(() => RepetitionScore, (repetitionScore) => repetitionScore.repetition, {
     nullable: true,
     cascade: true,
     onDelete: "CASCADE",
   })
-  assessments: RepetitionAssessment[];
+  scores: RepetitionScore[];
 }

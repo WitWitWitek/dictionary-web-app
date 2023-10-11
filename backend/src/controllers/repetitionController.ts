@@ -3,7 +3,7 @@ import { createNewRepetition, findAllRepetitions } from "@/services/repetitionSe
 import { HTTP_CODES, RequestWithUserRole } from "@/types";
 import { findUser } from "@/services/userService";
 import { Repetition } from "@/entity/Repetition";
-import { RepetitionAssessment } from "@/entity/RepetitionAssessment";
+import { RepetitionScore } from "@/entity/RepetitionScore";
 
 export const getAllRepetitions = async (req: RequestWithUserRole, res: Response) => {
   const repetitions = await findAllRepetitions(req.user);
@@ -21,9 +21,17 @@ export const asssessRepetition = async (req: RequestWithUserRole, res: Response)
   const { repetitionId } = req.params;
 
   const repetition = await Repetition.findOne({ where: { id: repetitionId } });
-  const assessment = new RepetitionAssessment();
-  assessment.value = 3;
-  assessment.repetition = repetition;
-  await assessment.save();
-  return res.status(HTTP_CODES.CREATED).json({ message: `Assessment to repetition with id: ${repetition.id} added.` });
+  const score = new RepetitionScore();
+  score.value = 7;
+  score.repetition = repetition;
+  await score.save();
+
+  const { avgScoreValue } = await RepetitionScore.createQueryBuilder("repetitionScoreAvgValue")
+    .select("AVG(repetitionScoreAvgValue.value)", "avgScoreValue")
+    .getRawOne();
+
+  repetition.averageScore = avgScoreValue;
+  repetition.save();
+
+  return res.status(HTTP_CODES.CREATED).json({ message: `Score of repetition with id: ${repetition.id} added.` });
 };

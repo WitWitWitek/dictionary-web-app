@@ -7,6 +7,6 @@ const repetitionsRouter = Router();
 
 repetitionsRouter.use(authMiddleware);
 repetitionsRouter.route("/").get(getAllRepetitions).post(validateNewRepetitionRoute, addNewRepetition);
-repetitionsRouter.route("/:repetitionId/assessment").post(asssessRepetition);
+repetitionsRouter.route("/:repetitionId/score").post(asssessRepetition);
 
 export default repetitionsRouter;

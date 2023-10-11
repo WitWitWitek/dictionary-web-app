@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BaseEntity, M
 import { Repetition } from "./Repetition";
 
 @Entity("repetition_assessment")
-export class RepetitionAssessment extends BaseEntity {
+export class RepetitionScore extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -12,8 +12,8 @@ export class RepetitionAssessment extends BaseEntity {
   value: number;
 
   @CreateDateColumn()
-  dateOfAssessment: Date;
+  createdAt: Date;
 
-  @ManyToOne(() => Repetition, (repetition) => repetition.assessments)
+  @ManyToOne(() => Repetition, (repetition) => repetition.scores)
   repetition: Repetition;
 }

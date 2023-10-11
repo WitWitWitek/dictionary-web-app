@@ -3,7 +3,7 @@ import { DataSource } from "typeorm";
 import { Repetition } from "@/entity/Repetition";
 import { User } from "@/entity/User";
 import { config } from "dotenv";
-import { RepetitionAssessment } from "./entity/RepetitionAssessment";
+import { RepetitionScore } from "./entity/RepetitionScore";
 config();
 
 export const AppDataSource = new DataSource({
@@ -15,5 +15,5 @@ export const AppDataSource = new DataSource({
   database: process.env.MYSQL_DATABASE as string,
   synchronize: false,
   logging: false,
-  entities: [Repetition, RepetitionAssessment, User],
+  entities: [Repetition, RepetitionScore, User],
 });
