@@ -15,11 +15,15 @@ export const validateNewRepetitionRoute = async (req: Request, res: Response, ne
 
 export const validateAsssessRepetitionRoute = async (req: Request, res: Response, next: NextFunction) => {
   const { repetitionScore } = req.body;
+  const allowedValues = [1, 3, 5];
   if (!repetitionScore) {
     throw new CustomError("Score of repetition is required!", HTTP_CODES.BAD_REQUEST);
   }
   if (typeof repetitionScore !== "number") {
     throw new CustomError("Score of repetition should be a type of number!", HTTP_CODES.BAD_REQUEST);
+  }
+  if (!allowedValues.includes(repetitionScore)) {
+    throw new CustomError("The score of repetition should be a value equal to 1, 3, or 5!", HTTP_CODES.BAD_REQUEST);
   }
   return next();
 };

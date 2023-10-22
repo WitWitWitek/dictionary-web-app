@@ -30,7 +30,7 @@ export class Repetition extends BaseEntity {
   @ManyToOne(() => User, (user) => user.repetitions)
   user: User;
 
-  @Column({ default: null, nullable: true, type: "decimal", precision: 1, scale: 2 })
+  @Column({ default: null, nullable: true, type: "decimal", precision: 3, scale: 2 })
   averageScore: number;
 
   @OneToMany(() => RepetitionScore, (repetitionScore) => repetitionScore.repetition, {

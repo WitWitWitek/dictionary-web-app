@@ -38,12 +38,13 @@ export async function addScoreToRepetition(repetitionId: string, score: number):
 
   await repetitionScore.save();
 
-  const { avgScoreValue } = await RepetitionScore.createQueryBuilder("repetitionScoreAvgValue")
-    .select("AVG(repetitionScoreAvgValue.value)", "avgScoreValue")
+  const { avgScoreValue } = await RepetitionScore.createQueryBuilder("repetitionScore")
+    .select("AVG(repetitionScore.value)", "avgScoreValue")
+    .where("repetitionScore.repetitionId = :id", { id: repetitionId })
     .getRawOne();
 
-  repetition.averageScore = +Number(avgScoreValue).toFixed(2);
-  repetition.save();
-
+  const updatedRepetitionAvgScore = avgScoreValue === null ? score : +Number(avgScoreValue).toFixed(2);
+  repetition.averageScore = updatedRepetitionAvgScore;
+  await repetition.save();
   return repetition.id;
 }
