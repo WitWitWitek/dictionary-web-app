@@ -13,7 +13,7 @@ export default function NavMobile({ isMenuVisible, setIsMenuVisible }: Props) {
       <button className="navbar__mobile-burger" type="button" onClick={toggleIsMenuVisible}>
         <BsFillPersonFill />
       </button>
-      {isMenuVisible && <NavMenu toggleIsMenuVisible={toggleIsMenuVisible} />}
+      {isMenuVisible && <NavMenu setIsMenuVisible={setIsMenuVisible} />}
     </div>
   );
 }

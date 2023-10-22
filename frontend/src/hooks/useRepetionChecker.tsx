@@ -75,10 +75,14 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
   };
 
   const assessResult = (e: MouseEvent<HTMLButtonElement>) => {
+    const isLastRepetitionToExcercise = currentRepetitionIndex === repetitions.length - 1;
     console.log(e.currentTarget.textContent);
     incrementCurrentRepetitionIndex();
     setIsGradeContainerOpen(() => false);
     setUserInputSentence(() => '');
+    if (isLastRepetitionToExcercise) {
+      setExcerciseFinished(() => true);
+    }
   };
 
   useEffect(() => {
@@ -90,10 +94,7 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
     if (repetitions.length) {
       const isNotLastRepetitionToExcercise = currentRepetitionIndex !== repetitions.length - 1;
       if (isNotLastRepetitionToExcercise) {
-        setExcerciseFinished(() => false);
         setCurrentRepetition(() => repetitions[currentRepetitionIndex].content);
-      } else {
-        setExcerciseFinished(() => true);
       }
     }
   }, [currentRepetitionIndex]);

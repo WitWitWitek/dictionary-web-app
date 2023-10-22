@@ -4,5 +4,5 @@ export type NavbarLinkProps = {
   to: string;
   desktop: boolean;
   children: ReactNode;
-  setMobileNavInvisible: () => void;
+  setIsMobileNavVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
