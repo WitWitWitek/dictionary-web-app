@@ -15,6 +15,15 @@ export interface PostRepetitionResponse {
   message: string;
 }
 
+export interface AssessRepetitionRequest {
+  id: string;
+  repetitionScore: 1 | 3 | 5;
+}
+
+export interface AssessRepetitionResponse {
+  message: string;
+}
+
 export enum MarkValue {
   Bad = 'Bad',
   Mediocrely = 'Mediocrely',

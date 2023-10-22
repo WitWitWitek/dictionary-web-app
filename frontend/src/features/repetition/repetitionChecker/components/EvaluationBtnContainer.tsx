@@ -1,11 +1,12 @@
-import React from 'react';
-import { MarkValue } from '@/types';
+import { MarkValue, Repetition } from '@/types';
+import { useAsssessRepetitionMutation } from '../../repetitionApiSlice';
 
 type Props = {
+  repetition: Repetition;
   isGradeContainerOpen: boolean;
   checkHint: () => void;
   checkRepetition: () => void;
-  assessResult: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  assessResult: () => void;
   percentageAssessment: number;
 };
 
@@ -21,6 +22,7 @@ const assignMarkHandler = (mark: number): string => {
 };
 
 export default function EvaluationBtnContainer({
+  repetition,
   isGradeContainerOpen,
   assessResult,
   percentageAssessment,
@@ -28,6 +30,20 @@ export default function EvaluationBtnContainer({
   checkRepetition,
 }: Props) {
   const sugesstedMark = assignMarkHandler(percentageAssessment);
+  const [assessRepetition] = useAsssessRepetitionMutation();
+
+  const assessRepetitionHandler = async (mark: MarkValue): Promise<void> => {
+    let score: 1 | 3 | 5;
+    assessResult();
+    if (mark === MarkValue.Bad) {
+      score = 1;
+    } else if (mark === MarkValue.Mediocrely) {
+      score = 3;
+    } else {
+      score = 5;
+    }
+    await assessRepetition({ id: repetition.id, repetitionScore: score });
+  };
 
   return (
     <div className="repetition__evaluation">
@@ -61,7 +77,7 @@ export default function EvaluationBtnContainer({
               className={`repetition__evaluation-btn repetition__evaluation-btn--${mark.toLowerCase()} ${
                 sugesstedMark === mark ? 'repetition__evaluation-btn--active' : ''
               }`}
-              onClick={assessResult}
+              onClick={() => assessRepetitionHandler(mark)}
               type="button"
               key={mark}
             >

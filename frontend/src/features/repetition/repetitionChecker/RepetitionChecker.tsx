@@ -53,6 +53,7 @@ export default function RepetitionChecker({ repetitions }: Props) {
         checkHint={checkHint}
       />
       <EvaluationBtnContainer
+        repetition={repetitions[currentRepetitionIndex]}
         isGradeContainerOpen={isGradeContainerOpen}
         checkHint={checkHint}
         checkRepetition={checkRepetition}

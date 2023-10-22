@@ -1,4 +1,4 @@
-import { useState, useEffect, MouseEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { Repetition } from '@/types';
 
 const whatIndexShouldBe = (userInput: string, repetitonToCheck: string): number => {
@@ -74,9 +74,8 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
     setResult(() => '');
   };
 
-  const assessResult = (e: MouseEvent<HTMLButtonElement>) => {
+  const assessResult = () => {
     const isLastRepetitionToExcercise = currentRepetitionIndex === repetitions.length - 1;
-    console.log(e.currentTarget.textContent);
     incrementCurrentRepetitionIndex();
     setIsGradeContainerOpen(() => false);
     setUserInputSentence(() => '');
