@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { FaPlus, FaCheck } from 'react-icons/fa6';
 import { selectCurrentUser } from '@/features/auth/authSlice';
 import { usePostRepetitionMutation } from '@/features/repetition/repetitionApiSlice';
 
@@ -8,7 +9,7 @@ type Props = {
 
 export default function SaveExampleButton({ exampleContent }: Props) {
   const user = useSelector(selectCurrentUser);
-  const [postRepetition] = usePostRepetitionMutation();
+  const [postRepetition, { isSuccess }] = usePostRepetitionMutation();
 
   const postRepetitionHandler = async () => {
     await postRepetition({ content: exampleContent });
@@ -17,8 +18,14 @@ export default function SaveExampleButton({ exampleContent }: Props) {
   if (!user) return null;
 
   return (
-    <button type="button" onClick={postRepetitionHandler}>
-      save
+    <button
+      type="button"
+      className="meanings__save-btn"
+      onClick={postRepetitionHandler}
+      title="Add repetition to collection."
+      disabled={isSuccess}
+    >
+      {!isSuccess ? <FaPlus /> : <FaCheck />}
     </button>
   );
 }
