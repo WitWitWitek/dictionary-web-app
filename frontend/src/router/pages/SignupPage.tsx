@@ -1,14 +1,15 @@
-import { FaUserPlus } from 'react-icons/fa';
 import NewUserForm from '@/features/user/NewUserForm';
 
 export default function SignUpPage() {
   return (
     <div className="auth-page">
-      <div className="auth-page__image">
-        <FaUserPlus />
+      <img className="auth-page__image" src="/sign-up-page-cover.png" alt="Cover for sign up page" />
+      <div className="auth-page__wrapper">
+        <h1 className="auth-page__heading">
+          <span>Create</span> your account:
+        </h1>
+        <NewUserForm />
       </div>
-      <h1 className="auth-page__heading">Please, create your account:</h1>
-      <NewUserForm />
     </div>
   );
 }
