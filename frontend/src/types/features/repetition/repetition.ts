@@ -1,6 +1,7 @@
 export interface Repetition {
   id: string;
   content: string;
+  averageScore: string;
   createdAt: string;
   updatedAt: string;
 }

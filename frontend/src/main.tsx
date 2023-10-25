@@ -12,6 +12,7 @@ import ErrorPage from '@/router/pages/ErrorPage';
 import AuthLayout from '@/router/AuthLayout';
 import LoginPage from '@/router/pages/LoginPage';
 import SignUpPage from './router/pages/SignupPage';
+import Dashboard from './router/pages/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
           {
             path: '/user-repetitions',
             element: <UserRepetitions />,
+          },
+          {
+            path: '/dashboard',
+            element: <Dashboard />,
           },
         ],
       },
