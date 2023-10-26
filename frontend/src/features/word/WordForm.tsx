@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import useDictionaryApi from '@/hooks/useDictionaryApi';
 import SearchIcon from '@/assets/SearchIcon';
 import { WordData } from '@/types';
+import SearchError from './WordOutput/SearchError/SearchError';
 
 type Props = {
   setWordData: React.Dispatch<React.SetStateAction<WordData | null>>;
@@ -12,7 +13,7 @@ export default function WordForm({ setWordData }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const firstRun = useRef(true);
   const wordRef = useRef<HTMLInputElement>(null);
-  const { fetchData, isError } = useDictionaryApi();
+  const { fetchData, isError, errorMessage } = useDictionaryApi();
   useMemo(async () => {
     const query = searchParams.get('query');
     if (query && firstRun.current === true) {
@@ -44,6 +45,7 @@ export default function WordForm({ setWordData }: Props) {
           name="word"
           ref={wordRef}
           placeholder="Search for any word..."
+          required
         />
         <div className="search-form__button-container">
           <button type="submit">
@@ -51,7 +53,7 @@ export default function WordForm({ setWordData }: Props) {
           </button>
         </div>
       </form>
-      {isError && <p>Error occured.</p>}
+      {isError && <SearchError errorMessage={errorMessage} />}
     </>
   );
 }

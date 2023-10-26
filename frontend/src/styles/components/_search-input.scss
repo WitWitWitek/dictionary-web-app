@@ -35,4 +35,20 @@
     width: 18px;
     height: 18px;
   }
+
+  &__error {
+    @include text-1;
+    text-align: center;
+    gap: 1.5rem;
+    display: grid;
+    justify-items: center;
+    margin: 2rem 0;
+    &-heading {
+      @include heading-1;
+    }
+    &-image {
+      width: min(95%, 350px);
+      aspect-ratio: 1 / 1;
+    }
+  }
 }
