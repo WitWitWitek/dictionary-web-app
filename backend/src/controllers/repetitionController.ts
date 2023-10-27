@@ -1,5 +1,10 @@
 import { Response } from "express";
-import { addScoreToRepetition, createNewRepetition, findAllRepetitions } from "@/services/repetitionService";
+import {
+  addScoreToRepetition,
+  createNewRepetition,
+  deleteRepetitionById,
+  findAllRepetitions,
+} from "@/services/repetitionService";
 import { HTTP_CODES, RequestWithUserRole } from "@/types";
 import { findUser } from "@/services/userService";
 
@@ -20,4 +25,10 @@ export const asssessRepetition = async (req: RequestWithUserRole, res: Response)
   const { repetitionScore } = req.body;
   await addScoreToRepetition(repetitionId, repetitionScore as number);
   return res.status(HTTP_CODES.CREATED).json({ message: `Score of repetition with id: ${repetitionId} added.` });
+};
+
+export const deleteRepetition = async (req: RequestWithUserRole, res: Response) => {
+  const { repetitionId } = req.params;
+  await deleteRepetitionById(repetitionId);
+  return res.status(HTTP_CODES.CREATED).json({ message: `Repetition with id: ${repetitionId} removed.` });
 };

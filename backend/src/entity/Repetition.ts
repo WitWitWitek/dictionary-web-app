@@ -33,10 +33,6 @@ export class Repetition extends BaseEntity {
   @Column({ default: null, nullable: true, type: "decimal", precision: 3, scale: 2 })
   averageScore: number;
 
-  @OneToMany(() => RepetitionScore, (repetitionScore) => repetitionScore.repetition, {
-    nullable: true,
-    cascade: true,
-    onDelete: "CASCADE",
-  })
+  @OneToMany(() => RepetitionScore, (repetitionScore) => repetitionScore.repetition, { onDelete: "CASCADE" })
   scores: RepetitionScore[];
 }

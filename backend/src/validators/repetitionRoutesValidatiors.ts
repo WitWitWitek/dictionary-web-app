@@ -4,7 +4,7 @@ import { HTTP_CODES } from "@/types";
 
 export const validateNewRepetitionRoute = async (req: Request, res: Response, next: NextFunction) => {
   const { content } = req.body;
-  if (!content || typeof content !== "string") {
+  if (!content) {
     throw new CustomError("Content field is required!", HTTP_CODES.BAD_REQUEST);
   }
   if (typeof content !== "string") {
