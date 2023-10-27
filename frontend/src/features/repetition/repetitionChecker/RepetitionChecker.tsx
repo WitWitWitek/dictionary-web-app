@@ -6,6 +6,7 @@ import { Repetition } from '@/types';
 import RepetitionProgressBar from './components/RepetitionProgressBar';
 import RepetitionContent from './components/RepetitionContent';
 import ExcerciseFiled from './components/ExcerciseFiled';
+import RepetitionEmptyList from './components/RepetitionEmptyList';
 
 type Props = {
   repetitions: Repetition[];
@@ -27,12 +28,7 @@ export default function RepetitionChecker({ repetitions }: Props) {
   } = useRepetionChecker(repetitions);
 
   if (!repetitions || repetitions.length === 0) {
-    return (
-      <div>
-        <p>The user hasn&apos;t chosen any repetition yet...</p>
-        <Link to="/dictionary">Find interesting sentence.</Link>
-      </div>
-    );
+    return <RepetitionEmptyList />;
   }
 
   if (isExcerciseFinished) {

@@ -1,4 +1,6 @@
+import { toast } from 'react-hot-toast';
 import apiSlice from '@/app/api/apiSlice';
+import { isErrorWithMessage } from '@/lib/apiErrorHandler';
 import {
   GetRepetitionsResponse,
   PostRepetitionRequest,
@@ -22,6 +24,15 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
         body: { content },
       }),
       invalidatesTags: ['Repetition'],
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success('Repetition added.');
+        } catch (err) {
+          const toastMessage = isErrorWithMessage(err) ? err?.error?.data?.message : 'Try again later...';
+          toast.error(toastMessage);
+        }
+      },
     }),
     asssessRepetition: builder.mutation<AssessRepetitionResponse, AssessRepetitionRequest>({
       query: ({ id, repetitionScore }) => ({

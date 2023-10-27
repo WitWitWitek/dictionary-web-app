@@ -22,6 +22,11 @@
     position: absolute;
     height: 18px;
     background-color: var(--theme-success);
+    transition: width 0.3s ease-in-out;
+    border-bottom-right-radius: 1rem;
+    border-top-right-radius: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 3;
   }
 }

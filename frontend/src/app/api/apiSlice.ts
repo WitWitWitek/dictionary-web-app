@@ -53,6 +53,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
+  refetchOnMountOrArgChange: true,
   tagTypes: ['Repetition', 'User'],
   endpoints: () => ({}),
 });

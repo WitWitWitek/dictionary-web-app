@@ -93,6 +93,14 @@
     }
   }
 
+  &__empty-list {
+    @extend .repetition__finished;
+    &-btn {
+      @extend .repetition__finished-btn;
+      color: var(--theme-clr);
+    }
+  }
+
   &__result {
     text-align: center;
   }
