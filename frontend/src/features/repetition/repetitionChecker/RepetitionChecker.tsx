@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import useRepetionChecker from '@/hooks/useRepetionChecker';
 import EvaluationBtnContainer from './components/EvaluationBtnContainer';
 import ExcerciseFinishedView from './components/ExcerciseFinishedView';

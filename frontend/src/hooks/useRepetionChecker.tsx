@@ -91,10 +91,7 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
 
   useEffect(() => {
     if (repetitions.length) {
-      const isNotLastRepetitionToExcercise = currentRepetitionIndex !== repetitions.length - 1;
-      if (isNotLastRepetitionToExcercise) {
-        setCurrentRepetition(() => repetitions[currentRepetitionIndex].content);
-      }
+      setCurrentRepetition(() => repetitions[currentRepetitionIndex].content);
     }
   }, [currentRepetitionIndex]);
 
