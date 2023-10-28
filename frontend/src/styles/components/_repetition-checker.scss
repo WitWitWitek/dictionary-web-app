@@ -1,7 +1,7 @@
 @use '../mixins/index' as *;
 @use '../layout/index' as *;
 
-.repetition {
+.repetition-checker {
   max-width: 992px;
   margin: auto;
   min-height: calc(100vh - 70px);
@@ -94,9 +94,9 @@
   }
 
   &__empty-list {
-    @extend .repetition__finished;
+    @extend .repetition-checker__finished;
     &-btn {
-      @extend .repetition__finished-btn;
+      @extend .repetition-checker__finished-btn;
       color: var(--theme-clr);
     }
   }

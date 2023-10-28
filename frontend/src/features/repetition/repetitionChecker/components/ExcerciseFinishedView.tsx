@@ -6,15 +6,15 @@ export default function ExcerciseFinishedView() {
   const { width, height } = useWindowSize();
 
   return (
-    <div className="repetition repetition__finished">
-      <img className="repetition__finished-image" src="/success-cover.png" alt="Cover for success page" />
+    <div className="repetition-checker repetition-checker__finished">
+      <img className="repetition-checker__finished-image" src="/success-cover.png" alt="Cover for success page" />
       <h2>Well done!</h2>
       <p>
         Keep challenging yourself, and you&apos;ll continue to make impressive strides on your language learning
         journey.
       </p>
       <p>
-        <Link to="/dictionary" className="repetition__finished-btn">
+        <Link to="/dictionary" className="repetition-checker__finished-btn">
           Go to dictionary
         </Link>{' '}
       </p>

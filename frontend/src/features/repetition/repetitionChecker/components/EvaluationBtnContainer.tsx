@@ -46,11 +46,11 @@ export default function EvaluationBtnContainer({
   };
 
   return (
-    <div className="repetition__evaluation">
+    <div className="repetition-checker__evaluation">
       {!isGradeContainerOpen ? (
         <>
           <button
-            className="repetition__evaluation-btn repetition__evaluation-btn--outline"
+            className="repetition-checker__evaluation-btn repetition-checker__evaluation-btn--outline"
             onClick={checkHint}
             type="button"
           >
@@ -60,7 +60,7 @@ export default function EvaluationBtnContainer({
             </p>
           </button>
           <button
-            className="repetition__evaluation-btn repetition__evaluation-btn--primary"
+            className="repetition-checker__evaluation-btn repetition-checker__evaluation-btn--primary"
             onClick={checkRepetition}
             type="button"
           >
@@ -74,8 +74,8 @@ export default function EvaluationBtnContainer({
         <>
           {[MarkValue.Bad, MarkValue.Mediocrely, MarkValue.Excellent].map((mark) => (
             <button
-              className={`repetition__evaluation-btn repetition__evaluation-btn--${mark.toLowerCase()} ${
-                sugesstedMark === mark ? 'repetition__evaluation-btn--active' : ''
+              className={`repetition-checker__evaluation-btn repetition-checker__evaluation-btn--${mark.toLowerCase()} ${
+                sugesstedMark === mark ? 'repetition-checker__evaluation-btn--active' : ''
               }`}
               onClick={() => assessRepetitionHandler(mark)}
               type="button"

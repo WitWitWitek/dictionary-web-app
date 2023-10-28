@@ -24,12 +24,12 @@ export default function ExcerciseFiled({
   };
 
   return (
-    <div className="repetition__excercise">
+    <div className="repetition-checker__excercise">
       <h3>Your repetition:</h3>
-      <div className="repetition__excercise-container">
+      <div className="repetition-checker__excercise-container">
         {!isGradeContainerOpen ? (
           <textarea
-            className="repetition__textarea"
+            className="repetition-checker__textarea"
             value={userInputSentence}
             onChange={(e) => setUserInputSentence(e.target.value)}
             placeholder="Type a text of the repetition"

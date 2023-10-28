@@ -7,14 +7,14 @@ export default function RepetitionAssesment({ userInputSentence, currentRepetito
   const currentInputSplitted = userInputSentence.split('');
   const currentRepetitionSplitted = currentRepetiton.split('');
   return (
-    <div className="repetition__assesment">
+    <div className="repetition-checker__assesment">
       {currentRepetitionSplitted.map((char, index) =>
         char === currentInputSplitted[index] ? (
-          <span className="repetition__assesment-char-correct" key={char + Math.random()}>
+          <span className="repetition-checker__assesment-char-correct" key={char + Math.random()}>
             {char}
           </span>
         ) : (
-          <span className="repetition__assesment-char-wrong" key={char + Math.random()}>
+          <span className="repetition-checker__assesment-char-wrong" key={char + Math.random()}>
             {currentInputSplitted[index] ? currentInputSplitted[index] : char}
           </span>
         ),

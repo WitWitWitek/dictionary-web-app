@@ -35,7 +35,7 @@ export default function RepetitionChecker({ repetitions }: Props) {
   }
 
   return (
-    <div className="repetition">
+    <div className="repetition-checker">
       <h1>Practice repetitions:</h1>
       <RepetitionProgressBar currentRepetition={currentRepetitionIndex} allRepetitions={repetitions.length} />
       <RepetitionContent currentRepetition={currentRepetition} />
@@ -55,7 +55,7 @@ export default function RepetitionChecker({ repetitions }: Props) {
         assessResult={assessResult}
         percentageAssessment={percentageAssessment}
       />
-      <p className="repetition__result">{result}</p>
+      <p className="repetition-checker__result">{result}</p>
     </div>
   );
 }
