@@ -4,9 +4,9 @@ import { isErrorWithMessage } from '@/lib/apiErrorHandler';
 import {
   GetRepetitionsResponse,
   PostRepetitionRequest,
-  PostRepetitionResponse,
   AssessRepetitionRequest,
-  AssessRepetitionResponse,
+  BasicRepetitionResponse,
+  DeleteRepetitionRequest,
 } from '@/types';
 
 export const repetitionApiSlice = apiSlice.injectEndpoints({
@@ -17,7 +17,7 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Repetition'],
     }),
-    postRepetition: builder.mutation<PostRepetitionResponse, PostRepetitionRequest>({
+    postRepetition: builder.mutation<BasicRepetitionResponse, PostRepetitionRequest>({
       query: ({ content }) => ({
         url: '/repetitions',
         method: 'POST',
@@ -34,15 +34,27 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
-    asssessRepetition: builder.mutation<AssessRepetitionResponse, AssessRepetitionRequest>({
+    asssessRepetition: builder.mutation<BasicRepetitionResponse, AssessRepetitionRequest>({
       query: ({ id, repetitionScore }) => ({
         url: `/repetitions/${id}/score`,
         method: 'PATCH',
         body: { repetitionScore },
       }),
+      invalidatesTags: ['Repetition'],
+    }),
+    deleteRepetition: builder.mutation<BasicRepetitionResponse, DeleteRepetitionRequest>({
+      query: ({ id }) => ({
+        url: `/repetitions/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Repetition'],
     }),
   }),
 });
 
-export const { useGetAllRepetitionsQuery, usePostRepetitionMutation, useAsssessRepetitionMutation } =
-  repetitionApiSlice;
+export const {
+  useGetAllRepetitionsQuery,
+  usePostRepetitionMutation,
+  useAsssessRepetitionMutation,
+  useDeleteRepetitionMutation,
+} = repetitionApiSlice;

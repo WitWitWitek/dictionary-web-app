@@ -8,12 +8,12 @@ export interface Repetition {
 
 export type GetRepetitionsResponse = Repetition[];
 
-export interface PostRepetitionRequest {
-  content: string;
+export interface BasicRepetitionResponse {
+  message: string;
 }
 
-export interface PostRepetitionResponse {
-  message: string;
+export interface PostRepetitionRequest {
+  content: string;
 }
 
 export interface AssessRepetitionRequest {
@@ -21,8 +21,8 @@ export interface AssessRepetitionRequest {
   repetitionScore: 1 | 3 | 5;
 }
 
-export interface AssessRepetitionResponse {
-  message: string;
+export interface DeleteRepetitionRequest {
+  id: string;
 }
 
 export enum MarkValue {
