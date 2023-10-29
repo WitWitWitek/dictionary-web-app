@@ -1,0 +1,24 @@
+@use '../mixins/index' as *;
+@use '../layout/index' as *;
+
+.repetition-details {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--theme-definition-example);
+
+  &__delete-btn {
+    display: block;
+    background-color: transparent;
+    border: none;
+    color: var(--theme-error);
+    margin-left: auto;
+    cursor: pointer;
+    &:hover {
+      color: var(--theme-warning);
+    }
+  }
+
+  &__score {
+    width: 100%;
+  }
+}

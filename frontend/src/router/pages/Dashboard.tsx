@@ -9,8 +9,8 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
-      <h1>Twoje powtórki:</h1>
+    <div className="dashboard">
+      <h1>Your repetitions:</h1>
       <div>
         {repetitions &&
           repetitions.map((repetition) => <RepetitionDetails key={repetition.id} repetition={repetition} />)}
