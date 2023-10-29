@@ -3,12 +3,18 @@ import { CustomError } from "@/utils/customError";
 import { HTTP_CODES } from "@/types";
 
 export const validateNewRepetitionRoute = async (req: Request, res: Response, next: NextFunction) => {
-  const { content } = req.body;
+  const { content, word } = req.body;
   if (!content) {
     throw new CustomError("Content field is required!", HTTP_CODES.BAD_REQUEST);
   }
   if (typeof content !== "string") {
     throw new CustomError("Content should be a type of string!", HTTP_CODES.BAD_REQUEST);
+  }
+  if (!word) {
+    throw new CustomError("Word field is required!", HTTP_CODES.BAD_REQUEST);
+  }
+  if (typeof word !== "string") {
+    throw new CustomError("Word should be a type of string!", HTTP_CODES.BAD_REQUEST);
   }
   return next();
 };

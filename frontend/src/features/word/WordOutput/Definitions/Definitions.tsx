@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import SaveExampleButton from '@/components/ui/SaveExampleButton';
 import { Definition } from '@/types';
 
@@ -7,6 +8,10 @@ type Props = {
 
 export default function Definitions({ definitions }: Props) {
   if (definitions.length === 0) return null;
+
+  const [searchParams] = useSearchParams();
+  const currentQuery = searchParams.get('query');
+
   return (
     <>
       <h3 className="meanings__heading">{`Definition${definitions.length > 1 ? 's' : ''}:`}</h3>
@@ -16,7 +21,11 @@ export default function Definitions({ definitions }: Props) {
             <p className="meanings__definition-text">{definition.definition}</p>
             {definition.example && (
               <p className="meanings__definition-example">
-                {definition.example} <SaveExampleButton exampleContent={definition.example} />
+                {definition.example}{' '}
+                <SaveExampleButton
+                  exampleContent={definition.example}
+                  currentWordQuery={currentQuery ?? 'empty query'}
+                />
               </p>
             )}
           </li>

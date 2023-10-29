@@ -1,6 +1,7 @@
 export interface Repetition {
   id: string;
   content: string;
+  word: string;
   averageScore: string;
   createdAt: string;
   updatedAt: string;
@@ -14,6 +15,7 @@ export interface BasicRepetitionResponse {
 
 export interface PostRepetitionRequest {
   content: string;
+  word: string;
 }
 
 export interface AssessRepetitionRequest {

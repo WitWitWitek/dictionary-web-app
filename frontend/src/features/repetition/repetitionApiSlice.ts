@@ -18,10 +18,10 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Repetition'],
     }),
     postRepetition: builder.mutation<BasicRepetitionResponse, PostRepetitionRequest>({
-      query: ({ content }) => ({
+      query: ({ content, word }) => ({
         url: '/repetitions',
         method: 'POST',
-        body: { content },
+        body: { content, word },
       }),
       invalidatesTags: ['Repetition'],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {

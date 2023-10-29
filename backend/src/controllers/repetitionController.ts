@@ -14,9 +14,9 @@ export const getAllRepetitions = async (req: RequestWithUserRole, res: Response)
 };
 
 export const addNewRepetition = async (req: RequestWithUserRole, res: Response) => {
-  const { content } = req.body;
+  const { content, word } = req.body;
   const foundUser = await findUser(req.user);
-  const newRepetitionId = await createNewRepetition(content, foundUser);
+  const newRepetitionId = await createNewRepetition(content, word, foundUser);
   return res.status(HTTP_CODES.CREATED).json({ message: `Repetition with id: ${newRepetitionId} created.` });
 };
 

@@ -21,6 +21,12 @@ export class Repetition extends BaseEntity {
   })
   content: string;
 
+  @Column({
+    type: "varchar",
+    length: 100,
+  })
+  word: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -17,9 +17,10 @@ export async function findAllRepetitions(username: string): Promise<Repetition[]
   });
 }
 
-export async function createNewRepetition(content: string, user: User): Promise<string> {
+export async function createNewRepetition(content: string, word: string, user: User): Promise<string> {
   const newRepetition = new Repetition();
   newRepetition.content = content;
+  newRepetition.word = word;
   newRepetition.user = user;
   const savedRepetition = await newRepetition.save();
   return savedRepetition.id;

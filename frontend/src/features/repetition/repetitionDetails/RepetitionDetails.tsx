@@ -1,4 +1,5 @@
-import { FaTrashCan } from 'react-icons/fa6';
+import { FaTrashCan, FaBook } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 import { Repetition } from '@/types';
 import { useDeleteRepetitionMutation } from '@/features/repetition/repetitionApiSlice';
 import dateHandler from '@/lib/dateHandler';
@@ -26,9 +27,19 @@ export default function RepetitionDetails({ repetition }: Props) {
         >
           <FaTrashCan />
         </button>
+        <Link
+          className="repetition-details__dictionary-btn"
+          to={`/dictionary?query=${repetition.word}`}
+          title="Check word in dictionary."
+        >
+          <FaBook />
+        </Link>
       </div>
       <div className="repetition-details__container">
         <div className="repetition-details__content">{repetition.content}</div>
+        <p>
+          Searched word: <span>{repetition.word}</span>
+        </p>
         <p>
           Added: <span>{dateHandler(repetition.createdAt)}</span>
         </p>

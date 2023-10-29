@@ -5,14 +5,14 @@ import { usePostRepetitionMutation } from '@/features/repetition/repetitionApiSl
 
 type Props = {
   exampleContent: string;
+  currentWordQuery: string;
 };
 
-export default function SaveExampleButton({ exampleContent }: Props) {
+export default function SaveExampleButton({ exampleContent, currentWordQuery }: Props) {
   const user = useSelector(selectCurrentUser);
   const [postRepetition, { isSuccess }] = usePostRepetitionMutation();
-
   const postRepetitionHandler = async () => {
-    await postRepetition({ content: exampleContent });
+    await postRepetition({ content: exampleContent, word: currentWordQuery });
   };
 
   if (!user) return null;
