@@ -1,5 +1,6 @@
 import { MarkValue, Repetition } from '@/types';
 import { useAsssessRepetitionMutation } from '../../repetitionApiSlice';
+import assignMarkHandler from '@/lib/assignMarkHandler';
 
 type Props = {
   repetition: Repetition;
@@ -8,17 +9,6 @@ type Props = {
   checkRepetition: () => void;
   assessResult: () => void;
   percentageAssessment: number;
-};
-
-const assignMarkHandler = (mark: number): string => {
-  switch (true) {
-    case mark < 0.25:
-      return MarkValue.Bad;
-    case mark > 0.75:
-      return MarkValue.Excellent;
-    default:
-      return MarkValue.Mediocrely;
-  }
 };
 
 export default function EvaluationBtnContainer({

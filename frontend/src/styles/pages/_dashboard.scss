@@ -1,4 +1,31 @@
+@use '../mixins/index' as *;
+@use '../layout/index' as *;
+@use '../themes' as *;
+
 .dashboard {
   display: grid;
   align-items: center;
+  gap: 1em;
+
+  &__container {
+    display: grid;
+    gap: 0.5rem;
+  }
+}
+
+@include sm {
+  .dashboard {
+    &__container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+  }
+}
+
+@include md {
+  .dashboard {
+    &__container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
 }

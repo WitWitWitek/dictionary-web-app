@@ -2,7 +2,6 @@
 
 .progress-bar {
   width: 100%;
-  margin-top: 1rem;
   &__description {
     display: flex;
     justify-content: space-between;
@@ -28,5 +27,33 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 3;
+    transform-origin: left;
+
+    &--bad {
+      @extend .progress-bar__line;
+      background-color: var(--theme-error);
+      animation: progress-bar-animation 0.5s forwards;
+    }
+
+    &--mediocrely {
+      @extend .progress-bar__line;
+      background-color: var(--theme-warning);
+      animation: progress-bar-animation 0.5s forwards;
+    }
+
+    &--excellent {
+      @extend .progress-bar__line;
+      background-color: var(--theme-success);
+      animation: progress-bar-animation 0.5s forwards;
+    }
+  }
+}
+
+@keyframes progress-bar-animation {
+  from {
+    transform: translateY(-50%) scaleX(0);
+  }
+  to {
+    transform: translateY(-50%) scaleX(1);
   }
 }

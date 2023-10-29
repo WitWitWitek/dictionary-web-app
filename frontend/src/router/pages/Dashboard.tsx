@@ -11,7 +11,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <h1>Your repetitions:</h1>
-      <div>
+      <div className="dashboard__container">
         {repetitions &&
           repetitions.map((repetition) => <RepetitionDetails key={repetition.id} repetition={repetition} />)}
       </div>

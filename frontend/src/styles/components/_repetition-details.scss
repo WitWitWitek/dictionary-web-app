@@ -2,9 +2,42 @@
 @use '../layout/index' as *;
 
 .repetition-details {
-  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2.5rem;
+  grid-template-rows: auto;
   border-radius: 10px;
-  background-color: var(--theme-definition-example);
+  background-color: #4e4e4e;
+  @include text-1;
+
+  p {
+    span {
+      color: var(--theme-bg);
+    }
+  }
+
+  &__controls {
+    grid-column: 2 / 3;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  &__container {
+    grid-row: 1 / -1;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--theme-definition-example);
+  }
+
+  &__content {
+    background-color: var(--theme-shadow);
+    color: var(--theme-toggle-clr);
+    padding: 0.5rem;
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
 
   &__delete-btn {
     display: block;
@@ -13,6 +46,9 @@
     color: var(--theme-error);
     margin-left: auto;
     cursor: pointer;
+    font-size: inherit;
+    width: 100%;
+    text-align: center;
     &:hover {
       color: var(--theme-warning);
     }
