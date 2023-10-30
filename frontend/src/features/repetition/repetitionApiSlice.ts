@@ -17,6 +17,12 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Repetition'],
     }),
+    getTodayRepetitions: builder.query<GetRepetitionsResponse, void>({
+      query: () => ({
+        url: '/repetitions/today-repetitions',
+      }),
+      providesTags: ['Repetition'],
+    }),
     postRepetition: builder.mutation<BasicRepetitionResponse, PostRepetitionRequest>({
       query: ({ content, word }) => ({
         url: '/repetitions',
@@ -40,7 +46,6 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: { repetitionScore },
       }),
-      invalidatesTags: ['Repetition'],
     }),
     deleteRepetition: builder.mutation<BasicRepetitionResponse, DeleteRepetitionRequest>({
       query: ({ id }) => ({
@@ -54,6 +59,7 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetAllRepetitionsQuery,
+  useGetTodayRepetitionsQuery,
   usePostRepetitionMutation,
   useAsssessRepetitionMutation,
   useDeleteRepetitionMutation,
