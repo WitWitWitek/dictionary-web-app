@@ -33,6 +33,12 @@ export class Repetition extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column({
+    type: "datetime",
+    nullable: true,
+  })
+  repeatedAt: Date;
+
   @ManyToOne(() => User, (user) => user.repetitions)
   user: User;
 

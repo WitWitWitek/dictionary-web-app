@@ -4,12 +4,18 @@ import {
   createNewRepetition,
   deleteRepetitionById,
   findAllRepetitions,
+  findTodayRepetitions,
 } from "@/services/repetitionService";
 import { HTTP_CODES, RequestWithUserRole } from "@/types";
 import { findUser } from "@/services/userService";
 
 export const getAllRepetitions = async (req: RequestWithUserRole, res: Response) => {
   const repetitions = await findAllRepetitions(req.user);
+  return res.status(HTTP_CODES.OK).json(repetitions);
+};
+
+export const getTodayRepetitions = async (req: RequestWithUserRole, res: Response) => {
+  const repetitions = await findTodayRepetitions(req.user);
   return res.status(HTTP_CODES.OK).json(repetitions);
 };
 

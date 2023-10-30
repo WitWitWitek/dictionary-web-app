@@ -3,6 +3,7 @@ import { RepetitionScore } from "@/entity/RepetitionScore";
 import { User } from "@/entity/User";
 import { HTTP_CODES } from "@/types";
 import { CustomError } from "@/utils/customError";
+import { LessThan, IsNull } from "typeorm";
 
 export async function findAllRepetitions(username: string): Promise<Repetition[]> {
   return Repetition.find({
@@ -14,6 +15,30 @@ export async function findAllRepetitions(username: string): Promise<Repetition[]
         username: username,
       },
     },
+  });
+}
+
+export async function findTodayRepetitions(username: string): Promise<Repetition[]> {
+  const today = new Date().setHours(0, 0, 0, 0);
+
+  return Repetition.find({
+    order: {
+      createdAt: "DESC",
+    },
+    where: [
+      {
+        user: {
+          username: username,
+        },
+        repeatedAt: LessThan(new Date(today)),
+      },
+      {
+        user: {
+          username: username,
+        },
+        repeatedAt: IsNull(),
+      },
+    ],
   });
 }
 
@@ -43,9 +68,10 @@ export async function addScoreToRepetition(repetitionId: string, score: number):
     .select("AVG(repetitionScore.value)", "avgScoreValue")
     .where("repetitionScore.repetitionId = :id", { id: repetitionId })
     .getRawOne();
-
+  const repeatedAt = new Date().toISOString();
   const updatedRepetitionAvgScore = avgScoreValue === null ? score : +Number(avgScoreValue).toFixed(2);
   repetition.averageScore = updatedRepetitionAvgScore;
+  repetition.repeatedAt = new Date(repeatedAt);
   await repetition.save();
   return repetition.id;
 }
