@@ -7,6 +7,7 @@ import {
   AssessRepetitionRequest,
   BasicRepetitionResponse,
   DeleteRepetitionRequest,
+  AddTranslationRequest,
 } from '@/types';
 
 export const repetitionApiSlice = apiSlice.injectEndpoints({
@@ -45,6 +46,13 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
         url: `/repetitions/${id}/score`,
         method: 'PATCH',
         body: { repetitionScore },
+      }),
+    }),
+    addTranslationToRepetition: builder.mutation<BasicRepetitionResponse, AddTranslationRequest>({
+      query: ({ id, translation }) => ({
+        url: `/repetitions/${id}/score`,
+        method: 'PATCH',
+        body: { translation },
       }),
     }),
     deleteRepetition: builder.mutation<BasicRepetitionResponse, DeleteRepetitionRequest>({

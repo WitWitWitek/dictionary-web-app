@@ -24,6 +24,11 @@ export interface AssessRepetitionRequest {
   repetitionScore: 1 | 3 | 5;
 }
 
+export interface AddTranslationRequest {
+  id: string;
+  translation: string;
+}
+
 export interface DeleteRepetitionRequest {
   id: string;
 }
