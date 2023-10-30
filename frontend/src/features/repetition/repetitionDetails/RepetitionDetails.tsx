@@ -47,7 +47,7 @@ export default function RepetitionDetails({ repetition }: Props) {
           <div className="repetition-details__progress-outer" />
         </div>
         <p>
-          Last time repated: <span>{dateHandler(repetition.updatedAt)}</span>
+          Last time repated: <span>{dateHandler(repetition.repeatedAt)}</span>
         </p>
         <p>
           Your average score: <span>{repetition.averageScore ?? "The repetition hasn't been practiced yet."}</span>

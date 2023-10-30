@@ -5,6 +5,7 @@ export interface Repetition {
   averageScore: string;
   createdAt: string;
   updatedAt: string;
+  repeatedAt: string;
 }
 
 export type GetRepetitionsResponse = Repetition[];

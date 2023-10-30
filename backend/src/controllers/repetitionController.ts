@@ -1,6 +1,7 @@
 import { Response } from "express";
 import {
   addScoreToRepetition,
+  addTranslation,
   createNewRepetition,
   deleteRepetitionById,
   findAllRepetitions,
@@ -31,6 +32,13 @@ export const asssessRepetition = async (req: RequestWithUserRole, res: Response)
   const { repetitionScore } = req.body;
   await addScoreToRepetition(repetitionId, repetitionScore as number);
   return res.status(HTTP_CODES.CREATED).json({ message: `Score of repetition with id: ${repetitionId} added.` });
+};
+
+export const addTranslationToRepetition = async (req: RequestWithUserRole, res: Response) => {
+  const { repetitionId } = req.params;
+  const { translation } = req.body;
+  await addTranslation(repetitionId, translation);
+  return res.status(HTTP_CODES.CREATED).json({ message: `Translation of repetition with id: ${repetitionId} added.` });
 };
 
 export const deleteRepetition = async (req: RequestWithUserRole, res: Response) => {

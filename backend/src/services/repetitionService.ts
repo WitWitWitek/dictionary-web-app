@@ -76,6 +76,17 @@ export async function addScoreToRepetition(repetitionId: string, score: number):
   return repetition.id;
 }
 
+export async function addTranslation(repetitionId: string, translation: string): Promise<string> {
+  const repetition = await Repetition.findOne({ where: { id: repetitionId } });
+
+  if (!repetition) {
+    throw new CustomError("Such repetition does not exist", HTTP_CODES.BAD_REQUEST);
+  }
+  repetition.translation = translation;
+  await repetition.save();
+  return repetition.id;
+}
+
 export async function deleteRepetitionById(repetitionId: string): Promise<void> {
   const repetition = await Repetition.findOneBy({ id: repetitionId });
   if (!repetition) {

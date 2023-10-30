@@ -27,6 +27,11 @@ export class Repetition extends BaseEntity {
   })
   word: string;
 
+  @Column({
+    nullable: true,
+  })
+  translation: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

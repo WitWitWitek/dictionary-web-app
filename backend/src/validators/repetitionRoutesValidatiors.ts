@@ -10,6 +10,9 @@ export const validateNewRepetitionRoute = async (req: Request, res: Response, ne
   if (typeof content !== "string") {
     throw new CustomError("Content should be a type of string!", HTTP_CODES.BAD_REQUEST);
   }
+  if (content.length > 255) {
+    throw new CustomError("Repetition should be at most 255 characters in length.!", HTTP_CODES.BAD_REQUEST);
+  }
   if (!word) {
     throw new CustomError("Word field is required!", HTTP_CODES.BAD_REQUEST);
   }
@@ -30,6 +33,20 @@ export const validateAsssessRepetitionRoute = async (req: Request, res: Response
   }
   if (!allowedValues.includes(repetitionScore)) {
     throw new CustomError("The score of repetition should be a value equal to 1, 3, or 5!", HTTP_CODES.BAD_REQUEST);
+  }
+  return next();
+};
+
+export const validateAddTranslationRoute = async (req: Request, res: Response, next: NextFunction) => {
+  const { translation } = req.body;
+  if (!translation) {
+    throw new CustomError("Translation field is required!", HTTP_CODES.BAD_REQUEST);
+  }
+  if (typeof translation !== "string") {
+    throw new CustomError("Translation should be a type of string!", HTTP_CODES.BAD_REQUEST);
+  }
+  if (translation.length > 255) {
+    throw new CustomError("Translations should be at most 255 characters in length.!", HTTP_CODES.BAD_REQUEST);
   }
   return next();
 };
