@@ -1,21 +1,43 @@
-import { FaTrashCan, FaBook } from 'react-icons/fa6';
+import { FaTrashCan, FaBook, FaPencil } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
-import { Repetition } from '@/types';
-import { useDeleteRepetitionMutation } from '@/features/repetition/repetitionApiSlice';
+import { useState } from 'react';
+import { FaSave } from 'react-icons/fa';
+import { useFormik } from 'formik';
+import { Repetition, TranslationInterface } from '@/types';
+import {
+  useAddTranslationToRepetitionMutation,
+  useDeleteRepetitionMutation,
+} from '@/features/repetition/repetitionApiSlice';
 import dateHandler from '@/lib/dateHandler';
 import assignMarkHandler from '@/lib/assignMarkHandler';
+import translationValidation from '../translationValidation';
 
 type Props = {
   repetition: Repetition;
 };
 
 export default function RepetitionDetails({ repetition }: Props) {
+  const scoreProgress = Number(repetition.averageScore) / 5;
+  const [isTranslationDisabled, setIsTranslationDisabled] = useState<boolean>(true);
+  const [addTranslation] = useAddTranslationToRepetitionMutation();
   const [deleteRepetitionById] = useDeleteRepetitionMutation();
+
   const deleteRepetiotonHandler = async (id: string) => {
     await deleteRepetitionById({ id });
   };
 
-  const scoreProgress = Number(repetition.averageScore) / 5;
+  const { values, handleChange, handleSubmit, handleBlur, errors, touched } = useFormik<TranslationInterface>({
+    initialValues: {
+      translation: repetition.translation ?? '',
+    },
+    validationSchema: translationValidation,
+    onSubmit: async (args) => {
+      const translationRequestBody = { ...args, id: repetition.id };
+      await addTranslation(translationRequestBody);
+      setIsTranslationDisabled(() => true);
+    },
+  });
+
   return (
     <div className="repetition-details">
       <div className="repetition-details__controls">
@@ -34,9 +56,39 @@ export default function RepetitionDetails({ repetition }: Props) {
         >
           <FaBook />
         </Link>
+        <button
+          className="repetition-details__delete-btn"
+          onClick={() => setIsTranslationDisabled((prev) => !prev)}
+          type="button"
+          title="Add translation to repetition."
+        >
+          <FaPencil />
+        </button>
       </div>
       <div className="repetition-details__container">
         <div className="repetition-details__content">{repetition.content}</div>
+
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="translation">
+            <p>Translation:</p>
+            <textarea
+              id="translation"
+              name="translation"
+              disabled={isTranslationDisabled}
+              placeholder="Add translation to repetition."
+              maxLength={255}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.translation}
+            />
+          </label>
+          {!isTranslationDisabled && (
+            <button type="submit" className="repetition-details__delete-btn">
+              <FaSave />
+            </button>
+          )}
+        </form>
+
         <p>
           Searched word: <span>{repetition.word}</span>
         </p>

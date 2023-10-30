@@ -1,6 +1,7 @@
 export interface Repetition {
   id: string;
   content: string;
+  translation: string;
   word: string;
   averageScore: string;
   createdAt: string;
@@ -24,9 +25,12 @@ export interface AssessRepetitionRequest {
   repetitionScore: 1 | 3 | 5;
 }
 
-export interface AddTranslationRequest {
-  id: string;
+export interface TranslationInterface {
   translation: string;
+}
+
+export interface AddTranslationRequest extends TranslationInterface {
+  id: string;
 }
 
 export interface DeleteRepetitionRequest {

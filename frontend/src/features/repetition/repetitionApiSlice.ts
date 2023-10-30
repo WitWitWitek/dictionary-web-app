@@ -50,10 +50,11 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
     }),
     addTranslationToRepetition: builder.mutation<BasicRepetitionResponse, AddTranslationRequest>({
       query: ({ id, translation }) => ({
-        url: `/repetitions/${id}/score`,
+        url: `/repetitions/${id}/translation`,
         method: 'PATCH',
         body: { translation },
       }),
+      invalidatesTags: ['Repetition'],
     }),
     deleteRepetition: builder.mutation<BasicRepetitionResponse, DeleteRepetitionRequest>({
       query: ({ id }) => ({
@@ -70,5 +71,6 @@ export const {
   useGetTodayRepetitionsQuery,
   usePostRepetitionMutation,
   useAsssessRepetitionMutation,
+  useAddTranslationToRepetitionMutation,
   useDeleteRepetitionMutation,
 } = repetitionApiSlice;
