@@ -57,7 +57,7 @@ export default function RepetitionDetails({ repetition }: Props) {
           <FaBook />
         </Link>
         <button
-          className="repetition-details__delete-btn"
+          className="repetition-details__add-translation-btn"
           onClick={() => setIsTranslationDisabled((prev) => !prev)}
           type="button"
           title="Add translation to repetition."
@@ -68,12 +68,13 @@ export default function RepetitionDetails({ repetition }: Props) {
       <div className="repetition-details__container">
         <div className="repetition-details__content">{repetition.content}</div>
 
-        <form onSubmit={handleSubmit}>
+        <form className="repetition-details__form" onSubmit={handleSubmit}>
           <label htmlFor="translation">
             <p>Translation:</p>
             <textarea
               id="translation"
               name="translation"
+              className="repetition-details__form-textarea"
               disabled={isTranslationDisabled}
               placeholder="Add translation to repetition."
               maxLength={255}
@@ -83,7 +84,7 @@ export default function RepetitionDetails({ repetition }: Props) {
             />
           </label>
           {!isTranslationDisabled && (
-            <button type="submit" className="repetition-details__delete-btn">
+            <button type="submit" className="repetition-details__save-translation-btn" title="Save translation.">
               <FaSave />
             </button>
           )}
