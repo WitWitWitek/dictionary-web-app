@@ -1,7 +1,7 @@
 export interface Repetition {
   id: string;
   content: string;
-  translation: string;
+  translation: string | null;
   word: string;
   averageScore: string;
   createdAt: string;

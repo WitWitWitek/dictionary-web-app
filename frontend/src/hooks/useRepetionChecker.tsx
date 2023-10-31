@@ -30,6 +30,7 @@ const percentageAssessmentHandler = (userInput: string, repetitonToCheck: string
 const useRepetionChecker = (repetitions: Repetition[]) => {
   const [currentRepetitionIndex, setCurrentRepetitionIndex] = useState<number>(0);
   const [currentRepetition, setCurrentRepetition] = useState<string>('');
+  const [currentTranslation, setCurrentTranslation] = useState<string | null>(null);
   const [currentRepetitionStringIndex, setCurrentRepetitionStringIndex] = useState<number>(0);
 
   const [userInputSentence, setUserInputSentence] = useState<string>('');
@@ -92,6 +93,7 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
   useEffect(() => {
     if (repetitions.length) {
       setCurrentRepetition(() => repetitions[currentRepetitionIndex].content);
+      setCurrentTranslation(() => repetitions[currentRepetitionIndex].translation);
     }
   }, [currentRepetitionIndex]);
 
@@ -102,6 +104,7 @@ const useRepetionChecker = (repetitions: Repetition[]) => {
     checkHint,
     checkRepetition,
     currentRepetition,
+    currentTranslation,
     currentRepetitionIndex,
     isGradeContainerOpen,
     assessResult,

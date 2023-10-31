@@ -16,6 +16,7 @@ export default function RepetitionChecker({ repetitions }: Props) {
     userInputSentence,
     setUserInputSentence,
     currentRepetition,
+    currentTranslation,
     currentRepetitionIndex,
     result,
     checkHint,
@@ -38,7 +39,7 @@ export default function RepetitionChecker({ repetitions }: Props) {
     <div className="repetition-checker">
       <h1>Practice repetitions:</h1>
       <RepetitionProgressBar currentRepetition={currentRepetitionIndex} allRepetitions={repetitions.length} />
-      <RepetitionContent currentRepetition={currentRepetition} />
+      <RepetitionContent currentRepetition={currentTranslation ?? currentRepetition} />
       <ExcerciseFiled
         isGradeContainerOpen={isGradeContainerOpen}
         userInputSentence={userInputSentence}
