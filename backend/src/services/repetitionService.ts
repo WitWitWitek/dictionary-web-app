@@ -1,12 +1,13 @@
 import { Repetition } from "@/entity/Repetition";
 import { RepetitionScore } from "@/entity/RepetitionScore";
 import { User } from "@/entity/User";
-import { HTTP_CODES } from "@/types";
+import { HTTP_CODES, findAllRepetitionResponse } from "@/types";
 import { CustomError } from "@/utils/customError";
 import { LessThan, IsNull } from "typeorm";
 
-export async function findAllRepetitions(username: string): Promise<Repetition[]> {
-  return Repetition.find({
+export async function findAllRepetitions(username: string, currentPage = 1): Promise<findAllRepetitionResponse> {
+  const maxPerPage = 3;
+  const [repetitions, totalCount] = await Repetition.findAndCount({
     order: {
       createdAt: "DESC",
     },
@@ -15,7 +16,15 @@ export async function findAllRepetitions(username: string): Promise<Repetition[]
         username: username,
       },
     },
+    skip: (currentPage - 1) * maxPerPage,
+    take: maxPerPage,
   });
+  return {
+    repetitions,
+    totalCount,
+    currentPage,
+    lastPage: Math.ceil(totalCount / maxPerPage),
+  };
 }
 
 export async function findTodayRepetitions(username: string): Promise<Repetition[]> {

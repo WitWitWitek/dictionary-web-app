@@ -11,7 +11,8 @@ import { HTTP_CODES, RequestWithUserRole } from "@/types";
 import { findUser } from "@/services/userService";
 
 export const getAllRepetitions = async (req: RequestWithUserRole, res: Response) => {
-  const repetitions = await findAllRepetitions(req.user);
+  const { page } = req.query;
+  const repetitions = await findAllRepetitions(req.user, Number(page ?? 1));
   return res.status(HTTP_CODES.OK).json(repetitions);
 };
 
