@@ -1,8 +1,18 @@
+import { useState } from 'react';
 import { useGetAllRepetitionsQuery } from '@/features/repetition/repetitionApiSlice';
 import RepetitionDetails from '@/features/repetition/repetitionDetails/RepetitionDetails';
 
 export default function Dashboard() {
-  const { data: repetitions, isLoading } = useGetAllRepetitionsQuery();
+  const [page, setPage] = useState<number>(1);
+  const { data: repetitionsData, isLoading } = useGetAllRepetitionsQuery({ page });
+
+  const previousPageHandler = () => {
+    setPage((prev) => (prev - 1 > 0 ? prev - 1 : prev));
+  };
+
+  const nextPageHandler = () => {
+    setPage((prev) => (repetitionsData?.lastPage === prev ? repetitionsData?.lastPage : prev + 1));
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -11,9 +21,19 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <h1>Your repetitions:</h1>
+      <div>
+        <button onClick={previousPageHandler} type="button" disabled={page === 1}>
+          previous page
+        </button>
+        <button onClick={nextPageHandler} type="button" disabled={page === repetitionsData?.lastPage}>
+          next page
+        </button>
+      </div>
       <div className="dashboard__container">
-        {repetitions &&
-          repetitions.map((repetition) => <RepetitionDetails key={repetition.id} repetition={repetition} />)}
+        {repetitionsData?.repetitions &&
+          repetitionsData.repetitions.map((repetition) => (
+            <RepetitionDetails key={repetition.id} repetition={repetition} />
+          ))}
       </div>
     </div>
   );

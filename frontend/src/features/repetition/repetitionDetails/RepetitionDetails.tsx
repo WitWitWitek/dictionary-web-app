@@ -100,10 +100,13 @@ export default function RepetitionDetails({ repetition }: Props) {
           <div className="repetition-details__progress-outer" />
         </div>
         <p>
-          Last time repated: <span>{dateHandler(repetition.repeatedAt)}</span>
+          Last time repated:{' '}
+          <span>
+            {repetition.repeatedAt ? dateHandler(repetition.repeatedAt) : "The repetition hasn't been practiced yet."}
+          </span>
         </p>
         <p>
-          Your average score: <span>{repetition.averageScore ?? "The repetition hasn't been practiced yet."}</span>
+          Your average score: <span>{repetition.averageScore ?? '0.00'}</span>
         </p>
         <div className="progress-bar">
           <div className="progress-bar__container">

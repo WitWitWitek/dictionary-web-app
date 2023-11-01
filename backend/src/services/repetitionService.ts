@@ -6,7 +6,7 @@ import { CustomError } from "@/utils/customError";
 import { LessThan, IsNull } from "typeorm";
 
 export async function findAllRepetitions(username: string, currentPage = 1): Promise<findAllRepetitionResponse> {
-  const maxPerPage = 3;
+  const maxPerPage = 6;
   const [repetitions, totalCount] = await Repetition.findAndCount({
     order: {
       createdAt: "DESC",

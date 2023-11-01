@@ -9,7 +9,16 @@ export interface Repetition {
   repeatedAt: string;
 }
 
-export type GetRepetitionsResponse = Repetition[];
+export type GetRepetitionsResponse = {
+  repetitions: Repetition[];
+  totalCount: number;
+  currentPage: number;
+  lastPage: number;
+};
+
+export type GetRepetitionsRequest = {
+  page: number;
+};
 
 export interface BasicRepetitionResponse {
   message: string;
