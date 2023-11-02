@@ -18,7 +18,7 @@ export default function NavMenu({ setIsMenuVisible }: Props) {
   return (
     <motion.nav variants={mobileNavVariants} initial="hidden" animate="visible" className="navbar__mobile-menu">
       {user && (
-        <NavbarLink to="/user-repetitions" desktop={false} setIsMobileNavVisible={setIsMenuVisible}>
+        <NavbarLink to="/user-profile" desktop={false} setIsMobileNavVisible={setIsMenuVisible}>
           Your profile
         </NavbarLink>
       )}

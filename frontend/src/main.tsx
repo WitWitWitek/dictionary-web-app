@@ -13,6 +13,7 @@ import AuthLayout from '@/router/AuthLayout';
 import LoginPage from '@/router/pages/LoginPage';
 import SignUpPage from './router/pages/SignupPage';
 import Dashboard from './router/pages/Dashboard';
+import UserProfile from './router/pages/UserProfile';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <AuthLayout />,
         children: [
+          {
+            path: '/user-profile',
+            element: <UserProfile />,
+          },
           {
             path: '/user-repetitions',
             element: <UserRepetitions />,

@@ -29,6 +29,8 @@
     padding: 10px;
     border-radius: 10px;
     background-color: var(--theme-definition-example);
+    display: flex;
+    flex-direction: column;
   }
 
   &__content {
@@ -37,6 +39,10 @@
     padding: 0.5rem;
     border-radius: 10px;
     margin-bottom: 5px;
+    flex-grow: 1;
+    text-align: center;
+    display: grid;
+    place-content: center;
   }
 
   &__delete-btn {

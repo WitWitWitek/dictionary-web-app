@@ -20,14 +20,26 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <h1>Your repetitions:</h1>
-      <div>
-        <button onClick={previousPageHandler} type="button" disabled={page === 1}>
-          previous page
-        </button>
-        <button onClick={nextPageHandler} type="button" disabled={page === repetitionsData?.lastPage}>
-          next page
-        </button>
+      <div className="dashboard__heading-container">
+        <h1 className="dashboard__heading">Your repetitions:</h1>
+        <div className="dashboard__pagination">
+          <button
+            onClick={previousPageHandler}
+            className="dashboard__pagination-btn"
+            type="button"
+            disabled={page === 1}
+          >
+            previous page
+          </button>
+          <button
+            onClick={nextPageHandler}
+            className="dashboard__pagination-btn"
+            type="button"
+            disabled={page === repetitionsData?.lastPage}
+          >
+            next page
+          </button>
+        </div>
       </div>
       <div className="dashboard__container">
         {repetitionsData?.repetitions &&
