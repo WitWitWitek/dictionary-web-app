@@ -2,6 +2,8 @@ import { hash } from "bcrypt";
 import { User } from "@/entity/User";
 import { CustomError } from "@/utils/customError";
 import { HTTP_CODES } from "@/types";
+import { Repetition } from "@/entity/Repetition";
+import { RepetitionScore } from "@/entity/RepetitionScore";
 
 export async function findUser(username: string): Promise<User> {
   const foundUser = await User.findOneBy({ username });
@@ -38,4 +40,23 @@ export async function createUser({
   newUser.password = hashedPassword;
   const savedUser = await newUser.save();
   return savedUser.id;
+}
+
+export async function getUserDataById(userId: string) {
+  const repetitonsCount = await Repetition.createQueryBuilder("repetition")
+    .where("repetition.userId = :userId", {
+      userId,
+    })
+    .getCount();
+
+  const excercisesCount = await RepetitionScore.createQueryBuilder("repetitionScore")
+    .where("repetitionScore.userId = :userId", {
+      userId,
+    })
+    .getCount();
+
+  return {
+    repetitonsCount,
+    excercisesCount,
+  };
 }

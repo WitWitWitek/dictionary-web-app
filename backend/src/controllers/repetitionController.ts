@@ -12,18 +12,18 @@ import { findUser } from "@/services/userService";
 
 export const getAllRepetitions = async (req: RequestWithUserRole, res: Response) => {
   const { page } = req.query;
-  const repetitions = await findAllRepetitions(req.user, Number(page ?? 1));
+  const repetitions = await findAllRepetitions(req.user.username, Number(page ?? 1));
   return res.status(HTTP_CODES.OK).json(repetitions);
 };
 
 export const getTodayRepetitions = async (req: RequestWithUserRole, res: Response) => {
-  const repetitions = await findTodayRepetitions(req.user);
+  const repetitions = await findTodayRepetitions(req.user.username);
   return res.status(HTTP_CODES.OK).json(repetitions);
 };
 
 export const addNewRepetition = async (req: RequestWithUserRole, res: Response) => {
   const { content, word } = req.body;
-  const foundUser = await findUser(req.user);
+  const foundUser = await findUser(req.user.username);
   const newRepetitionId = await createNewRepetition(content, word, foundUser);
   return res.status(HTTP_CODES.CREATED).json({ message: `Repetition with id: ${newRepetitionId} created.` });
 };
@@ -31,7 +31,7 @@ export const addNewRepetition = async (req: RequestWithUserRole, res: Response) 
 export const asssessRepetition = async (req: RequestWithUserRole, res: Response) => {
   const { repetitionId } = req.params;
   const { repetitionScore } = req.body;
-  await addScoreToRepetition(repetitionId, repetitionScore as number);
+  await addScoreToRepetition(repetitionId, repetitionScore as number, req.user);
   return res.status(HTTP_CODES.CREATED).json({ message: `Score of repetition with id: ${repetitionId} added.` });
 };
 

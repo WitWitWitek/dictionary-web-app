@@ -44,7 +44,7 @@ export class Repetition extends BaseEntity {
   })
   repeatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.repetitions)
+  @ManyToOne(() => User, (user) => user.repetitions, { onDelete: "CASCADE" })
   user: User;
 
   @Column({ default: null, nullable: true, type: "decimal", precision: 3, scale: 2 })

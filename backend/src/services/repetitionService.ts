@@ -60,7 +60,7 @@ export async function createNewRepetition(content: string, word: string, user: U
   return savedRepetition.id;
 }
 
-export async function addScoreToRepetition(repetitionId: string, score: number): Promise<string> {
+export async function addScoreToRepetition(repetitionId: string, score: number, user: User): Promise<string> {
   const repetition = await Repetition.findOne({ where: { id: repetitionId } });
 
   if (!repetition) {
@@ -69,8 +69,8 @@ export async function addScoreToRepetition(repetitionId: string, score: number):
 
   const repetitionScore = new RepetitionScore();
   repetitionScore.value = score;
+  repetitionScore.userId = user.id;
   repetitionScore.repetition = repetition;
-
   await repetitionScore.save();
 
   const { avgScoreValue } = await RepetitionScore.createQueryBuilder("repetitionScore")
@@ -78,6 +78,7 @@ export async function addScoreToRepetition(repetitionId: string, score: number):
     .where("repetitionScore.repetitionId = :id", { id: repetitionId })
     .getRawOne();
   const repeatedAt = new Date().toISOString();
+
   const updatedRepetitionAvgScore = avgScoreValue === null ? score : +Number(avgScoreValue).toFixed(2);
   repetition.averageScore = updatedRepetitionAvgScore;
   repetition.repeatedAt = new Date(repeatedAt);

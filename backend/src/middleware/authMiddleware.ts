@@ -13,8 +13,8 @@ const authMiddleware = async (req: RequestWithUserRole, res: Response, next: Nex
 
   const accessToken = authHeader.split(" ")[1];
   const { username } = verifyToken(accessToken, "access");
-  await findUser(username);
-  req.user = username;
+  const user = await findUser(username);
+  req.user = user;
   next();
 };
 

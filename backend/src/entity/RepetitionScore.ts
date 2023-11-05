@@ -14,6 +14,9 @@ export class RepetitionScore extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
+  @Column({ nullable: false, length: 36 })
+  userId: string;
+
   @ManyToOne(() => Repetition, (repetition) => repetition.scores, { onDelete: "CASCADE" })
   repetition: Repetition;
 }
