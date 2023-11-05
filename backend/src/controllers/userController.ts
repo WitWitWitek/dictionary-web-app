@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
+import { Response } from "express";
 import { createUser, getUserDataById } from "@/services/userService";
-import { HTTP_CODES } from "@/types";
+import { HTTP_CODES, RequestWithUserRole } from "@/types";
 
 export const signUpNewUser: RequestHandler = async (req, res) => {
   const { username, password, email } = req.body;
@@ -8,9 +9,13 @@ export const signUpNewUser: RequestHandler = async (req, res) => {
   return res.status(HTTP_CODES.CREATED).json({ message: `User ${username} successfully registered.` });
 };
 
-export const getUserData: RequestHandler = async (req, res) => {
-  const userId = "118c9d34-3442-4764-a4ba-dd94a56fd68d";
-  // const userId = req.user.id;
+export const getUserData: RequestHandler = async (req: RequestWithUserRole, res: Response) => {
+  const userId = req.user.id;
   const userData = await getUserDataById(userId);
   return res.status(HTTP_CODES.CREATED).json(userData);
+};
+
+export const deleteUser: RequestHandler = async (req: RequestWithUserRole, res: Response) => {
+  await req.user.remove();
+  return res.status(HTTP_CODES.CREATED).json({ message: "User successfully deleted." });
 };
