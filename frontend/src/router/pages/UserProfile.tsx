@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useGetUserDataQuery } from '@/features/user/userApiSlice';
+import { useDeleteUserMutation, useGetUserDataQuery } from '@/features/user/userApiSlice';
 
 export default function UserProfile() {
   const { data: userData, isLoading } = useGetUserDataQuery();
+  const [deleteUser] = useDeleteUserMutation();
+
+  const deleteUserHandler = async () => deleteUser();
 
   if (isLoading) {
     return <div className="user-profile">Loading...</div>;
@@ -20,6 +23,12 @@ export default function UserProfile() {
       <Link to="/user-repetitions">Your Repetitions</Link>
       <div>
         <h3>Change Password:</h3>
+      </div>
+      <div>
+        <h3>Delete your account:</h3>
+        <button type="button" onClick={deleteUserHandler}>
+          Delete
+        </button>
       </div>
     </div>
   );

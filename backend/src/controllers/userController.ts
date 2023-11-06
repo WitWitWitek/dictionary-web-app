@@ -12,7 +12,7 @@ export const signUpNewUser: RequestHandler = async (req, res) => {
 export const getUserData: RequestHandler = async (req: RequestWithUserRole, res: Response) => {
   const userId = req.user.id;
   const userData = await getUserDataById(userId);
-  return res.status(HTTP_CODES.CREATED).json(userData);
+  return res.status(HTTP_CODES.CREATED).json({ username: req.user.username, ...userData });
 };
 
 export const deleteUser: RequestHandler = async (req: RequestWithUserRole, res: Response) => {
