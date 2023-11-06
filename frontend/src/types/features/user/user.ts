@@ -28,6 +28,7 @@ export interface SignUpResponse {
 }
 
 export interface UserDataResponse {
+  username: string;
   repetitonsCount: number;
   excercisesCount: number;
 }

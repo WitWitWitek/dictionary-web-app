@@ -12,7 +12,7 @@ export default function UserProfile() {
     <div className="user-profile">
       <h1>Your profile:</h1>
       <div>
-        <h2>Username:</h2>
+        <h2>Username: {userData?.username}</h2>
         <p>Repetitions amount: {userData?.repetitonsCount}</p>
         <p>Excercises done: {userData?.excercisesCount}</p>
       </div>
