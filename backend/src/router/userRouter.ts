@@ -5,6 +5,6 @@ import authMiddleware from "@/middleware/authMiddleware";
 
 const userRouter = Router();
 userRouter.route("/sign-up").post(validateNewUserRoute, signUpNewUser);
-userRouter.route("/change-password").patch(validateUpdateUserPasswordRoute, updateUserPassword);
+userRouter.route("/change-password").patch(authMiddleware, validateUpdateUserPasswordRoute, updateUserPassword);
 userRouter.route("/").all(authMiddleware).get(getUserData).delete(deleteUser);
 export default userRouter;

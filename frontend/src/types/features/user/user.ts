@@ -5,6 +5,12 @@ export interface NewUserFormInterface {
   confirmPassword: string;
 }
 
+export interface UpdatePasswordFormInterface {
+  password: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
 export interface LoginFormInterface {
   username: string;
   password: string;
@@ -25,6 +31,11 @@ export interface SignUpResponse {
     };
     status: number;
   };
+}
+
+export interface ChangePasswordRequest {
+  password: string;
+  newPassword: string;
 }
 
 export interface UserDataResponse {

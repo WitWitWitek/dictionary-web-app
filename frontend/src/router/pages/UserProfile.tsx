@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDeleteUserMutation, useGetUserDataQuery } from '@/features/user/userApiSlice';
+import UpdatePasswordForm from '@/features/user/UpdatePasswordForm';
 
 export default function UserProfile() {
   const { data: userData, isLoading } = useGetUserDataQuery();
@@ -23,6 +24,7 @@ export default function UserProfile() {
       <Link to="/user-repetitions">Your Repetitions</Link>
       <div>
         <h3>Change Password:</h3>
+        <UpdatePasswordForm />
       </div>
       <div>
         <h3>Delete your account:</h3>

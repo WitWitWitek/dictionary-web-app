@@ -1,5 +1,4 @@
 import { RequestHandler } from "express";
-import { Response } from "express";
 import { changeUserPassword, createUser, getUserDataById } from "@/services/userService";
 import { HTTP_CODES, RequestWithUserRole } from "@/types";
 
@@ -22,8 +21,6 @@ export const deleteUser: RequestHandler = async (req: RequestWithUserRole, res) 
 
 export const updateUserPassword: RequestHandler = async (req: RequestWithUserRole, res) => {
   const { password, newPassword } = req.body;
-
   await changeUserPassword(password, newPassword, req.user);
-
   return res.status(HTTP_CODES.CREATED).json({ message: "User password has been updated." });
 };
