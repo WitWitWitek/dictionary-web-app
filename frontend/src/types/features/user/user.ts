@@ -26,3 +26,8 @@ export interface SignUpResponse {
     status: number;
   };
 }
+
+export interface UserDataResponse {
+  repetitonsCount: number;
+  excercisesCount: number;
+}

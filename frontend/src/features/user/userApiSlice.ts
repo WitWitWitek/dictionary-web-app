@@ -1,6 +1,6 @@
 import { toast } from 'react-hot-toast';
 import apiSlice from '@/app/api/apiSlice';
-import { SignUpRequest, SignUpResponse } from '@/types';
+import { SignUpRequest, SignUpResponse, UserDataResponse } from '@/types';
 import { isErrorWithMessage } from '@/lib/apiErrorHandler';
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -22,7 +22,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    getUserData: builder.query<UserDataResponse, void>({
+      query: () => ({
+        url: '/user',
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useCreateNewUserMutation } = userApiSlice;
+export const { useCreateNewUserMutation, useGetUserDataQuery } = userApiSlice;
