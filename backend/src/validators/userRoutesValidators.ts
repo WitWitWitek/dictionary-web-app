@@ -30,3 +30,22 @@ export const validateNewUserRoute = async (req: Request, res: Response, next: Ne
 
   return next();
 };
+
+export const validateUpdateUserPasswordRoute = async (req: Request, res: Response, next: NextFunction) => {
+  const { password, newPassword } = req.body;
+
+  if (!password || !newPassword) {
+    throw new CustomError("Credentials required!", HTTP_CODES.BAD_REQUEST);
+  }
+
+  const passwordCheck = new RegExp(PASSWORD_REGEX);
+  if (!passwordCheck.test(password)) {
+    throw new CustomError("Password is too weak!", HTTP_CODES.BAD_REQUEST);
+  }
+
+  if (!passwordCheck.test(newPassword)) {
+    throw new CustomError("New password is too weak!", HTTP_CODES.BAD_REQUEST);
+  }
+
+  return next();
+};

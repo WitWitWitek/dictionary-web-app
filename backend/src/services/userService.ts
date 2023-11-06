@@ -1,4 +1,4 @@
-import { hash } from "bcrypt";
+import { hash, compare } from "bcrypt";
 import { User } from "@/entity/User";
 import { CustomError } from "@/utils/customError";
 import { HTTP_CODES } from "@/types";
@@ -59,4 +59,22 @@ export async function getUserDataById(userId: string) {
     repetitonsCount,
     excercisesCount,
   };
+}
+
+export async function changeUserPassword(password: string, newPassword: string, user: User) {
+  const passwordsMatch = await compare(password, user.password);
+
+  if (!passwordsMatch) {
+    throw new CustomError("Invalid old password!", HTTP_CODES.BAD_REQUEST);
+  }
+
+  const hashedPassword = await hash(newPassword, 15);
+
+  await User.createQueryBuilder("user")
+    .update(User)
+    .set({ password: hashedPassword })
+    .where("id = :id", {
+      id: user.id,
+    })
+    .execute();
 }
