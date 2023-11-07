@@ -1,0 +1,103 @@
+@use '../mixins/index' as *;
+@use '../layout/index' as *;
+@use '../themes' as *;
+
+.user-profile {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  display: grid;
+  gap: 1rem;
+
+  &__heading {
+    @include heading-1;
+    text-align: center;
+  }
+
+  &__container {
+    background-color: var(--theme-search-bg);
+    border: 2px solid var(--theme-clr);
+    border-radius: 10px;
+    padding: 0.75rem;
+    display: grid;
+    gap: 0.25rem;
+
+    h2 {
+      @include heading-2;
+      font-size: 1.2rem;
+    }
+
+    &-data {
+      color: var(--theme-success);
+    }
+
+    &-btn {
+      @include auth-btn(transparent, var(--theme-success));
+      text-decoration: none;
+      text-align: center;
+      color: var(--theme-clr);
+      display: grid;
+      place-content: center;
+
+      &--delete {
+        @include auth-btn(transparent, var(--theme-error));
+        color: var(--theme-clr);
+      }
+    }
+  }
+}
+
+@include xs {
+  .user-profile {
+    gap: 0.75rem;
+
+    &__container {
+      gap: 0.4rem;
+
+      h2 {
+        font-size: max(1.6rem, 1.8rem);
+      }
+    }
+  }
+}
+
+@include md {
+  .user-profile {
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 250px 1fr;
+
+    &__heading {
+      @include heading-1;
+      font-size: 3rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__container {
+      gap: 0.4rem;
+      font-size: 1.1rem;
+      padding: 1.5rem;
+      &--user {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      &--menu {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+      }
+      &--password {
+        grid-row: 2 / 4;
+      }
+      h2 {
+        font-size: 3rem;
+        line-height: 1.3;
+      }
+    }
+  }
+}

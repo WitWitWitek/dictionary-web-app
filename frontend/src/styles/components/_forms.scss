@@ -45,6 +45,7 @@
 
   &__submit-btn {
     @include auth-btn;
+    color: var(--theme-clr);
   }
 
   &__paragraph {
