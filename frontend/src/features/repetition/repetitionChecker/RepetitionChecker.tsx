@@ -5,7 +5,6 @@ import { Repetition } from '@/types';
 import RepetitionProgressBar from './components/RepetitionProgressBar';
 import RepetitionContent from './components/RepetitionContent';
 import ExcerciseFiled from './components/ExcerciseFiled';
-import RepetitionEmptyList from './components/RepetitionEmptyList';
 
 type Props = {
   repetitions: Repetition[];
@@ -26,10 +25,6 @@ export default function RepetitionChecker({ repetitions }: Props) {
     isGradeContainerOpen,
     isExcerciseFinished,
   } = useRepetionChecker(repetitions);
-
-  if (!repetitions || repetitions.length === 0) {
-    return <RepetitionEmptyList />;
-  }
 
   if (isExcerciseFinished) {
     return <ExcerciseFinishedView />;

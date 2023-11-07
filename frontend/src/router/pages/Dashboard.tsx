@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useGetAllRepetitionsQuery } from '@/features/repetition/repetitionApiSlice';
 import RepetitionDetails from '@/features/repetition/repetitionDetails/RepetitionDetails';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function Dashboard() {
   const [page, setPage] = useState<number>(1);
@@ -15,7 +16,7 @@ export default function Dashboard() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (

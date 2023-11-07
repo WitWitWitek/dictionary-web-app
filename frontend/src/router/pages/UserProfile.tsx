@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useDeleteUserMutation, useGetUserDataQuery } from '@/features/user/userApiSlice';
 import UpdatePasswordForm from '@/features/user/UpdatePasswordForm';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function UserProfile() {
   const { data: userData, isLoading } = useGetUserDataQuery();
@@ -9,7 +10,7 @@ export default function UserProfile() {
   const deleteUserHandler = async () => deleteUser();
 
   if (isLoading) {
-    return <div className="user-profile">Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (
