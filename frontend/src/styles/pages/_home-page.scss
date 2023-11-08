@@ -42,6 +42,9 @@
     &-button {
       @include auth-btn;
       width: 100%;
+      text-decoration: none;
+      display: block;
+      color: var(--theme-clr);
     }
     &-image {
       width: 100%;

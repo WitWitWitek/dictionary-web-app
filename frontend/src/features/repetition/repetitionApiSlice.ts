@@ -9,17 +9,18 @@ import {
   DeleteRepetitionRequest,
   AddTranslationRequest,
   GetRepetitionsRequest,
+  Repetition,
 } from '@/types';
 
 export const repetitionApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllRepetitions: builder.query<GetRepetitionsResponse, GetRepetitionsRequest>({
-      query: ({page}) => ({
+      query: ({ page }) => ({
         url: `/repetitions/?page=${page ?? 1}`,
       }),
       providesTags: ['Repetition'],
     }),
-    getTodayRepetitions: builder.query<GetRepetitionsResponse, void>({
+    getTodayRepetitions: builder.query<Repetition[], void>({
       query: () => ({
         url: '/repetitions/today-repetitions',
       }),

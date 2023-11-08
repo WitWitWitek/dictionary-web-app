@@ -10,9 +10,9 @@ export default function UserRepetitions() {
     return <LoadingSpinner />;
   }
 
-  if (!repetitions?.repetitions || repetitions.repetitions.length === 0) {
+  if (!repetitions || repetitions.length === 0) {
     return <RepetitionEmptyList />;
   }
 
-  return isSuccess && <RepetitionChecker repetitions={repetitions?.repetitions} />;
+  return isSuccess && <RepetitionChecker repetitions={repetitions} />;
 }

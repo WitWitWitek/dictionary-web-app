@@ -1,4 +1,5 @@
 import { motion, Variants } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const mainViewVariants: Variants = {
   hidden: { opacity: 0 },
@@ -31,9 +32,9 @@ export default function Home() {
             meanings.
           </motion.p>
           <motion.div variants={elementOfMainView} className="home-page__main-view-container">
-            <button className="home-page__main-view-button" type="button">
+            <Link to="/sign-up" className="home-page__main-view-button">
               Start for free
-            </button>
+            </Link>
           </motion.div>
         </div>
       </motion.div>

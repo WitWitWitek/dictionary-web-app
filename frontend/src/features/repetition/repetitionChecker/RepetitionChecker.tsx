@@ -29,7 +29,6 @@ export default function RepetitionChecker({ repetitions }: Props) {
   if (isExcerciseFinished) {
     return <ExcerciseFinishedView />;
   }
-
   return (
     <div className="repetition-checker">
       <h1>Practice repetitions:</h1>

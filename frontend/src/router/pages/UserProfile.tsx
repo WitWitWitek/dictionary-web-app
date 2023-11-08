@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useDeleteUserMutation, useGetUserDataQuery } from '@/features/user/userApiSlice';
+import { useState } from 'react';
+import { useGetUserDataQuery } from '@/features/user/userApiSlice';
 import UpdatePasswordForm from '@/features/user/UpdatePasswordForm';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import DeleteUserDialog from '@/components/ui/DeleteUserDialog';
 
 export default function UserProfile() {
   const { data: userData, isLoading } = useGetUserDataQuery();
-  const [deleteUser] = useDeleteUserMutation();
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(true);
 
-  const deleteUserHandler = async () => deleteUser();
+  const closeDeleteDialogHandler = () => setIsDialogOpen(() => false);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -42,10 +44,15 @@ export default function UserProfile() {
       </div>
       <div className="user-profile__container user-profile__container--delete">
         <h3>Delete your account:</h3>
-        <button type="button" onClick={deleteUserHandler} className="user-profile__container-btn--delete">
+        <button
+          type="button"
+          onClick={() => setIsDialogOpen(() => true)}
+          className="user-profile__container-btn--delete"
+        >
           Delete
         </button>
       </div>
+      {isDialogOpen && <DeleteUserDialog closeDialogFn={closeDeleteDialogHandler} />}
     </div>
   );
 }
