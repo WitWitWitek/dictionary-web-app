@@ -11,14 +11,15 @@ import { errorHandler } from "@/utils/customError";
 import { corsOptions } from "@/config/corsOptions";
 import userRouter from "@/router/userRouter";
 import helmet from "helmet";
+import { limiter } from "./config/limiterOptions";
 
 const app = express();
 
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(helmet());
+app.use(limiter);
 app.use(cookieParser());
-
 app.use("/auth", authRouter);
 app.use("/repetitions", repetitionsRouter);
 app.use("/user", userRouter);

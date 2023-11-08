@@ -7,7 +7,7 @@ import DeleteUserDialog from '@/components/ui/DeleteUserDialog';
 
 export default function UserProfile() {
   const { data: userData, isLoading } = useGetUserDataQuery();
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(true);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const closeDeleteDialogHandler = () => setIsDialogOpen(() => false);
 
