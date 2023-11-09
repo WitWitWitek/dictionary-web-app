@@ -1,3 +1,4 @@
+import { HTTP_CODES } from "@/types";
 import { NextFunction, Request, Response } from "express";
 
 export class CustomError extends Error {
@@ -10,20 +11,10 @@ export class CustomError extends Error {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof CustomError) {
-    if (err.statusCode === 401) {
-      return res
-        .status(err.statusCode)
-        .clearCookie("jwt", {
-          httpOnly: true,
-          sameSite: "none",
-          secure: true,
-        })
-        .json({ message: err.message });
-    }
     return res.status(err.statusCode).json({ message: err.message });
   } else {
-    res.status(500).json({
-      message: "An internal server error occured. Please try again later",
+    res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).json({
+      message: "An internal server error occured. Please try again later.",
     });
   }
 };

@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setTheme } from '../app/themeSlice';
+import { setTheme } from '@/app/themeSlice';
+import { Theme } from '@/types';
 
 const getColorScheme = (): Theme => (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 

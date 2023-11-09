@@ -1,0 +1,104 @@
+@use '../mixins/index' as *;
+@use '../layout/index' as *;
+
+.repetition-details {
+  display: grid;
+  grid-template-columns: 1fr 2.5rem;
+  grid-template-rows: auto;
+  border-radius: 10px;
+  background-color: #4e4e4e;
+  @include text-1;
+
+  p {
+    span {
+      color: var(--theme-bg);
+    }
+  }
+
+  &__controls {
+    grid-column: 2 / 3;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+  }
+
+  &__container {
+    grid-row: 1 / -1;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--theme-definition-example);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__content {
+    background-color: var(--theme-shadow);
+    color: var(--theme-toggle-clr);
+    padding: 0.5rem;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    text-align: center;
+    display: grid;
+    place-content: center;
+  }
+
+  &__delete-btn {
+    display: block;
+    background-color: transparent;
+    border: none;
+    color: var(--theme-error);
+    margin-left: auto;
+    cursor: pointer;
+    font-size: inherit;
+    width: 100%;
+    text-align: center;
+    &:hover {
+      color: var(--theme-warning);
+    }
+  }
+
+  &__dictionary-btn {
+    @extend .repetition-details__delete-btn;
+    text-decoration: none;
+    color: var(--theme-success);
+  }
+
+  &__add-translation-btn {
+    @extend .repetition-details__delete-btn;
+    color: var(--theme-clr-accent);
+  }
+
+  &__save-translation-btn {
+    @extend .repetition-details__dictionary-btn;
+    position: absolute;
+    top: 5%;
+    right: 2.5%;
+    width: min-content;
+  }
+
+  &__score {
+    width: 100%;
+  }
+
+  &__form {
+    width: 100%;
+    position: relative;
+    label {
+      width: 100%;
+    }
+    &-textarea {
+      @include auth-input;
+      width: 100%;
+      resize: none;
+      padding: 0.5rem;
+      border: 2px solid transparent;
+      background-color: var(--theme-shadow);
+      &:focus {
+        @include auth-input-onfocus;
+      }
+    }
+  }
+}

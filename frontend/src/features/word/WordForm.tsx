@@ -1,48 +1,25 @@
-import { FormEvent, useRef, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import useDictionaryApi from '../../hooks/useDictionaryApi';
-import SearchIcon from '../../assets/SearchIcon';
+import { FormEvent } from 'react';
+import SearchIcon from '@/assets/SearchIcon';
+import SearchError from './WordOutput/SearchError/SearchError';
 
 type Props = {
-  setWordData: React.Dispatch<React.SetStateAction<WordData | null>>
+  fetchWordData: (e: FormEvent<HTMLFormElement>) => Promise<void>;
+  isError: boolean;
+  errorMessage: string;
+  wordRef: React.RefObject<HTMLInputElement>;
 };
 
-export default function WordForm({ setWordData }: Props) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const firstRun = useRef(true);
-  const wordRef = useRef<HTMLInputElement>(null);
-  const { fetchData, isError } = useDictionaryApi();
-  useMemo(async () => {
-    const query = searchParams.get('query');
-    if (query && firstRun.current === true) {
-      const data = await fetchData({ word: query });
-      setWordData(data);
-    }
-    firstRun.current = false;
-  }, [searchParams]);
-
-  const handleSubmission = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (wordRef.current) {
-      setWordData(null);
-      const word = wordRef.current.value;
-      setSearchParams(() => ({
-        query: word,
-      }));
-      const data = await fetchData({ word });
-      setWordData(data);
-    }
-  };
-
+export default function WordForm({ fetchWordData, isError, errorMessage, wordRef }: Props) {
   return (
     <>
-      <form className="search-form" onSubmit={handleSubmission}>
+      <form className="search-form" onSubmit={fetchWordData}>
         <input
           className="search-form__input"
           type="text"
           name="word"
           ref={wordRef}
           placeholder="Search for any word..."
+          required
         />
         <div className="search-form__button-container">
           <button type="submit">
@@ -50,7 +27,7 @@ export default function WordForm({ setWordData }: Props) {
           </button>
         </div>
       </form>
-      {isError && <p>Error occured.</p>}
+      {isError && <SearchError errorMessage={errorMessage} />}
     </>
   );
 }

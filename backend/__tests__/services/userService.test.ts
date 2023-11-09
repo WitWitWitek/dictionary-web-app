@@ -1,26 +1,29 @@
+import { AppDataSource } from "@/dataSource";
 import { User } from "../../src/entity/User";
 import { createUser } from "../../src/services/userService";
 import * as iconvLite from "iconv-lite";
 iconvLite.encodingExists("foo");
 
-const saveUserMock = jest.fn();
-
-jest.mock("../../src/entity/User", () => ({
-  User: jest.fn().mockImplementation(() => {
-    return {
-      save: saveUserMock,
-    };
-  }),
-}));
 describe("userServices test suite", () => {
+  beforeAll(async () => {
+    await AppDataSource.initialize();
+  });
+
+  afterAll(async () => {
+    await AppDataSource.destroy();
+  });
+
   describe("createUser service suite", () => {
     const someNewUser = {
       username: "someUserName",
       password: "somePassword",
+      email: "someemail@email.com",
     };
     const someId = "1234";
 
     let sut: User;
+
+    const saveUserMock = jest.spyOn(User.prototype, "save");
 
     beforeEach(() => {
       sut = new User();

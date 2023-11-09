@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import NavBar from '../../components/NavBar';
-import { selectTheme } from '../../app/themeSlice';
+import NavBar from '@/components/Navbar/Navbar';
+import { selectTheme } from '@/app/themeSlice';
 
 export default function ErrorPage() {
   const theme = useSelector(selectTheme);

@@ -1,30 +1,18 @@
-import { useGetAllRepetitionsQuery } from '../../features/word/wordApiSlice';
+import RepetitionChecker from '@/features/repetition/repetitionChecker/RepetitionChecker';
+import { useGetTodayRepetitionsQuery } from '@/features/repetition/repetitionApiSlice';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import RepetitionEmptyList from '@/features/repetition/repetitionChecker/components/RepetitionEmptyList';
 
 export default function UserRepetitions() {
-  const { data: repetitions } = useGetAllRepetitionsQuery();
+  const { data: repetitions, isSuccess, isLoading } = useGetTodayRepetitionsQuery();
 
-  if (!repetitions) return <div>error</div>;
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Content</th>
-          <th>createdAt</th>
-        </tr>
-      </thead>
-      <tbody>
-        {repetitions.map((repetition) => (
-          <tr key={repetition.id}>
-            <td>{repetition.content}</td>
-            <td>
-              {(() => {
-                const date = new Date(repetition.createdAt);
-                return new Intl.DateTimeFormat('pl-PL', { dateStyle: 'full' }).format(date);
-              })()}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  if (isLoading || !isSuccess) {
+    return <LoadingSpinner />;
+  }
+
+  if (!repetitions || repetitions.length === 0) {
+    return <RepetitionEmptyList />;
+  }
+
+  return isSuccess && <RepetitionChecker repetitions={repetitions} />;
 }

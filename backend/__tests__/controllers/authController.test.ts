@@ -22,7 +22,7 @@ describe("/auth", () => {
     describe("credentials are incorrect", () => {
       it.each([
         { payload: {}, expectedStatusCode: 400 },
-        { payload: { username: "jscode", password: "testtest" }, expectedStatusCode: 401 },
+        { payload: { username: "someFakeUser", password: "testtest" }, expectedStatusCode: 401 },
         { payload: { username: "witek", password: "testtest" }, expectedStatusCode: 401 },
       ])(
         "should return status code of $expectedStatusCode when credentials are wrong",
@@ -87,6 +87,7 @@ describe("/auth", () => {
 
       it("should return acessToken", async () => {
         jest.spyOn(jwtHandlers, "signToken").mockReturnValueOnce("1234");
+        jest.spyOn(jwtHandlers, "verifyToken").mockReturnValueOnce({ username: someUser.username });
         jest.spyOn(userService, "findUser").mockResolvedValueOnce(someUser);
         await request(app).get("/auth/refresh").set("Cookie", "jwt=12348987897").expect({ accessToken: "1234" });
       });

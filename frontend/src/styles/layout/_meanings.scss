@@ -1,58 +1,78 @@
 @use '../mixins/index' as *;
 
 .meanings {
-    &__part-of-speech {
-        @include heading-2;
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-columns: auto 1fr;
-        gap: 2rem;
-        margin-top: 2rem;
+  &__part-of-speech {
+    @include heading-2;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
 
-        &::after {
-            content: "";
-            align-self: center;
-            background-color: var(--theme-horizontal-rule);
-            height: 1px;
-          }
+    &::after {
+      content: '';
+      align-self: center;
+      background-color: var(--theme-horizontal-rule);
+      height: 1px;
     }
+  }
 
-    &__heading {
-        @include heading-3;
-        margin-top: 2rem;
+  &__heading {
+    @include heading-3;
+    margin-top: 2rem;
+  }
+
+  &__synonym-heading,
+  &__antonym-heading {
+    @extend .meanings__heading;
+    color: var(--theme-definition-example);
+  }
+
+  &__list {
+    padding-left: 1rem;
+    margin-top: 1rem;
+  }
+
+  &__list-item {
+    position: relative;
+    list-style: none;
+
+    &::before {
+      position: absolute;
+      display: inline-block;
+      content: '\2022';
+      color: var(--theme-clr-accent);
+      font-weight: 700;
+      width: 1em;
+      margin-left: -0.75rem;
     }
+  }
 
-    &__synonym-heading, &__antonym-heading {
-        @extend .meanings__heading;
-        color: var(--theme-definition-example);
+  &__definition-text {
+    @include text-1;
+  }
+
+  &__definition-example {
+    @include text-1;
+    color: var(--theme-definition-example);
+  }
+
+  &__save-btn {
+    display: inline-flex;
+    border-radius: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: none;
+    background-color: var(--theme-clr-accent);
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+    &:disabled {
+      @extend .meanings__save-btn;
+      color: white;
+      background-color: var(--theme-success);
     }
-
-    &__list {
-        padding-left: 1rem;
-        margin-top: 1rem;
-    }
-
-    &__list-item {
-        position: relative;
-        list-style: none;
-
-        &::before {
-            position: absolute;
-            display: inline-block;
-            content: "\2022";
-            color: var(--theme-clr-accent);
-            font-weight: 700;
-            width: 1em;
-            margin-left: -0.75rem;
-        }
-    }
-
-    &__definition-text {
-        @include text-1;
-    }
-
-    &__definition-example {
-        @include text-1;
-        color: var(--theme-definition-example);
-    }
+  }
 }

@@ -1,10 +1,11 @@
 import { JwtPayload } from "jsonwebtoken";
 
-export type tokenType = "access" | "refresh";
+export type tokenType = "access" | "refresh" | "email";
 
 export enum TokenExpirationTime {
-  access = "30s",
-  refresh = "3m",
+  access = "15m",
+  refresh = "1d",
+  email = "60m",
 }
 
 export interface JwtPayloadWithUsername extends JwtPayload {

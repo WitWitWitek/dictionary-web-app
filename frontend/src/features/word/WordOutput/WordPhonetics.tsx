@@ -1,8 +1,9 @@
-import PlayIcon from '../../../assets/PlayIcon';
-import getAudioUrl from '../../../lib/getAudioUrl';
+import PlayIcon from '@/assets/PlayIcon';
+import getAudioUrl from '@/lib/getAudioUrl';
+import { Phonetic } from '@/types';
 
 type PhoneticsProps = {
-  phonetics: Phonetic[]
+  phonetics: Phonetic[];
 };
 
 export default function WordPhonetics({ phonetics }: PhoneticsProps) {

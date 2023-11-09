@@ -1,4 +1,5 @@
 /* istanbul ignore file */
+import "module-alias/register";
 import { config } from "dotenv";
 config();
 

@@ -1,0 +1,105 @@
+@use '../mixins/index' as *;
+@use '../layout/index' as *;
+@use '../themes' as *;
+
+@mixin basic-component {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-page {
+  @include basic-component;
+  height: calc(100vh - 70px);
+  &__main-view {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    height: 100%;
+    text-align: center;
+    gap: 1rem;
+    &-wrapper {
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      gap: 1rem;
+      width: 100%;
+      h1 {
+        @include heading-1;
+        span {
+          color: var(--theme-success);
+        }
+      }
+      p {
+        @include text-1;
+      }
+    }
+    &-container {
+      width: 100%;
+    }
+    &-button {
+      @include auth-btn;
+      width: 100%;
+      text-decoration: none;
+      display: block;
+      color: var(--theme-clr);
+    }
+    &-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}
+
+@include xs {
+  .home-page {
+    &__main-view {
+      gap: 0.75rem;
+      &-image {
+        width: min(85%, 350px);
+        aspect-ratio: 1 / 1;
+      }
+      &-wrapper {
+        p {
+          width: min(100%, 400px);
+        }
+      }
+      &-button {
+        width: min(400px, 100%);
+      }
+    }
+  }
+}
+
+@include sm {
+  .home-page {
+    &__main-view {
+      grid-template-columns: 400px 1fr;
+      grid-template-rows: 1fr;
+      align-items: center;
+      &-image {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        width: min(500px, 100%);
+      }
+      &-wrapper {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+      }
+    }
+  }
+}
+
+@include md {
+  .home-page {
+    &__main-view {
+      &-wrapper {
+        h1 {
+          font-size: 3rem;
+        }
+      }
+    }
+  }
+}

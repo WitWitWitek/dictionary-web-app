@@ -1,5 +1,7 @@
+import { Synonym } from '@/types';
+
 type Props = {
-  antonyms: Synonym[]
+  antonyms: Synonym[];
 };
 
 export default function Antonyms({ antonyms }: Props) {

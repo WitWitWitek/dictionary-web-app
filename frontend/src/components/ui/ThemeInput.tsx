@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { selectTheme } from '../app/themeSlice';
-import useTheme from '../hooks/useTheme';
+import { selectTheme } from '@/app/themeSlice';
+import useTheme from '@/hooks/useTheme';
 
 export default function ThemeInput() {
   const theme = useSelector(selectTheme);

@@ -22,6 +22,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": [".eslintrc.cjs", "vite.config.ts"],
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
@@ -34,6 +35,18 @@
     "node/no-missing-import": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "node/no-unsupported-features/es-builtins": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "import/no-named-as-default": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "": "never",
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   }
 }

@@ -13,7 +13,8 @@ describe("/user", () => {
       const userFakeId = "1234";
       const userCredentials = {
         username: "someUserName",
-        password: "somePassword",
+        password: "somePassword1234.",
+        email: "email@gmail.com",
       };
       jest.spyOn(userServices, "createUser").mockResolvedValueOnce(userFakeId);
       it("should return status code of 201", async () => {

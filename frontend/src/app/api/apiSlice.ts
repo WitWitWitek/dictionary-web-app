@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { Mutex } from 'async-mutex';
 import { RootState } from '../store';
-import { logIn, logOut } from '../../features/auth/authSlice';
+import { logIn, logOut } from '@/features/auth/authSlice';
 
 const QUERY_URL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3500' : '';
 
@@ -27,7 +27,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 ) => {
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
-  if (result.error && result.error.status === 401) {
+  if (result!.error && result!.error.status === 401) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       try {
@@ -53,7 +53,8 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Word'],
+  refetchOnMountOrArgChange: true,
+  tagTypes: ['Repetition', 'User'],
   endpoints: () => ({}),
 });
 

@@ -1,7 +1,10 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Repetition } from "./entity/Repetition";
-import { User } from "./entity/User";
+import { Repetition } from "@/entity/Repetition";
+import { User } from "@/entity/User";
+import { config } from "dotenv";
+import { RepetitionScore } from "./entity/RepetitionScore";
+config();
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -10,7 +13,7 @@ export const AppDataSource = new DataSource({
   username: process.env.MYSQL_USER as string,
   password: process.env.MYSQL_PASSWORD as string,
   database: process.env.MYSQL_DATABASE as string,
-  synchronize: process.env.NODE_ENV === "development",
+  synchronize: true,
   logging: false,
-  entities: [Repetition, User],
+  entities: [Repetition, RepetitionScore, User],
 });
