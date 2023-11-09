@@ -1,6 +1,6 @@
 import { toast } from 'react-hot-toast';
 import apiSlice from '@/app/api/apiSlice';
-import { ChangePasswordRequest, SignUpRequest, SignUpResponse, UserDataResponse } from '@/types';
+import { ChangePasswordRequest, SignUpRequest, SignUpResponse, UserDataResponse, VerifyUserRequest } from '@/types';
 import { isErrorWithMessage } from '@/lib/apiErrorHandler';
 import { logOut } from '../auth/authSlice';
 
@@ -64,8 +64,29 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    verifyUser: builder.mutation<void, VerifyUserRequest>({
+      query: ({ emailToken }) => ({
+        url: `/user/confirm/${emailToken}`,
+        method: 'GET',
+      }),
+      invalidatesTags: ['User'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success('User verified. Please log in.');
+        } catch (err) {
+          const toastMessage = isErrorWithMessage(err) ? err?.error?.data?.message : 'Try again later...';
+          toast.error(toastMessage);
+        }
+      },
+    }),
   }),
 });
 
-export const { useCreateNewUserMutation, useGetUserDataQuery, useDeleteUserMutation, useChangePasswordMutation } =
-  userApiSlice;
+export const {
+  useCreateNewUserMutation,
+  useGetUserDataQuery,
+  useDeleteUserMutation,
+  useChangePasswordMutation,
+  useVerifyUserMutation,
+} = userApiSlice;

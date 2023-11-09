@@ -38,6 +38,10 @@ export interface ChangePasswordRequest {
   newPassword: string;
 }
 
+export interface VerifyUserRequest {
+  emailToken: string;
+}
+
 export interface UserDataResponse {
   username: string;
   repetitonsCount: number;

@@ -14,6 +14,7 @@ import LoginPage from '@/router/pages/LoginPage';
 import SignUpPage from './router/pages/SignupPage';
 import Dashboard from './router/pages/Dashboard';
 import UserProfile from './router/pages/UserProfile';
+import ConfirmUser from './router/pages/ConfirmUser';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginPage />,
+      },
+      {
+        path: '/confirm',
+        element: <ConfirmUser />,
       },
       {
         path: '/',

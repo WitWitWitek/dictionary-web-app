@@ -6,7 +6,7 @@ import RepetitionEmptyList from '@/features/repetition/repetitionChecker/compone
 export default function UserRepetitions() {
   const { data: repetitions, isSuccess, isLoading } = useGetTodayRepetitionsQuery();
 
-  if (isLoading) {
+  if (isLoading || !isSuccess) {
     return <LoadingSpinner />;
   }
 

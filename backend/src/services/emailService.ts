@@ -8,7 +8,7 @@ export async function sendVerificationEmail(email: string, username: string) {
 
   try {
     await transporter.sendMail({
-      ...mailOptions(email, `http://localhost:5173/confirm?user=${emailToken}`),
+      ...mailOptions(email, `http://localhost:5173/confirm?token=${emailToken}`),
     });
   } catch (err) {
     throw new CustomError("Something went wrong", HTTP_CODES.INTERNAL_SERVER_ERROR);
