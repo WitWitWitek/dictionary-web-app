@@ -1,10 +1,13 @@
 import { RequestHandler } from "express";
-import { changeUserPassword, createUser, getUserDataById } from "@/services/userService";
+import { changeUserPassword, createUser, findUser, getUserDataById } from "@/services/userService";
 import { HTTP_CODES, RequestWithUserRole } from "@/types";
+import { sendVerificationEmail } from "@/services/emailService";
+import { verifyToken } from "@/utils/tokenHandlers";
 
 export const signUpNewUser: RequestHandler = async (req, res) => {
   const { username, password, email } = req.body;
   await createUser({ username, password, email });
+  await sendVerificationEmail(email, username);
   return res.status(HTTP_CODES.CREATED).json({ message: `User ${username} successfully registered.` });
 };
 
@@ -23,4 +26,13 @@ export const updateUserPassword: RequestHandler = async (req: RequestWithUserRol
   const { password, newPassword } = req.body;
   await changeUserPassword(password, newPassword, req.user);
   return res.status(HTTP_CODES.CREATED).json({ message: "User password has been updated." });
+};
+
+export const verifyUser: RequestHandler = async (req, res) => {
+  const { emailToken } = req.params;
+  const { username } = verifyToken(emailToken, "email");
+  const foundUser = await findUser(username);
+  foundUser.confirmed = true;
+  await foundUser.save();
+  return res.status(HTTP_CODES.CREATED).json({ message: "User verified. Please log in." });
 };

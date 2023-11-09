@@ -5,6 +5,7 @@ import { CustomError } from "./customError";
 export const tokenSecret = Object.freeze({
   access: process.env.ACCESS_TOKEN_SECRET as string,
   refresh: process.env.REFRESH_TOKEN_SECRET as string,
+  email: process.env.EMAIL_SECRET as string,
 });
 
 export const signToken = (username: string, tokenType: tokenType): string => {

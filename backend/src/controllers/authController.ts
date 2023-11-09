@@ -14,7 +14,9 @@ export const login: RequestHandler = async (req, res) => {
   if (!passwordsMatch) {
     throw new CustomError("Unathorized. Invalid Password.", HTTP_CODES.UNAUTHORIZED);
   }
-
+  if (!foundUser.confirmed) {
+    throw new CustomError("Unathorized. User is not confirmed. Check your email.", HTTP_CODES.UNAUTHORIZED);
+  }
   const accessToken = signToken(foundUser.username, "access");
   const refreshToken = signToken(foundUser.username, "refresh");
 
