@@ -7,10 +7,8 @@
     "outDir": "./build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
+    "sourceMap": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./__tests__"]
 }

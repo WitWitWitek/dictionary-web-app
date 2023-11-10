@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { CustomError } from "@/utils/customError";
-import { HTTP_CODES } from "@/types";
+import { CustomError } from "../utils/customError";
+import { HTTP_CODES } from "../types";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,20}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%.]).{8,24}$/;

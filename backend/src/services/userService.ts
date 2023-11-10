@@ -1,9 +1,9 @@
 import { hash, compare } from "bcrypt";
-import { User } from "@/entity/User";
-import { CustomError } from "@/utils/customError";
-import { HTTP_CODES } from "@/types";
-import { Repetition } from "@/entity/Repetition";
-import { RepetitionScore } from "@/entity/RepetitionScore";
+import { User } from "../entity/User";
+import { CustomError } from "../utils/customError";
+import { HTTP_CODES } from "../types";
+import { Repetition } from "../entity/Repetition";
+import { RepetitionScore } from "../entity/RepetitionScore";
 
 export async function findUser(username: string): Promise<User> {
   const foundUser = await User.findOneBy({ username });

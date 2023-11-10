@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { CustomError } from "@/utils/customError";
-import { HTTP_CODES } from "@/types";
+import { CustomError } from "../utils/customError";
+import { HTTP_CODES } from "../types";
 
 export const validateLoginRoute = async (req: Request, res: Response, next: NextFunction) => {
   const { username, password } = req.body;

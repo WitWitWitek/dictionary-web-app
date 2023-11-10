@@ -1,4 +1,4 @@
-import { HTTP_CODES } from "@/types";
+import { HTTP_CODES } from "../types";
 import { NextFunction, Request, Response } from "express";
 
 export class CustomError extends Error {
@@ -10,6 +10,7 @@ export class CustomError extends Error {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.log(err);
   if (err instanceof CustomError) {
     return res.status(err.statusCode).json({ message: err.message });
   } else {

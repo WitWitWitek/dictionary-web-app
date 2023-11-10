@@ -1,4 +1,4 @@
-import { originCallback } from "@/types";
+import { originCallback } from "../types";
 
 const allowedOrigins = ["http://localhost:5173"];
 

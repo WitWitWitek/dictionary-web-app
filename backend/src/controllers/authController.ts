@@ -1,10 +1,10 @@
 import { RequestHandler } from "express";
 import { compare } from "bcrypt";
-import { CustomError } from "@/utils/customError";
-import { signToken, verifyToken } from "@/utils/tokenHandlers";
-import { clearCookie, setCookie } from "@/utils/cookieHandlers";
-import { findUser } from "@/services/userService";
-import { HTTP_CODES } from "@/types";
+import { CustomError } from "../utils/customError";
+import { signToken, verifyToken } from "../utils/tokenHandlers";
+import { clearCookie, setCookie } from "../utils/cookieHandlers";
+import { findUser } from "../services/userService";
+import { HTTP_CODES } from "../types";
 
 export const login: RequestHandler = async (req, res) => {
   const { username, password } = req.body;

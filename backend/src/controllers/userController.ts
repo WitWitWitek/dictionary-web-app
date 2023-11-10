@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
-import { changeUserPassword, createUser, findUser, getUserDataById } from "@/services/userService";
-import { HTTP_CODES, RequestWithUserRole } from "@/types";
-import { sendVerificationEmail } from "@/services/emailService";
-import { verifyToken } from "@/utils/tokenHandlers";
+import { changeUserPassword, createUser, findUser, getUserDataById } from "../services/userService";
+import { HTTP_CODES, RequestWithUserRole } from "../types";
+import { sendVerificationEmail } from "../services/emailService";
+import { verifyToken } from "../utils/tokenHandlers";
 
 export const signUpNewUser: RequestHandler = async (req, res) => {
   const { username, password, email } = req.body;

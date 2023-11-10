@@ -6,13 +6,13 @@ import {
   deleteRepetition,
   getAllRepetitions,
   getTodayRepetitions,
-} from "@/controllers/repetitionController";
-import authMiddleware from "@/middleware/authMiddleware";
+} from "../controllers/repetitionController";
+import authMiddleware from "../middleware/authMiddleware";
 import {
   validateAddTranslationRoute,
   validateAsssessRepetitionRoute,
   validateNewRepetitionRoute,
-} from "@/validators/repetitionRoutesValidatiors";
+} from "../validators/repetitionRoutesValidatiors";
 
 const repetitionsRouter = Router();
 

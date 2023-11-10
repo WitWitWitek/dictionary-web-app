@@ -1,4 +1,4 @@
-import { Repetition } from "@/entity/Repetition";
+import { Repetition } from "../../entity/Repetition";
 
 export interface findAllRepetitionResponse {
   repetitions: Repetition[];

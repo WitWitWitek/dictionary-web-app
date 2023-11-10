@@ -1,8 +1,8 @@
-import { Repetition } from "@/entity/Repetition";
-import { RepetitionScore } from "@/entity/RepetitionScore";
-import { User } from "@/entity/User";
-import { HTTP_CODES, findAllRepetitionResponse } from "@/types";
-import { CustomError } from "@/utils/customError";
+import { Repetition } from "../entity/Repetition";
+import { RepetitionScore } from "../entity/RepetitionScore";
+import { User } from "../entity/User";
+import { HTTP_CODES, findAllRepetitionResponse } from "../types";
+import { CustomError } from "../utils/customError";
 import { LessThan, IsNull } from "typeorm";
 
 export async function findAllRepetitions(username: string, currentPage = 1): Promise<findAllRepetitionResponse> {

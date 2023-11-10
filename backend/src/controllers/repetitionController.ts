@@ -6,9 +6,9 @@ import {
   deleteRepetitionById,
   findAllRepetitions,
   findTodayRepetitions,
-} from "@/services/repetitionService";
-import { HTTP_CODES, RequestWithUserRole } from "@/types";
-import { findUser } from "@/services/userService";
+} from "../services/repetitionService";
+import { HTTP_CODES, RequestWithUserRole } from "../types";
+import { findUser } from "../services/userService";
 
 export const getAllRepetitions = async (req: RequestWithUserRole, res: Response) => {
   const { page } = req.query;

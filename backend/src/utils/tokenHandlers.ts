@@ -1,5 +1,5 @@
 import { sign, verify } from "jsonwebtoken";
-import { HTTP_CODES, JwtPayloadWithUsername, TokenExpirationTime, tokenType } from "@/types";
+import { HTTP_CODES, JwtPayloadWithUsername, TokenExpirationTime, tokenType } from "../types";
 import { CustomError } from "./customError";
 
 export const tokenSecret = Object.freeze({
