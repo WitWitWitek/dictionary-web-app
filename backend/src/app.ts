@@ -14,17 +14,24 @@ import userRouter from "./router/userRouter";
 import helmet from "helmet";
 import { limiter } from "./config/limiterOptions";
 import { AppDataSource } from "./dataSource";
+import * as path from "path";
+import viewRouter from "./router/viewRouter";
 
 const app = express();
 
 app.use(cors(corsOptions));
+
 app.use(express.json());
+app.use("/", express.static(path.join(__dirname, "public")));
+
 app.use(helmet());
 app.use(limiter);
 app.use(cookieParser());
+
 app.use("/auth", authRouter);
 app.use("/repetitions", repetitionsRouter);
 app.use("/user", userRouter);
+app.use(viewRouter);
 
 app.use(errorHandler);
 

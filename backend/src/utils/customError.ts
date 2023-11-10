@@ -10,7 +10,6 @@ export class CustomError extends Error {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.log(err);
   if (err instanceof CustomError) {
     return res.status(err.statusCode).json({ message: err.message });
   } else {
