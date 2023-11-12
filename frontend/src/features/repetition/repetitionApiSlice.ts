@@ -33,7 +33,7 @@ export const repetitionApiSlice = apiSlice.injectEndpoints({
         body: { content, word },
       }),
       invalidatesTags: ['Repetition'],
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
           toast.success('Repetition added.');

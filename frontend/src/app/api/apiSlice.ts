@@ -4,7 +4,7 @@ import { Mutex } from 'async-mutex';
 import { RootState } from '../store';
 import { logIn, logOut } from '@/features/auth/authSlice';
 
-const QUERY_URL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3500' : '';
+const QUERY_URL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3500' : 'https://dictionary-web-app.pl';
 
 const mutex = new Mutex();
 

@@ -1,17 +1,16 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
 import { selectCurrentToken } from './authSlice';
 import { useRefreshMutation } from './authApiSlice';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 type Props = {
-  children: React.ReactNode;
+  children: React.ReactElement;
 };
 
 export default function RefetchToken({ children }: Props) {
   const token = useSelector(selectCurrentToken);
-  const [refresh, { isSuccess, isError, isLoading }] = useRefreshMutation();
+  const [refresh, { isLoading }] = useRefreshMutation();
 
   useEffect(() => {
     const refetchAccessToken = async () => refresh('');
@@ -20,11 +19,5 @@ export default function RefetchToken({ children }: Props) {
     }
   }, []);
 
-  if (isSuccess || isError) {
-    return <Outlet />;
-  }
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-  return null;
+  return isLoading ? <LoadingSpinner /> : children;
 }
