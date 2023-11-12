@@ -26,7 +26,7 @@ export default function RepetitionDetails({ repetition }: Props) {
     await deleteRepetitionById({ id });
   };
 
-  const { values, handleChange, handleSubmit, handleBlur, errors, touched } = useFormik<TranslationInterface>({
+  const { values, handleChange, handleSubmit, handleBlur } = useFormik<TranslationInterface>({
     initialValues: {
       translation: repetition.translation ?? '',
     },

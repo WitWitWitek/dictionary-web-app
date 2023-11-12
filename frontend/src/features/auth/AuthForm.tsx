@@ -27,7 +27,7 @@ export default function AuthForm() {
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
-      navigate('/user-repetitions');
+      navigate('/user-profile');
     }
   }, [isLoading, isSuccess]);
 

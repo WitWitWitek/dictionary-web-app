@@ -4,15 +4,20 @@ import { Mutex } from 'async-mutex';
 import { RootState } from '../store';
 import { logIn, logOut } from '@/features/auth/authSlice';
 
-const QUERY_URL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3500' : '';
+const QUERY_URL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3500' : 'https://dictionary-web-app.pl';
 
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
   baseUrl: QUERY_URL,
   credentials: 'include',
+  mode: 'cors',
   prepareHeaders: (headers, { getState }) => {
     const { token } = (getState() as RootState).auth;
+    headers.set('Content-Type', 'application/json');
+    headers.set('Access-Control-Allow-Credentials', 'true');
+    headers.set('Access-Control-Allow-Origin', QUERY_URL);
+    headers.set('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE, PATCH');
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
