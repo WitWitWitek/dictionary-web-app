@@ -10,7 +10,7 @@ const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
   baseUrl: QUERY_URL,
-  credentials: 'include',
+  credentials: 'same-origin',
   mode: 'cors',
   prepareHeaders: (headers, { getState }) => {
     const { token } = (getState() as RootState).auth;
