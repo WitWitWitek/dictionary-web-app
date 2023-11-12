@@ -11,8 +11,12 @@ const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
   baseUrl: QUERY_URL,
   credentials: 'include',
+  mode: 'cors',
   prepareHeaders: (headers, { getState }) => {
     const { token } = (getState() as RootState).auth;
+    headers.set('Content-Type', 'application/json');
+    headers.set('Access-Control-Allow-Origin', '*');
+    headers.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PATCH');
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
